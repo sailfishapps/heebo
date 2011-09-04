@@ -100,8 +100,8 @@ function checkBoardOneWay(jmax, imax, rows, mark) {
                             k_end++;
                         }
                         
-                        console.log("Removing "+(rows?"row":"column")+" "+(j+1)+
-                                    " from "+(k_begin+1)+" to "+k_end);
+                        // console.log("Removing "+(rows?"row":"column")+" "+(j+1)+
+                        //             " from "+(k_begin+1)+" to "+k_end);
                         
                         for (var k=k_begin; k<k_end; k++) {
                             if (rows)
@@ -172,13 +172,11 @@ function clicked(x, y) {
     var bx = Math.floor(x/block_width);
     var by = Math.floor(y/block_height);
     var obj = board[by][bx];
-    if (obj == null)
-        return;
 
     var posStr = "("+by+","+bx+")";
 
     // Click on same object again: unselect
-    if (obj.selected) {
+    if (obj != null && obj.selected) {
         obj.selected = false;
         selected = null;
         return;
@@ -186,6 +184,8 @@ function clicked(x, y) {
 
     // First object to be clicked
     if (!selected) {
+        if (obj == null)
+            return;
         obj.selected = true;
         selected = obj;
         return;
@@ -204,13 +204,13 @@ function clicked(x, y) {
         board[by][bx] = selected;
 
         var changes = checkBoard(false);
-        if (changes) {
-            var tx = obj.x;
-            var ty = obj.y;
-            obj.x = selected.x;
-            obj.y = selected.y;
-            selected.x = tx;
-            selected.y = ty;
+        if (changes || obj==null) {
+            if (obj != null) {
+                obj.x = selected.x;
+                obj.y = selected.y;
+            }
+            selected.x = bx*block_width;
+            selected.y = by*block_height;
         } else {
             board[sy][sx] = selected;
             board[by][bx] = obj;
