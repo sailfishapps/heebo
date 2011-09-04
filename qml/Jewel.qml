@@ -6,6 +6,7 @@ Rectangle {
     property int type;
     property bool spawned: false;
     property bool selected: false;
+    property bool to_remove: false;
 
     width: 64; height: 64
     radius: 5.0

@@ -55,11 +55,11 @@ function checkLoop() {
     while (changes) {
         changes = 0;
         changes += fallDown();
-        changes += checkBoard();
+        changes += checkBoard(true);
     }
 }
 
-function checkBoardOneWay(jmax, imax, rows) {
+function checkBoardOneWay(jmax, imax, rows, mark) {
     var changes = 0;
 
     // Check rows/columns for subsequent items
@@ -68,33 +68,32 @@ function checkBoardOneWay(jmax, imax, rows) {
         var count = 0;
         for (var i=0; i<imax; i++) {
             var obj = rows ? board[j][i] : board[i][j];
-            if (!obj) {
-                count = 0;
-                last_b = 0;
-                continue;
-            }
+            var b = 0;
 
-            var b = obj.type;
+            if (obj)
+                b = obj.type;
 
-            if (last_b == b)
+            if (b != 0 && last_b == b)
                 count++;
 
             if (last_b != b || i==imax-1) {
                 if (count >= 2) {
-                    var k_begin = i-count-1;
-                    var k_end = i;
-                    if (last_b == b) {
-                        k_begin++;
-                        k_end++;
-                    }
-                    
-                    for (var k=k_begin; k<k_end; k++) {
-                        if (rows) {
-                            board[j][k].destroy();
-                            board[j][k] = null;
-                        } else {
-                            board[k][j].destroy();
-                            board[k][j] = null;
+                    if (mark) {
+                        var k_begin = i-count-1;
+                        var k_end = i;
+                        if (last_b == b) {
+                            k_begin++;
+                            k_end++;
+                        }
+                        
+                        console.log("Removing "+(rows?"row":"column")+" "+(j+1)+
+                                    " from "+(k_begin+1)+" to "+k_end);
+                        
+                        for (var k=k_begin; k<k_end; k++) {
+                            if (rows)
+                                board[j][k].to_remove = true;
+                            else
+                                board[k][j].to_remove = true;
                         }
                     }
                     changes++;
@@ -129,14 +128,28 @@ function fallDown() {
     return changes;
 }
 
-function checkBoard() {
+function checkBoard(mark) {
     var changes = 0;
 
     // Check rows for subsequent items
-    changes += checkBoardOneWay(board_height, board_width, true);
+    changes += checkBoardOneWay(board_height, board_width, true, mark);
 
     // Check columns for subsequent items
-    changes += checkBoardOneWay(board_width, board_height, false);
+    changes += checkBoardOneWay(board_width, board_height, false, mark);
+
+    if (!mark)
+        return changes;
+
+    // Do actual removal
+    for (var j=0; j<board_height; j++) {
+        for (var i=0; i<board_width; i++) {
+            var obj = board[j][i];
+            if (obj != null && obj.to_remove) {
+                obj.destroy();
+                board[j][i] = null;
+            }
+        }
+    }
 
     return changes;
 }
@@ -173,14 +186,21 @@ function clicked(x, y) {
     var dy = Math.abs(by-sy);
 
     if ((dx==1 && dy==0) || (dx==0 && dy == 1)) {
-        var tx = obj.x;
-        var ty = obj.y;
-        obj.x = selected.x;
-        obj.y = selected.y;
-        selected.x = tx;
-        selected.y = ty;
         board[sy][sx] = obj;
         board[by][bx] = selected;
+
+        var changes = checkBoard(false);
+        if (changes) {
+            var tx = obj.x;
+            var ty = obj.y;
+            obj.x = selected.x;
+            obj.y = selected.y;
+            selected.x = tx;
+            selected.y = ty;
+        } else {
+            board[sy][sx] = selected;
+            board[by][bx] = obj;
+        }
     }
     selected = null;
 
