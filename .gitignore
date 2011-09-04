@@ -1,0 +1,9 @@
+*.o
+.gdb_history
+Makefile
+moc_*
+qrc_*
+/qmljewel
+*~
+ui_*h
+TAGS
