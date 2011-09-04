@@ -64,12 +64,32 @@ function startNewGame() {
     return true;
 }
 
+function isRunning() {
+    var running = false;
+    for (var j=0; j<board_height && !running; j++) {
+        for (var i=0; i<board_width && !running; i++) {
+            var obj = board[j][i];
+            if (obj == null)
+                continue;
+            if (obj.xAnim.running || obj.yAnim.running)
+                running = true;
+        }
+    }
+
+    return running;
+}
+
 function checkLoop() {
     var changes = 1;
     while (changes) {
         changes = 0;
         changes += fallDown();
+
+        while (isRunning()) {}
+
         changes += checkBoard(true);
+
+        while (isRunning()) {}
     }
 }
 
@@ -159,7 +179,7 @@ function checkBoard(mark) {
         for (var i=0; i<board_width; i++) {
             var obj = board[j][i];
             if (obj != null && obj.to_remove) {
-                obj.destroy();
+                obj.dying = true;
                 board[j][i] = null;
             }
         }

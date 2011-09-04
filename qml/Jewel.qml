@@ -7,6 +7,10 @@ Rectangle {
     property bool spawned: false;
     property bool selected: false;
     property bool to_remove: false;
+    property bool dying: false;
+
+    property variant xAnim: xAnimation;
+    property variant yAnim: yAnimation;
 
     width: 64; height: 64
     radius: 5.0
@@ -26,10 +30,34 @@ Rectangle {
 
     Behavior on y {
         enabled: spawned;
-        SpringAnimation { spring: 2; damping: 0.2 }
+        SpringAnimation {
+            id: yAnimation
+            spring: 2
+            damping: 0.2
+            alwaysRunToEnd: true
+        }
     }
     Behavior on x {
         enabled: spawned;
-        SpringAnimation { spring: 2; damping: 0.2 }
+        SpringAnimation {
+            id: xAnimation
+            spring: 2
+            damping: 0.2
+            alwaysRunToEnd: true
+        }
     }
+
+    states: [
+        State {
+            name: "AliveState"
+            when: spawned == true && dying == false
+        },
+        State {
+            name: "DyingState"
+            when: dying == true && !yAnimation.running && !xAnimation.running
+            StateChangeScript {
+                script: jewel.destroy(1);
+            }
+        }
+    ]
 }
