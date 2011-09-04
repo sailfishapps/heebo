@@ -29,8 +29,8 @@ function initBoard() {
 
 function startNewGame() {
     initBoard();
-    for (var i=0; i<board_width; i++) {
-        for (var j=0; j<board_height; j++) {
+    for (var j=0; j<board_height; j++) {
+        for (var i=0; i<board_width; i++) {
             var component = Qt.createComponent("Jewel.qml");
             
             // while (component.status != Component.Ready)
@@ -39,7 +39,21 @@ function startNewGame() {
             var obj = component.createObject(background);
             obj.x = i*block_width;
             obj.y = j*block_height;
-            obj.type = random(1,3);
+
+            var skip1 = 0;
+            if (j > 1 && board[j-2][i].type == board[j-1][i].type)
+                skip1 = board[j-1][i].type;
+
+            var skip2 = 0;
+            if (i > 1 && board[j][i-2].type == board[j][i-1].type)
+                skip2 = board[j][i-1].type;
+
+            var type = 0;
+            do {
+                type = random(1,5);
+            } while (type == skip1 || type == skip2);
+            
+            obj.type = type;
             obj.spawned = true;
             board[j][i] = obj;
         }

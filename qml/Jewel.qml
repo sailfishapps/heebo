@@ -13,13 +13,15 @@ Rectangle {
     smooth: true
     border {
         width: 5
-        color: selected ? "gray" : "white"
+        color: selected ? "black" : "white"
     }
     
     color:
     type == 1 ? "blue" :
     type == 2 ? "red" :
     type == 3 ? "yellow" :
+    type == 4 ? "gray" :
+    type == 5 ? "magenta" :
     "white"
 
     Behavior on y {

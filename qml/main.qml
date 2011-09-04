@@ -35,31 +35,12 @@ Rectangle {
             onClicked: Jewels.startNewGame()
         }
 
-        Button {
-            id: checkButton
-            anchors {
-                left: startButton.right
-                verticalCenter: parent.verticalCenter
-            }
-            text: "Check"
-            onClicked: Jewels.checkBoard()
-        }
-
-        Button {
-            anchors {
-                left: checkButton.right
-                verticalCenter: parent.verticalCenter
-            }
-            text: "Fall"
-            onClicked: Jewels.fallDown()
-        }
-
         Text {
             anchors {
                 right: parent.right
                 verticalCenter: parent.verticalCenter
             }
-            text: "Foobar"
+            text: "Jewels"
         }
     }
 }
