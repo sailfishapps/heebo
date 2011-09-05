@@ -6,7 +6,16 @@ Rectangle {
     id: screen
     width: 512; height: 544
 
+    signal animDone()
+    signal jewelKilled();
+
     SystemPalette { id: activePalette }
+
+    Component.onCompleted: {
+        Jewels.startNewGame();
+        animDone.connect(Jewels.onChanges);
+        jewelKilled.connect(Jewels.onChanges);
+    }
 
     Item {
         id: background;
@@ -33,6 +42,16 @@ Rectangle {
             }
             text: "New Game"
             onClicked: Jewels.startNewGame()
+        }
+
+        Button {
+            id: fallButton
+            anchors {
+                left: startButton.right
+                verticalCenter: parent.verticalCenter
+            }
+            text: "Fall"
+            onClicked: Jewels.fallDown()
         }
 
         Text {
