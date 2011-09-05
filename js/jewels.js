@@ -33,19 +33,33 @@ function initBoard() {
 
 //-----------------------------------------------------------------------------
 
+function newBlock(j, i, type) {
+    var component = Qt.createComponent("Jewel.qml");
+    
+    // while (component.status != Component.Ready)
+    // {}
+    
+    var obj = component.createObject(background);
+    obj.x = i*block_width;
+    obj.y = j*block_height;
+
+    obj.type = type;
+    obj.spawned = true;
+    board[j][i] = obj;
+}
+
+//-----------------------------------------------------------------------------
+
+function randomBlockType() {
+    return random(1,5);
+}
+
+//-----------------------------------------------------------------------------
+
 function startNewGame() {
     initBoard();
     for (var j=0; j<board_height; j++) {
         for (var i=0; i<board_width; i++) {
-            var component = Qt.createComponent("Jewel.qml");
-            
-            // while (component.status != Component.Ready)
-            // {}
-            
-            var obj = component.createObject(background);
-            obj.x = i*block_width;
-            obj.y = j*block_height;
-
             var skip1 = 0;
             if (j > 1 && board[j-2][i].type == board[j-1][i].type)
                 skip1 = board[j-1][i].type;
@@ -56,12 +70,10 @@ function startNewGame() {
 
             var type = 0;
             do {
-                type = random(1,5);
+                type = randomBlockType();
             } while (type == skip1 || type == skip2);
-            
-            obj.type = type;
-            obj.spawned = true;
-            board[j][i] = obj;
+
+            newBlock(j, i, type);
         }
     }
     
@@ -191,6 +203,9 @@ function checkBoard(mark) {
 //-----------------------------------------------------------------------------
 
 function clicked(x, y) {
+    if (isRunning())
+        return; 
+
     var bx = Math.floor(x/block_width);
     var by = Math.floor(y/block_height);
     var obj = board[by][bx];
@@ -245,8 +260,23 @@ function clicked(x, y) {
 
 //-----------------------------------------------------------------------------
 
+function checkNew() {
+    for (var i=0; i<board_width; i++) {
+        if (board[0][i] != null)
+            continue;
+        newBlock(0, i, randomBlockType());
+    }
+}
+
+//-----------------------------------------------------------------------------
+
 function onChanges() {
     fallDown();
+
+    if (!isRunning()) {
+        checkNew();
+        fallDown();
+    }
 
     if (!isRunning()) 
         checkBoard(true);
