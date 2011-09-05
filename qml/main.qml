@@ -15,6 +15,13 @@ Rectangle {
         Jewels.startNewGame();
         animDone.connect(Jewels.onChanges);
         jewelKilled.connect(Jewels.onChanges);
+        okDialog.closed.connect(Jewels.startNewGame);
+    }
+
+    Dialog {
+        id: okDialog
+        anchors.centerIn: parent
+        z: 10
     }
 
     Item {
@@ -42,16 +49,6 @@ Rectangle {
             }
             text: "New Game"
             onClicked: Jewels.startNewGame()
-        }
-
-        Button {
-            id: fallButton
-            anchors {
-                left: startButton.right
-                verticalCenter: parent.verticalCenter
-            }
-            text: "Fall"
-            onClicked: Jewels.fallDown()
         }
 
         Text {

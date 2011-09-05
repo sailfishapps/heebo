@@ -1,6 +1,7 @@
 import QtQuick 1.0
 
-Rectangle {
+Item {
+    width: 64; height: 64
     id: jewel
 
     property int type;
@@ -12,24 +13,31 @@ Rectangle {
     property variant xAnim: xAnimation;
     property variant yAnim: yAnimation;
 
-    width: 64; height: 64
-    radius: 5.0
-    smooth: true
-    border {
-        width: 5
-        color: selected ? "black" : "white"
+    Rectangle {
+        anchors {
+            horizontalCenter: parent.horizontalCenter
+            verticalCenter: parent.verticalCenter
+        }
+        
+        width: 48; height: 48
+        radius: 5.0
+        smooth: true
+        border {
+            width: 5
+            color: selected ? "black" : "transparent"
+        }
+    
+        property color defaultColor:
+        type == 1 ? "blue" :
+        type == 2 ? "red" :
+        type == 3 ? "yellow" :
+        type == 4 ? "gray" :
+        type == 5 ? "magenta" :
+        "white"
+        
+        color: defaultColor
     }
     
-    property color defaultColor:
-    type == 1 ? "blue" :
-    type == 2 ? "red" :
-    type == 3 ? "yellow" :
-    type == 4 ? "gray" :
-    type == 5 ? "magenta" :
-    "white"
-
-    color: defaultColor
-
     function animationChanged() {
         if (!yAnimation.running && !xAnimation.running)
             screen.animDone();
@@ -70,4 +78,5 @@ Rectangle {
             }
         }
     ]
+        
 }

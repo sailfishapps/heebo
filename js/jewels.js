@@ -1,10 +1,14 @@
 var board_width = 8;
 var board_height = 8;
+
 var board = null;
+var bg_grid = null;
 
 var block_width = 64;
 var block_height = 64;
 var selected = null;
+
+var showingDialog = false;
 
 //-----------------------------------------------------------------------------
 
@@ -14,21 +18,29 @@ function random(from, to) {
 
 //-----------------------------------------------------------------------------
 
-function initBoard() {
-    // Destroy old board if there is such
-    if (board != null) {
+function init2DArray(arr) {
+    // Destroy old 2d array if there is such
+    if (arr != null) {
         for (var i=0; i<board_width; i++) {
             for (var j=0; j<board_height; j++) {
-                if (board[j][i] != null)
-                    board[j][i].destroy();
+                if (arr[j][i] != null)
+                    arr[j][i].destroy();
             }
         }
-        delete board;
+        delete arr;
     }
     
-    board = new Array(board_height);
+    arr = new Array(board_height);
     for (var j=0; j<board_height; j++) 
-        board[j] = new Array(board_width);
+        arr[j] = new Array(board_width);
+    return arr;
+}
+
+//-----------------------------------------------------------------------------
+
+function initBoard() {
+    board = init2DArray(board);
+    bg_grid = init2DArray(bg_grid);
 }
 
 //-----------------------------------------------------------------------------
@@ -50,6 +62,21 @@ function newBlock(j, i, type) {
 
 //-----------------------------------------------------------------------------
 
+function newBackgroundBlock(j, i) {
+    var component = Qt.createComponent("Block.qml");
+    
+    // while (component.status != Component.Ready)
+    // {}
+    
+    var obj = component.createObject(background);
+    obj.x = i*block_width;
+    obj.y = j*block_height;
+
+    bg_grid[j][i] = obj;
+}
+
+//-----------------------------------------------------------------------------
+
 function randomBlockType() {
     return random(1,5);
 }
@@ -57,9 +84,12 @@ function randomBlockType() {
 //-----------------------------------------------------------------------------
 
 function startNewGame() {
+    showingDialog = false;
     initBoard();
     for (var j=0; j<board_height; j++) {
         for (var i=0; i<board_width; i++) {
+            newBackgroundBlock(j, i);
+
             var skip1 = 0;
             if (j > 1 && board[j-2][i].type == board[j-1][i].type)
                 skip1 = board[j-1][i].type;
@@ -192,6 +222,7 @@ function checkBoard(mark) {
             if (obj != null && obj.to_remove) {
                 board[j][i] = null;
                 obj.dying = true;
+                bg_grid[j][i].cleared = true;
                 //console.log("Removed:"+(j+1)+","+(i+1));
             }
         }
@@ -203,7 +234,7 @@ function checkBoard(mark) {
 //-----------------------------------------------------------------------------
 
 function clicked(x, y) {
-    if (isRunning())
+    if (isRunning() || showingDialog)
         return; 
 
     var bx = Math.floor(x/block_width);
@@ -255,7 +286,6 @@ function clicked(x, y) {
         }
     }
     selected = null;
-
 }
 
 //-----------------------------------------------------------------------------
@@ -264,13 +294,26 @@ function checkNew() {
     for (var i=0; i<board_width; i++) {
         if (board[0][i] != null)
             continue;
-        newBlock(0, i, randomBlockType());
+//        newBlock(0, i, randomBlockType());
+        
+        var component = Qt.createComponent("Jewel.qml");
+    
+        var obj = component.createObject(background);
+        obj.x = i*block_width;
+        obj.y = -block_width;
+
+        obj.type = randomBlockType();
+        obj.spawned = true;
+        board[0][i] = obj;
+        obj.y = 0;
     }
 }
 
 //-----------------------------------------------------------------------------
 
 function onChanges() {
+    //console.log("onChanges()");
+
     fallDown();
 
     if (!isRunning()) {
@@ -280,4 +323,23 @@ function onChanges() {
 
     if (!isRunning()) 
         checkBoard(true);
+
+    victoryCheck();
 }
+
+//-----------------------------------------------------------------------------
+
+function victoryCheck() {
+    var victory = true;
+    for (var j=0; j<board_height && victory; j++) {
+        for (var i=0; i<board_width && victory; i++) {
+            victory = bg_grid[j][i].cleared;
+        }
+    }
+
+    if (victory) {
+        showingDialog = true;
+        okDialog.show("Victory! ZÖMG!!");
+    }
+}
+    
