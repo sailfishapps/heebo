@@ -6,9 +6,13 @@ var block_width = 64;
 var block_height = 64;
 var selected = null;
 
+//-----------------------------------------------------------------------------
+
 function random(from, to) {
     return Math.floor(Math.random()*(to-from+1)+from);
 }
+
+//-----------------------------------------------------------------------------
 
 function initBoard() {
     // Destroy old board if there is such
@@ -26,6 +30,8 @@ function initBoard() {
     for (var j=0; j<board_height; j++) 
         board[j] = new Array(board_width);
 }
+
+//-----------------------------------------------------------------------------
 
 function startNewGame() {
     initBoard();
@@ -59,10 +65,10 @@ function startNewGame() {
         }
     }
     
-    checkLoop();
-
     return true;
 }
+
+//-----------------------------------------------------------------------------
 
 function isRunning() {
     var running = false;
@@ -79,19 +85,7 @@ function isRunning() {
     return running;
 }
 
-function checkLoop() {
-    var changes = 1;
-    while (changes) {
-        changes = 0;
-        changes += fallDown();
-
-        while (isRunning()) {}
-
-        changes += checkBoard(true);
-
-        while (isRunning()) {}
-    }
-}
+//-----------------------------------------------------------------------------
 
 function checkBoardOneWay(jmax, imax, rows, mark) {
     var changes = 0;
@@ -141,6 +135,8 @@ function checkBoardOneWay(jmax, imax, rows, mark) {
     return changes;
 }
 
+//-----------------------------------------------------------------------------
+
 function fallDown() {
     var changes = 0;
     for (var i=0; i<board_width; i++) {
@@ -162,6 +158,8 @@ function fallDown() {
     return changes;
 }
 
+//-----------------------------------------------------------------------------
+
 function checkBoard(mark) {
     var changes = 0;
 
@@ -171,6 +169,7 @@ function checkBoard(mark) {
     // Check columns for subsequent items
     changes += checkBoardOneWay(board_width, board_height, false, mark);
 
+    // If we're just checking, now is a good time to return
     if (!mark)
         return changes;
 
@@ -179,14 +178,17 @@ function checkBoard(mark) {
         for (var i=0; i<board_width; i++) {
             var obj = board[j][i];
             if (obj != null && obj.to_remove) {
-                obj.dying = true;
                 board[j][i] = null;
+                obj.dying = true;
+                //console.log("Removed:"+(j+1)+","+(i+1));
             }
         }
     }
 
     return changes;
 }
+
+//-----------------------------------------------------------------------------
 
 function clicked(x, y) {
     var bx = Math.floor(x/block_width);
@@ -231,6 +233,7 @@ function clicked(x, y) {
             }
             selected.x = bx*block_width;
             selected.y = by*block_height;
+
         } else {
             board[sy][sx] = selected;
             board[by][bx] = obj;
@@ -238,5 +241,13 @@ function clicked(x, y) {
     }
     selected = null;
 
-    checkLoop();
+}
+
+//-----------------------------------------------------------------------------
+
+function onChanges() {
+    fallDown();
+
+    if (!isRunning()) 
+        checkBoard(true);
 }

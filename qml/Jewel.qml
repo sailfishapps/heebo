@@ -20,7 +20,7 @@ Rectangle {
         color: selected ? "black" : "white"
     }
     
-    color:
+    property color defaultColor:
     type == 1 ? "blue" :
     type == 2 ? "red" :
     type == 3 ? "yellow" :
@@ -28,22 +28,34 @@ Rectangle {
     type == 5 ? "magenta" :
     "white"
 
+    color: defaultColor
+
+    function animationChanged() {
+        if (!yAnimation.running && !xAnimation.running)
+            screen.animDone();
+    }
+
+    function jewelKilled() {
+        screen.jewelKilled();
+    }
+
     Behavior on y {
         enabled: spawned;
         SpringAnimation {
             id: yAnimation
             spring: 2
             damping: 0.2
-            alwaysRunToEnd: true
+            onRunningChanged: animationChanged();
         }
     }
+
     Behavior on x {
         enabled: spawned;
         SpringAnimation {
             id: xAnimation
             spring: 2
             damping: 0.2
-            alwaysRunToEnd: true
+            onRunningChanged: animationChanged();
         }
     }
 
@@ -54,9 +66,9 @@ Rectangle {
         },
         State {
             name: "DyingState"
-            when: dying == true && !yAnimation.running && !xAnimation.running
+            when: dying == true //&& !yAnimation.running && !xAnimation.running
             StateChangeScript {
-                script: jewel.destroy(1);
+                script: { jewel.destroy(); jewelKilled(); }
             }
         }
     ]
