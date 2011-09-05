@@ -41,20 +41,18 @@ Rectangle {
 
     Behavior on y {
         enabled: spawned;
-        SpringAnimation {
+        SmoothedAnimation {
             id: yAnimation
-            spring: 2
-            damping: 0.2
+            duration: 500
             onRunningChanged: animationChanged();
         }
     }
 
     Behavior on x {
         enabled: spawned;
-        SpringAnimation {
+        SmoothedAnimation {
             id: xAnimation
-            spring: 2
-            damping: 0.2
+            duration: 500
             onRunningChanged: animationChanged();
         }
     }
