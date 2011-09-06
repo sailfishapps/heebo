@@ -4,10 +4,14 @@ Rectangle {
     id: block
 
     property bool cleared: false;
+    property bool blocking: false;
 
     width: 64; height: 64
 
     z: -1
     
-    color: cleared ? "lightgray" : "white";
+    color:
+    blocking ? "black" :
+    cleared ? "lightgray" :
+    "white";
 }

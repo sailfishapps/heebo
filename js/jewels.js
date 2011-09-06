@@ -86,16 +86,28 @@ function randomBlockType() {
 function startNewGame() {
     showingDialog = false;
     initBoard();
+
+    for (var j=0; j<board_height; j++)
+        for (var i=0; i<board_width; i++)
+            newBackgroundBlock(j, i);
+    bg_grid[3][0].blocking = true;
+    bg_grid[3][1].blocking = true;
+    bg_grid[3][6].blocking = true;
+    bg_grid[3][7].blocking = true;
+
     for (var j=0; j<board_height; j++) {
         for (var i=0; i<board_width; i++) {
-            newBackgroundBlock(j, i);
-
+            if (bg_grid[j][i].blocking)
+                continue;
+            
             var skip1 = 0;
-            if (j > 1 && board[j-2][i].type == board[j-1][i].type)
+            if (j > 1 && !bg_grid[j-2][i].blocking && !bg_grid[j-1][i].blocking
+                && board[j-2][i].type == board[j-1][i].type)
                 skip1 = board[j-1][i].type;
 
             var skip2 = 0;
-            if (i > 1 && board[j][i-2].type == board[j][i-1].type)
+            if (i > 1 && !bg_grid[j][i-2].blocking && !bg_grid[j][i-1].blocking
+                && board[j][i-2].type == board[j][i-1].type)
                 skip2 = board[j][i-1].type;
 
             var type = 0;
@@ -184,7 +196,9 @@ function fallDown() {
     for (var i=0; i<board_width; i++) {
         var fallDist = 0;
         for (var j=board_height-1; j>=0; j--) {
-            if (board[j][i] == null) {
+            if (bg_grid[j][i].blocking) {
+                fallDist = 0;
+            } else if (board[j][i] == null) {
                 fallDist++;
             } else {
                 if (fallDist > 0) {
@@ -333,7 +347,8 @@ function victoryCheck() {
     var victory = true;
     for (var j=0; j<board_height && victory; j++) {
         for (var i=0; i<board_width && victory; i++) {
-            victory = bg_grid[j][i].cleared;
+            victory =
+                bg_grid[j][i].cleared || bg_grid[j][i].blocking;
         }
     }
 

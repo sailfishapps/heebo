@@ -51,6 +51,16 @@ Rectangle {
             onClicked: Jewels.startNewGame()
         }
 
+        Button {
+            id: fallButton
+            anchors {
+                left: startButton.right
+                verticalCenter: parent.verticalCenter
+            }
+            text: "Fall"
+            onClicked: Jewels.fallDown()
+        }
+
         Text {
             anchors {
                 right: parent.right
