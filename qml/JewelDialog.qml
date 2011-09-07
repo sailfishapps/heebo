@@ -1,4 +1,5 @@
 import QtQuick 1.0
+import com.nokia.meego 1.0
 
 Rectangle {
     id: container
@@ -36,7 +37,7 @@ Rectangle {
         text: ""
     }
 
-    Button {
+    JewelButton {
         id: okButton
         anchors {
             top: dialogText.bottom

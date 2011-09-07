@@ -1,7 +1,8 @@
 import QtQuick 1.0
+import com.nokia.meego 1.0
 
 Item {
-    width: 64; height: 64
+    width: 60; height: 60
     id: jewel
 
     property int type;
@@ -40,11 +41,11 @@ Item {
     
     function animationChanged() {
         if (!yAnimation.running && !xAnimation.running)
-            screen.animDone();
+            mainPage.animDone();
     }
 
     function jewelKilled() {
-        screen.jewelKilled();
+        mainPage.jewelKilled();
     }
 
     Behavior on y {

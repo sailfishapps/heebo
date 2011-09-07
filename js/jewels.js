@@ -1,11 +1,13 @@
+//-----------------------------------------------------------------------------
+
 var board_width = 8;
-var board_height = 8;
+var board_height = 10;
 
 var board = null;
 var bg_grid = null;
 
-var block_width = 64;
-var block_height = 64;
+var block_width = 60;
+var block_height = 60;
 var selected = null;
 
 var showingDialog = false;
@@ -253,6 +255,9 @@ function clicked(x, y) {
 
     var bx = Math.floor(x/block_width);
     var by = Math.floor(y/block_height);
+
+    if (bx < 0 || by < 0 || bx >= block_width || by >= block_height)
+        return;
     var obj = board[by][bx];
 
     var posStr = "("+by+","+bx+")";

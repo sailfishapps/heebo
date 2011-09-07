@@ -1,4 +1,5 @@
 import QtQuick 1.0
+import com.nokia.meego 1.0
 
 Rectangle {
     id: block
@@ -6,7 +7,7 @@ Rectangle {
     property bool cleared: false;
     property bool blocking: false;
 
-    width: 64; height: 64
+    width: 60; height: 60
 
     z: -1
     

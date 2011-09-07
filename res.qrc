@@ -1,0 +1,12 @@
+<RCC>
+  <qresource prefix="/">
+    <file>js/jewels.js</file>
+    <!-- QML files -->
+    <file>qml/JewelButton.qml</file>
+    <file>qml/Jewel.qml</file>
+    <file>qml/Block.qml</file>
+    <file>qml/JewelDialog.qml</file>
+    <file>qml/MainPage.qml</file>
+    <file>qml/main_harmattan.qml</file>
+  </qresource>
+</RCC>

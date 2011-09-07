@@ -25,13 +25,9 @@
 //------------------------------------------------------------------------------
 
 GameView::GameView(QWidget* parent) : QDeclarativeView(parent) {
-  // rootContext()->setContextProperty("inboxMessageModel", inboxMessageModel);
   rootContext()->setContextProperty("gameview", this);
 
-  setSource(QUrl("./qml/main.qml"));
-
-  // QObject* rootObj = rootObject();
-  // connect(rootObj, SIGNAL(openUrl(QString)), this, SLOT(openUrl(QString)));
-  //  QMetaObject::invokeMethod(rootObject(), "Jewel.startNewGame");
+  //  setSource(QUrl("./qml/main.qml"));
+  setSource(QUrl("qrc:///qml/main_harmattan.qml"));
 }
 

@@ -44,6 +44,7 @@ http://doc.qt.nokia.com/4.7-snapshot/declarative-tutorials-samegame-samegame1.ht
 */
 
 import QtQuick 1.0
+import com.nokia.meego 1.0
 
 Rectangle {
     id: container
