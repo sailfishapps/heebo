@@ -143,6 +143,24 @@ function isRunning() {
 
 //-----------------------------------------------------------------------------
 
+function clearRandomBlock() {
+    console.log("clearRandomBlock(): ");
+
+    var countDown = board_width*board_height;
+    while (countDown--) {
+        var i = random(0, board_width-1);
+        var j = random(0, board_height-1);
+
+        if (bg_grid[j][i].blocking || bg_grid[j][i].cleared)
+            continue;
+
+        bg_grid[j][i].cleared = true;
+        countDown = 0;
+    }
+}
+
+//-----------------------------------------------------------------------------
+
 function checkBoardOneWay(jmax, imax, rows, mark) {
     var changes = 0;
 
@@ -178,6 +196,10 @@ function checkBoardOneWay(jmax, imax, rows, mark) {
                                 board[j][k].to_remove = true;
                             else
                                 board[k][j].to_remove = true;
+                        }
+
+                        if (count >= 3) {
+                            clearRandomBlock();
                         }
                     }
                     changes++;
@@ -250,7 +272,7 @@ function checkBoard(mark) {
 //-----------------------------------------------------------------------------
 
 function clicked(x, y) {
-    if (isRunning() || showingDialog)
+    if (showingDialog)
         return; 
 
     var bx = Math.floor(x/block_width);
@@ -277,6 +299,9 @@ function clicked(x, y) {
         selected = obj;
         return;
     }
+
+    if (isRunning())
+        return;
 
     // Second object to be clicked
     selected.selected = false;
