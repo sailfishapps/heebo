@@ -2,8 +2,10 @@ import QtQuick 1.0
 import com.nokia.meego 1.0
 
 Item {
-    width: 60; height: 60
     id: jewel
+
+    width: mainPage.block_width
+    height: mainPage.block_height
 
     property int type;
     property bool spawned: false;
@@ -20,7 +22,7 @@ Item {
             verticalCenter: parent.verticalCenter
         }
         
-        width: 48; height: 48
+        width: jewel.width-6; height: jewel.width-6
         radius: 5.0
         smooth: true
         border {

@@ -7,8 +7,9 @@ Rectangle {
     property bool cleared: false;
     property bool blocking: false;
 
-    width: 60; height: 60
-
+    width: mainPage.block_width
+    height: mainPage.block_height
+    
     z: -1
     
     color:

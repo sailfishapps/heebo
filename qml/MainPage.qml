@@ -2,18 +2,22 @@ import QtQuick 1.0
 import com.nokia.meego 1.0
 
 /* For Desktop */
-import "../js/jewels.js" as Jewels
-Rectangle {
-
+// import "../js/jewels.js" as Jewels
+// Rectangle
+    
 /* For Harmattan */
-// import "qrc:///js/jewels.js" as Jewels
-// Page {
-        
+import "qrc:///js/jewels.js" as Jewels
+Page {
+    
     id: mainPage
-
+    
+    property int block_width: Jewels.block_width;
+    property int block_height: Jewels.block_height;
+    property int toolbar_height: 99
+    
     signal animDone()
     signal jewelKilled();
-
+    
     SystemPalette { id: activePalette }
 
     Component.onCompleted: {
@@ -42,7 +46,7 @@ Rectangle {
 
     Rectangle {
         id: toolBar
-        width: parent.width; height: 32
+        width: parent.width; height: mainPage.toolbar_height
         color: activePalette.window
         anchors.bottom: mainPage.bottom
 
@@ -51,6 +55,9 @@ Rectangle {
             anchors {
                 left: parent.left
                 verticalCenter: parent.verticalCenter
+                horizontalCenter: parent.horizontalCenter
+                leftMargin: 10
+                rightMargin: 10
             }
             text: "New Game"
             onClicked: Jewels.startNewGame()
@@ -66,13 +73,13 @@ Rectangle {
         //     onClicked: Jewels.fallDown()
         // }
 
-        Text {
-            anchors {
-                right: parent.right
-                verticalCenter: parent.verticalCenter
-            }
-            text: "Jewels"
-        }
+        // Text {
+        //     anchors {
+        //         right: parent.right
+        //         verticalCenter: parent.verticalCenter
+        //     }
+        //     text: "Jewels"
+        // }
     }
 }
 

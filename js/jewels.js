@@ -1,13 +1,16 @@
 //-----------------------------------------------------------------------------
 
 var board_width = 8;
-var board_height = 10;
+var board_height = 12;
 
 var board = null;
 var bg_grid = null;
 
+// var block_width = 48;
+// var block_height = 48;
 var block_width = 60;
 var block_height = 60;
+
 var selected = null;
 
 var showingDialog = false;
@@ -144,7 +147,7 @@ function isRunning() {
 //-----------------------------------------------------------------------------
 
 function clearRandomBlock() {
-    console.log("clearRandomBlock(): ");
+//    console.log("clearRandomBlock(): ");
 
     var countDown = board_width*board_height;
     while (countDown--) {
