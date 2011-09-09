@@ -14,6 +14,6 @@ Rectangle {
     
     color:
     blocking ? "black" :
-    cleared ? "lightgray" :
+    cleared ? "darkgray" :
     "white";
 }

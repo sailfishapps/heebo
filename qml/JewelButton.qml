@@ -83,6 +83,6 @@ Rectangle {
         anchors.centerIn: container
         color: activePalette.buttonText
         text: container.text
-        font.pixelSize: 42
+        font.pixelSize: mainPage.font_size
     }
 }

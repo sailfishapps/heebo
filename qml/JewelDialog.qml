@@ -35,6 +35,7 @@ Rectangle {
             topMargin: 10
         }
         text: ""
+        font.pixelSize: mainPage.font_size
     }
 
     JewelButton {
