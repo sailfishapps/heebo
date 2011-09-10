@@ -26,8 +26,12 @@
 
 GameView::GameView(QWidget* parent) : QDeclarativeView(parent) {
   rootContext()->setContextProperty("gameview", this);
-
-  //  setSource(QUrl("./qml/main.qml"));
+#ifdef HARMATTAN
+  rootContext()->setContextProperty("platform", "harmattan");
   setSource(QUrl("qrc:///qml/main_harmattan.qml"));
+#else
+  rootContext()->setContextProperty("platform", "desktop");
+  setSource(QUrl("qrc:///qml/main.qml"));
+#endif
 }
 

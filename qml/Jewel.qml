@@ -34,7 +34,7 @@ Item {
         type == 1 ? "blue" :
         type == 2 ? "red" :
         type == 3 ? "yellow" :
-        type == 4 ? "brown" :
+        type == 4 ? "gray" :
         type == 5 ? "magenta" :
         "white"
         

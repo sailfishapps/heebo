@@ -1,15 +1,22 @@
 //-----------------------------------------------------------------------------
 
+if (typeof platform === 'undefined') {
+    var platform = "desktop";
+}
+
 var board_width = 8;
 var board_height = 12;
 
 var board = null;
 var bg_grid = null;
 
-// var block_width = 48;
-// var block_height = 48;
-var block_width = 60;
-var block_height = 60;
+if (platform == "harmattan") {
+    var block_width = 60;
+    var block_height = 60;
+} else {
+    var block_width = 48;
+    var block_height = 48;
+}
 
 var selected = null;
 
@@ -331,6 +338,10 @@ function clicked(x, y) {
             board[sy][sx] = selected;
             board[by][bx] = obj;
         }
+    } else if (obj != null) {
+        obj.selected = true;
+        selected = obj;
+        return;
     }
     selected = null;
 }
@@ -339,20 +350,22 @@ function clicked(x, y) {
 
 function checkNew() {
     for (var i=0; i<board_width; i++) {
-        if (board[0][i] != null)
-            continue;
-//        newBlock(0, i, randomBlockType());
-        
-        var component = Qt.createComponent("Jewel.qml");
-    
-        var obj = component.createObject(background);
-        obj.x = i*block_width;
-        obj.y = -block_width;
+        var n=0;
+        while (n<board_height && board[n][i] == null)
+            n++;
 
-        obj.type = randomBlockType();
-        obj.spawned = true;
-        board[0][i] = obj;
-        obj.y = 0;
+        for (var j=0; j<n; j++) {
+            var component = Qt.createComponent("Jewel.qml");
+    
+            var obj = component.createObject(background);
+            obj.x = i*block_width;
+            obj.y = -block_height*(j+1);
+
+            obj.type = randomBlockType();
+            obj.spawned = true;
+            board[n-j-1][i] = obj;
+            obj.y = block_height*(n-j-1);
+        }
     }
 }
 

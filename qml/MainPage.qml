@@ -1,13 +1,14 @@
 import QtQuick 1.0
 import com.nokia.meego 1.0
 
+
 /* For Desktop */
-import "../js/jewels.js" as Jewels
 Rectangle {
+import "../js/jewels.js" as Jewels
     
 /* For Harmattan */
 // import "qrc:///js/jewels.js" as Jewels
-// Page
+// Page {
     
     id: mainPage
     
