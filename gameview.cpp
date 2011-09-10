@@ -25,7 +25,9 @@
 //------------------------------------------------------------------------------
 
 GameView::GameView(QWidget* parent) : QDeclarativeView(parent) {
-  rootContext()->setContextProperty("gameview", this);
+  m_mapset = new GameMapSet(":/map.dat", this);
+
+  rootContext()->setContextProperty("mapset", m_mapset);
 #ifdef HARMATTAN
   rootContext()->setContextProperty("platform", "harmattan");
   setSource(QUrl("qrc:///qml/main_harmattan.qml"));

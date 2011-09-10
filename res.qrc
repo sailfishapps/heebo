@@ -1,12 +1,17 @@
+<!--*- xml -*-->
 <RCC>
   <qresource prefix="/">
+    <!-- Maps -->
+    <file>map.dat</file>
+    <!-- JavaScript -->
     <file>js/jewels.js</file>
-    <!-- QML files -->
+    <!-- QML -->
     <file>qml/JewelButton.qml</file>
     <file>qml/Jewel.qml</file>
     <file>qml/Block.qml</file>
     <file>qml/JewelDialog.qml</file>
     <file>qml/MainPage.qml</file>
     <file>qml/main_harmattan.qml</file>
+    <file>qml/main.qml</file>
   </qresource>
 </RCC>

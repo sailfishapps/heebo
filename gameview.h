@@ -23,6 +23,8 @@
 #include <QDeclarativeView>
 #include <QDeclarativeContext>
 
+#include "gamemapset.h"
+
 //------------------------------------------------------------------------------
 
 class GameView : public QDeclarativeView {
@@ -32,6 +34,7 @@ public:
   explicit GameView(QWidget* parent=0);
 
 private:
+  GameMapSet* m_mapset;
 };
 
 #endif /* _GAMEVIEW_H_ */

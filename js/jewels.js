@@ -95,6 +95,13 @@ function randomBlockType() {
 
 //-----------------------------------------------------------------------------
 
+function nextLevel() {
+    mapset.level++;
+    startNewGame();
+}
+
+//-----------------------------------------------------------------------------
+
 function startNewGame() {
     showingDialog = false;
     initBoard();
@@ -102,10 +109,14 @@ function startNewGame() {
     for (var j=0; j<board_height; j++)
         for (var i=0; i<board_width; i++)
             newBackgroundBlock(j, i);
-    bg_grid[3][0].blocking = true;
-    bg_grid[3][1].blocking = true;
-    bg_grid[3][6].blocking = true;
-    bg_grid[3][7].blocking = true;
+
+    for (var j=0; j<board_height; j++) {
+        for (var i=0; i<board_width; i++) {
+            var b = mapset.at(j,i);
+            if (b)
+                bg_grid[j][i].blocking = true;
+        }
+    }
 
     for (var j=0; j<board_height; j++) {
         for (var i=0; i<board_width; i++) {

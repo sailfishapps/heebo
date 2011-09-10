@@ -3,12 +3,12 @@ import com.nokia.meego 1.0
 
 
 /* For Desktop */
-Rectangle {
 import "../js/jewels.js" as Jewels
+Rectangle {
     
 /* For Harmattan */
 // import "qrc:///js/jewels.js" as Jewels
-// Page {
+// Page
     
     id: mainPage
     
@@ -27,7 +27,7 @@ import "../js/jewels.js" as Jewels
         Jewels.startNewGame();
         animDone.connect(Jewels.onChanges);
         jewelKilled.connect(Jewels.onChanges);
-        okDialog.closed.connect(Jewels.startNewGame);
+        okDialog.closed.connect(Jewels.nextLevel);
     }
 
     JewelDialog {
@@ -63,7 +63,8 @@ import "../js/jewels.js" as Jewels
                 rightMargin: 20
             }
             text: "New Game"
-            onClicked: Jewels.startNewGame()
+            //onClicked: Jewels.startNewGame()
+            onClicked: Jewels.nextLevel()
         }
     }
 }
