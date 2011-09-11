@@ -5,6 +5,7 @@ TARGET = qmljewels
 DEPENDPATH += .
 INCLUDEPATH += .
 QT += declarative 
+OBJECTS_DIR = obj
 
 # Input
 HEADERS += gameview.h gamemapset.h gamemap.h
@@ -32,8 +33,16 @@ OTHER_FILES += \
     debian/compat \
     debian/changelog
 
-RESOURCES += \
-    res.qrc
+RESOURCES += common.qrc desktop.qrc
+
+harmattan {
+	message("Setting target to HARMATTAN")
+
+	RESOURCES += harmattan.qrc
+	RESOURCES -= desktop.qrc
+	DEFINES += HARMATTAN
+	OBJECTS_DIR = obj-harmattan
+}
 
 # Please do not modify the following two lines. Required for deployment.
 include(deployment.pri)

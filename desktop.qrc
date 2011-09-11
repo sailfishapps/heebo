@@ -1,0 +1,8 @@
+<!--*- xml -*-->
+<RCC>
+  <qresource prefix="/">
+    <!-- QML -->
+    <file alias="qml/main.qml">qml/desktop/main.qml</file>
+    <file alias="qml/JewelPage.qml">qml/desktop/JewelPage.qml</file>
+  </qresource>
+</RCC>

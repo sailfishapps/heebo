@@ -33,6 +33,9 @@ class GameView : public QDeclarativeView {
 public:
   explicit GameView(QWidget* parent=0);
 
+public slots:
+  QString platform() const;
+
 private:
   GameMapSet* m_mapset;
 };

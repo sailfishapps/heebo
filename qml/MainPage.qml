@@ -1,15 +1,9 @@
 import QtQuick 1.0
 import com.nokia.meego 1.0
 
+import "qrc:///js/jewels.js" as Jewels
 
-/* For Desktop */
-import "../js/jewels.js" as Jewels
-Rectangle {
-    
-/* For Harmattan */
-// import "qrc:///js/jewels.js" as Jewels
-// Page
-    
+JewelPage {
     id: mainPage
     
     property int block_width: Jewels.block_width;
@@ -24,7 +18,7 @@ Rectangle {
     SystemPalette { id: activePalette }
 
     Component.onCompleted: {
-        Jewels.startNewGame();
+        Jewels.init();
         animDone.connect(Jewels.onChanges);
         jewelKilled.connect(Jewels.onChanges);
         okDialog.closed.connect(Jewels.nextLevel);

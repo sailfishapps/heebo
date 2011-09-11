@@ -1,16 +1,12 @@
 //-----------------------------------------------------------------------------
 
-if (typeof platform === 'undefined') {
-    var platform = "desktop";
-}
-
 var board_width = 8;
 var board_height = 12;
 
 var board = null;
 var bg_grid = null;
 
-if (platform == "harmattan") {
+if (gameview.platform() == "harmattan") {
     var block_width = 60;
     var block_height = 60;
 } else {
@@ -21,6 +17,12 @@ if (platform == "harmattan") {
 var selected = null;
 
 var showingDialog = false;
+
+//-----------------------------------------------------------------------------
+
+function init() {
+    startNewGame();
+}
 
 //-----------------------------------------------------------------------------
 
