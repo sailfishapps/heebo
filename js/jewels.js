@@ -212,7 +212,8 @@ function clearRandomBlock(block_type) {
         if (bg.blocking || bg.cleared)
             continue;
 
-        if (board[p.y][p.x].type == block_type) {
+        var bb = board[p.y][p.x];
+        if (bb != null && bb.type == block_type) {
             bg.cleared = true;
             done = true;
         }        
@@ -261,7 +262,7 @@ function checkBoardOneWay(jmax, imax, rows, mark) {
                             }
                         }
 
-                        while (count >= 2) {
+                        while (count >= 3) {
                             clearRandomBlock(last_b);
                             count--;
                         }
