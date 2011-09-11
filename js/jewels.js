@@ -1,5 +1,7 @@
 //-----------------------------------------------------------------------------
 
+var jewel_maxtype = 5;
+
 var board_width = 8;
 var board_height = 12;
 
@@ -18,6 +20,16 @@ var selected = null;
 
 var showingDialog = false;
 
+var randomList = new Array();
+
+//-----------------------------------------------------------------------------
+
+// Constructor for Point objects
+function Point(x, y) {
+    this.x = x;
+    this.y = y;
+}
+
 //-----------------------------------------------------------------------------
 
 function init() {
@@ -28,6 +40,25 @@ function init() {
 
 function random(from, to) {
     return Math.floor(Math.random()*(to-from+1)+from);
+}
+
+//-----------------------------------------------------------------------------
+
+function randomPositions() {
+    var arr = new Array();
+    for (var j=0; j<board_height; j++) {
+        for (var i=0; i<board_width; i++) {
+            arr.push(new Point(i,j));
+        }
+    }
+
+    var newArr = new Array();
+    while (arr.length) {
+        var r = random(0,arr.length-1);
+        var e = arr.splice(r,1);
+        newArr.push(e[0]);
+    }
+    return newArr;
 }
 
 //-----------------------------------------------------------------------------
@@ -107,6 +138,10 @@ function nextLevel() {
 function startNewGame() {
     showingDialog = false;
     initBoard();
+    
+    for (var i=0; i<jewel_maxtype; i++) {
+        randomList[i] = randomPositions();
+    }
 
     for (var j=0; j<board_height; j++)
         for (var i=0; i<board_width; i++)
@@ -166,20 +201,22 @@ function isRunning() {
 
 //-----------------------------------------------------------------------------
 
-function clearRandomBlock() {
-//    console.log("clearRandomBlock(): ");
+function clearRandomBlock(block_type) {
+    var list = randomList[block_type-1];
 
-    var countDown = board_width*board_height;
-    while (countDown--) {
-        var i = random(0, board_width-1);
-        var j = random(0, board_height-1);
+    var done = false;
+    while (list.length && !done) {
+        var p = list.pop();
+        var bg = bg_grid[p.y][p.x];
 
-        if (bg_grid[j][i].blocking || bg_grid[j][i].cleared)
+        if (bg.blocking || bg.cleared)
             continue;
 
-        bg_grid[j][i].cleared = true;
-        countDown = 0;
-    }
+        if (board[p.y][p.x].type == block_type) {
+            bg.cleared = true;
+            done = true;
+        }        
+    } 
 }
 
 //-----------------------------------------------------------------------------
@@ -215,14 +252,18 @@ function checkBoardOneWay(jmax, imax, rows, mark) {
                         //             " from "+(k_begin+1)+" to "+k_end);
                         
                         for (var k=k_begin; k<k_end; k++) {
-                            if (rows)
+                            if (rows) {
                                 board[j][k].to_remove = true;
-                            else
+                                bg_grid[j][k].cleared = true;
+                            } else {
                                 board[k][j].to_remove = true;
+                                bg_grid[k][j].cleared = true;
+                            }
                         }
 
-                        if (count >= 3) {
-                            clearRandomBlock();
+                        while (count >= 2) {
+                            clearRandomBlock(last_b);
+                            count--;
                         }
                     }
                     changes++;
@@ -283,7 +324,6 @@ function checkBoard(mark) {
             if (obj != null && obj.to_remove) {
                 board[j][i] = null;
                 obj.dying = true;
-                bg_grid[j][i].cleared = true;
                 //console.log("Removed:"+(j+1)+","+(i+1));
             }
         }
@@ -364,7 +404,8 @@ function clicked(x, y) {
 function checkNew() {
     for (var i=0; i<board_width; i++) {
         var n=0;
-        while (n<board_height && board[n][i] == null)
+        while (n<board_height && board[n][i] == null &&
+               bg_grid[n][i].blocking == false)
             n++;
 
         for (var j=0; j<n; j++) {
