@@ -56,10 +56,34 @@ JewelPage {
                 leftMargin: 20
                 rightMargin: 20
             }
-            text: "New Game"
+            text: "Menu"
             //onClicked: Jewels.startNewGame()
-            onClicked: Jewels.nextLevel()
+            //onClicked: Jewels.nextLevel()
+            onClicked: myMenu.show()
         }
     }
+
+    JMenu {
+        id: mainMenu
+        
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.verticalCenter: parent.verticalCenter
+        width: menuLayout.width+20
+        height: menuLayout.height+20
+        
+        JMenuLayout {
+            id: menuLayout
+            JMenuItem {
+                text: "Restart Level"
+                onClicked: Jewels.startNewGame()
+            }
+            JMenuItem {
+                text: "New Game"
+                onClicked: Jewels.firstLevel()
+            }
+            JMenuItem { text: "About" }
+        }
+    }
+
 }
 

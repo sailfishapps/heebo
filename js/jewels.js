@@ -128,6 +128,13 @@ function randomBlockType() {
 
 //-----------------------------------------------------------------------------
 
+function firstLevel() {
+    mapset.level = 0;
+    startNewGame();
+}
+
+//-----------------------------------------------------------------------------
+
 function nextLevel() {
     mapset.level++;
     startNewGame();

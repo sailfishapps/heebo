@@ -11,5 +11,8 @@
     <file>qml/Block.qml</file>
     <file>qml/JewelDialog.qml</file>
     <file>qml/MainPage.qml</file>
+    <file>qml/JMenu.qml</file>
+    <file>qml/JMenuLayout.qml</file>
+    <file>qml/JMenuItem.qml</file>
   </qresource>
 </RCC>
