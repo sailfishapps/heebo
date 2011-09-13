@@ -18,8 +18,6 @@ if (gameview.platform() == "harmattan") {
 
 var selected = null;
 
-var showingDialog = false;
-
 var randomList = new Array();
 
 //-----------------------------------------------------------------------------
@@ -143,7 +141,6 @@ function nextLevel() {
 //-----------------------------------------------------------------------------
 
 function startNewGame() {
-    showingDialog = false;
     initBoard();
     
     for (var i=0; i<jewel_maxtype; i++) {
@@ -343,7 +340,7 @@ function checkBoard(mark) {
 //-----------------------------------------------------------------------------
 
 function clicked(x, y) {
-    if (showingDialog)
+    if (okDialog.visible || mainMenu.visible)
         return; 
 
     var bx = Math.floor(x/block_width);
@@ -461,7 +458,6 @@ function victoryCheck() {
     }
 
     if (victory) {
-        showingDialog = true;
         okDialog.show("Victory! ZÖMG!!");
     }
 }

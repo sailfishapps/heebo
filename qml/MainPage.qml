@@ -57,9 +57,7 @@ JewelPage {
                 rightMargin: 20
             }
             text: "Menu"
-            //onClicked: Jewels.startNewGame()
-            //onClicked: Jewels.nextLevel()
-            onClicked: myMenu.show()
+            onClicked: mainMenu.toggle()
         }
     }
 
@@ -68,8 +66,8 @@ JewelPage {
         
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.verticalCenter: parent.verticalCenter
-        width: menuLayout.width+20
-        height: menuLayout.height+20
+        width: menuLayout.width+40
+        height: menuLayout.height+40
         
         JMenuLayout {
             id: menuLayout

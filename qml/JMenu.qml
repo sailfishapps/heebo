@@ -5,6 +5,10 @@ Rectangle {
     id: menu
 
     signal closed
+
+    function toggle() {
+        visible ? hide() : show();
+    }
     
     function show() {
         menu.opacity = 1;
@@ -14,9 +18,6 @@ Rectangle {
         menu.opacity = 0;
         menu.closed();
     }
-
-    // width: dialogText.width + 20
-    // height: dialogText.height + okButton.height + 40
 
     border { color: "black"; width: 2 }
     radius: 2
