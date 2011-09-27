@@ -20,6 +20,9 @@ var selected = null;
 
 var randomList = new Array();
 
+var pressed_x = -1;
+var pressed_y = -1;
+
 //-----------------------------------------------------------------------------
 
 // Constructor for Point objects
@@ -339,7 +342,101 @@ function checkBoard(mark) {
 
 //-----------------------------------------------------------------------------
 
-function clicked(x, y) {
+function pressed(x,y) {
+    // console.log("pressed: "+x+","+y);
+    pressed_x = x;
+    pressed_y = y;
+    selected = null;
+
+    var sx = Math.floor(pressed_x/block_width);
+    var sy = Math.floor(pressed_y/block_height);
+
+    if (sx < 0 || sy < 0 || sx >= block_width || sy >= block_height)
+        return;
+
+    selected = board[sy][sx];
+}
+
+function sign(x) {
+    return x > 0 ? 1 : x < 0 ? -1 : 0;
+}
+
+function moving(x,y) {
+    console.log("moving: "+x+","+y);
+    // selected.x = x;
+    // selected.y = y;
+}
+
+function released(x,y) {
+    // console.log("released: "+x+","+y);
+
+    if (okDialog.visible || mainMenu.visible)
+        return; 
+  
+    if (isRunning())
+        return;
+
+    var dx = x-pressed_x;
+    var dy = y-pressed_y;
+
+    if (Math.abs(dx) > Math.abs(dy)) {
+        dx = sign(dx);
+        dy = 0;
+    } else {
+        dx = 0;
+        dy = sign(dy);
+    }
+
+    if (!selected)
+        return;
+
+    var sx = Math.floor(pressed_x/block_width);
+    var sy = Math.floor(pressed_y/block_height);
+
+    var bx = sx+dx;
+    var by = sy+dy;
+
+    var obj = null;
+
+    if (bx >= 0 && by >= 0 && bx < block_width && by < block_height)
+        obj = board[by][bx];
+
+    // console.log("here: s="+sx+","+sy+" d="+dx+","+dy);
+
+    board[sy][sx] = obj;
+    board[by][bx] = selected;
+
+    var old_objx = -1;
+    var old_objy = -1;
+
+    var old_selx = selected.x;
+    var old_sely = selected.y;
+
+    if (obj != null) {
+        old_objx = obj.x;
+        old_objy = obj.y;
+        obj.x = selected.x;
+        obj.y = selected.y;
+    }
+    selected.x = bx*block_width;
+    selected.y = by*block_height;
+
+    var changes = checkBoard(false);
+
+    if (!changes && obj != null) {
+        // console.log("go back");
+        board[sy][sx] = selected;
+        board[by][bx] = obj;
+
+        selected.x = old_selx;
+        selected.y = old_sely;
+
+        obj.x = old_objx;
+        obj.y = old_objy;
+    }
+}
+
+/*function clicked(x, y) {
     if (okDialog.visible || mainMenu.visible)
         return; 
 
@@ -383,18 +480,33 @@ function clicked(x, y) {
         board[sy][sx] = obj;
         board[by][bx] = selected;
 
-        var changes = checkBoard(false);
-        if (changes || obj==null) {
-            if (obj != null) {
-                obj.x = selected.x;
-                obj.y = selected.y;
-            }
-            selected.x = bx*block_width;
-            selected.y = by*block_height;
+        var old_objx = obj.x;
+        var old_objy = obj.y;
 
-        } else {
+        var old_selx = selected.x;
+        var old_sely = selected.y;
+
+        if (obj != null) {
+            obj.x = selected.x;
+            obj.y = selected.y;
+        }
+        selected.x = bx*block_width;
+        selected.y = by*block_height;
+
+        var changes = checkBoard(false);
+        // if (changes || obj==null) {
+
+        // } else {
+        if (!changes && obj != null) {
+           // console.log("go back");
             board[sy][sx] = selected;
             board[by][bx] = obj;
+
+            selected.x = old_selx;
+            selected.y = old_sely;
+
+            obj.x = old_objx;
+            obj.y = old_objy;
         }
     } else if (obj != null) {
         obj.selected = true;
@@ -402,7 +514,7 @@ function clicked(x, y) {
         return;
     }
     selected = null;
-}
+}*/
 
 //-----------------------------------------------------------------------------
 

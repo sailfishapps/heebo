@@ -37,7 +37,9 @@ JewelPage {
 
         MouseArea {
             anchors.fill: parent
-            onClicked: Jewels.clicked(mouse.x, mouse.y)
+            onPressed: Jewels.pressed(mouse.x, mouse.y)
+            onReleased: Jewels.released(mouse.x, mouse.y)
+            /* onPositionChanged: if (pressed) Jewels.moving(mouse.x, mouse.y) */
         }
     }
 

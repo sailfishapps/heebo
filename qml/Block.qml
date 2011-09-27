@@ -14,6 +14,6 @@ Rectangle {
     
     color:
     blocking ? "black" :
-    cleared ? "darkgray" :
-    "white";
+    cleared ? "yellow" :
+    "#2E2E2F";
 }

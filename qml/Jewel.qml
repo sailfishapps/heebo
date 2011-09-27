@@ -16,31 +16,23 @@ Item {
     property variant xAnim: xAnimation;
     property variant yAnim: yAnimation;
 
-    Rectangle {
+    Image {
         anchors {
             horizontalCenter: parent.horizontalCenter
             verticalCenter: parent.verticalCenter
         }
         
-        width: jewel.width-10; height: jewel.width-10
-        radius: 5.0
-        smooth: true
-        border {
-            width: 5
-            color: selected ? "black" : "transparent"
-        }
-    
-        property color defaultColor:
-        type == 1 ? "blue" :
-        type == 2 ? "red" :
-        type == 3 ? "yellow" :
-        type == 4 ? "gray" :
-        type == 5 ? "magenta" :
-        "white"
-        
-        color: defaultColor
+        width: jewel.width; height: jewel.width
+
+        source: "qrc:///images/"+(
+        type == 1 ? "circle" :
+        type == 2 ? "polygon" :
+        type == 3 ? "square" :
+        type == 4 ? "triangle_down" :
+        type == 5 ? "triangle_up" :
+        "empty")+".png"
     }
-    
+
     function animationChanged() {
         if (!yAnimation.running && !xAnimation.running)
             mainPage.animDone();
