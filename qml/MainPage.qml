@@ -38,8 +38,8 @@ JewelPage {
         MouseArea {
             anchors.fill: parent
             onPressed: Jewels.pressed(mouse.x, mouse.y)
-            onReleased: Jewels.released(mouse.x, mouse.y)
-            /* onPositionChanged: if (pressed) Jewels.moving(mouse.x, mouse.y) */
+            /* onReleased: Jewels.released(mouse.x, mouse.y) */
+            onPositionChanged: if (pressed) Jewels.moving(mouse.x, mouse.y)
         }
     }
 
@@ -60,6 +60,7 @@ JewelPage {
             }
             text: "Menu"
             onClicked: mainMenu.toggle()
+            /* onClicked: Jewels.nextLevel() */
         }
     }
 

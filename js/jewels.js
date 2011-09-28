@@ -16,9 +16,11 @@ if (gameview.platform() == "harmattan") {
     var block_height = 48;
 }
 
-var selected = null;
-
 var randomList = new Array();
+
+var selected = null;
+var selected_x;
+var selected_y;
 
 var pressed_x = -1;
 var pressed_y = -1;
@@ -351,10 +353,12 @@ function pressed(x,y) {
     var sx = Math.floor(pressed_x/block_width);
     var sy = Math.floor(pressed_y/block_height);
 
-    if (sx < 0 || sy < 0 || sx >= block_width || sy >= block_height)
+    if (sx < 0 || sy < 0 || sx >= board_width || sy >= board_height)
         return;
 
     selected = board[sy][sx];
+    selected_x = sx;
+    selected_y = sy;
 }
 
 function sign(x) {
@@ -363,19 +367,43 @@ function sign(x) {
 
 function moving(x,y) {
     console.log("moving: "+x+","+y);
-    // selected.x = x;
-    // selected.y = y;
+    if (selected == null)
+        return;
+
+    var dx = x-pressed_x;
+    var dy = y-pressed_y;
+
+    if (Math.abs(dx) > Math.abs(dy)) {
+        dy = 0;
+        dx = Math.min(block_width,dx);
+        dx = Math.max(-block_width,dx);
+    } else {
+        dx = 0;
+        dy = Math.min(block_width,dy);
+        dy = Math.max(-block_width,dy);
+    }
+
+    // selected.x = block_width*selected_x+dx;
+    // selected.y = block_height*selected_y+dy;
+    if (Math.abs(dx)+Math.abs(dy) > 2)
+        released(x,y);
+}
+
+function reset_selected() {
+    if (selected) {
+        selected.x = block_width*selected_x;
+        selected.y = block_height*selected_y;
+    }
 }
 
 function released(x,y) {
-    // console.log("released: "+x+","+y);
+    console.log("released: "+x+","+y);
 
-    if (okDialog.visible || mainMenu.visible)
+    if (okDialog.visible || mainMenu.visible || isRunning()) {
+        //reset_selected();
         return; 
-  
-    if (isRunning())
-        return;
-
+    }
+    
     var dx = x-pressed_x;
     var dy = y-pressed_y;
 
@@ -390,18 +418,18 @@ function released(x,y) {
     if (!selected)
         return;
 
-    var sx = Math.floor(pressed_x/block_width);
-    var sy = Math.floor(pressed_y/block_height);
+    var sx = selected_x; //Math.floor(pressed_x/block_width);
+    var sy = selected_y; //Math.floor(pressed_y/block_height);
 
     var bx = sx+dx;
     var by = sy+dy;
 
     var obj = null;
 
-    if (bx >= 0 && by >= 0 && bx < block_width && by < block_height)
+    if (bx >= 0 && by >= 0 && bx < board_width && by < board_height)
         obj = board[by][bx];
 
-    // console.log("here: s="+sx+","+sy+" d="+dx+","+dy);
+    console.log("here: s="+sx+","+sy+" d="+dx+","+dy);
 
     board[sy][sx] = obj;
     board[by][bx] = selected;
@@ -409,14 +437,14 @@ function released(x,y) {
     var old_objx = -1;
     var old_objy = -1;
 
-    var old_selx = selected.x;
-    var old_sely = selected.y;
+    var old_selx = selected_x*block_width;
+    var old_sely = selected_y*block_height;
 
     if (obj != null) {
         old_objx = obj.x;
         old_objy = obj.y;
-        obj.x = selected.x;
-        obj.y = selected.y;
+        obj.x = old_selx;
+        obj.y = old_sely;
     }
     selected.x = bx*block_width;
     selected.y = by*block_height;
