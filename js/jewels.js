@@ -5,10 +5,10 @@ var jewel_maxtype = 5;
 var board_width = 8;
 var board_height = 12;
 
-var board = null;
-var bg_grid = null;
+var board;
+var bg_grid;
 
-if (gameview.platform() == "harmattan") {
+if (gameview.platform() === "harmattan") {
     var block_width = 60;
     var block_height = 60;
 } else {
@@ -18,7 +18,7 @@ if (gameview.platform() == "harmattan") {
 
 var randomList = new Array();
 
-var selected = null;
+var selected;
 var selected_x;
 var selected_y;
 
@@ -31,6 +31,15 @@ var pressed_y = -1;
 function Point(x, y) {
     this.x = x;
     this.y = y;
+}
+
+//-----------------------------------------------------------------------------
+
+var gridObject = function(grid, x, y) {
+    if (x < 0 || y < 0 || x >= board_width || y >= board_height)
+        return undefined;
+    console.log("got this far");
+    return grid[y][x];
 }
 
 //-----------------------------------------------------------------------------
@@ -68,10 +77,10 @@ function randomPositions() {
 
 function init2DArray(arr) {
     // Destroy old 2d array if there is such
-    if (arr != null) {
+    if (arr !== undefined) {
         for (var i=0; i<board_width; i++) {
             for (var j=0; j<board_height; j++) {
-                if (arr[j][i] != null)
+                if (arr[j][i] !== undefined)
                     arr[j][i].destroy();
             }
         }
@@ -171,18 +180,18 @@ function startNewGame() {
             
             var skip1 = 0;
             if (j > 1 && !bg_grid[j-2][i].blocking && !bg_grid[j-1][i].blocking
-                && board[j-2][i].type == board[j-1][i].type)
+                && board[j-2][i].type === board[j-1][i].type)
                 skip1 = board[j-1][i].type;
 
             var skip2 = 0;
             if (i > 1 && !bg_grid[j][i-2].blocking && !bg_grid[j][i-1].blocking
-                && board[j][i-2].type == board[j][i-1].type)
+                && board[j][i-2].type === board[j][i-1].type)
                 skip2 = board[j][i-1].type;
 
             var type = 0;
             do {
                 type = randomBlockType();
-            } while (type == skip1 || type == skip2);
+            } while (type === skip1 || type === skip2);
 
             newBlock(j, i, type);
         }
@@ -198,7 +207,7 @@ function isRunning() {
     for (var j=0; j<board_height && !running; j++) {
         for (var i=0; i<board_width && !running; i++) {
             var obj = board[j][i];
-            if (obj == null)
+            if (obj === undefined)
                 continue;
             if (obj.xAnim.running || obj.yAnim.running)
                 running = true;
@@ -222,7 +231,7 @@ function clearRandomBlock(block_type) {
             continue;
 
         var bb = board[p.y][p.x];
-        if (bb != null && bb.type == block_type) {
+        if (bb !== undefined && bb.type === block_type) {
             bg.cleared = true;
             done = true;
         }        
@@ -245,15 +254,15 @@ function checkBoardOneWay(jmax, imax, rows, mark) {
             if (obj)
                 b = obj.type;
 
-            if (b != 0 && last_b == b)
+            if (b != 0 && last_b === b)
                 count++;
 
-            if (last_b != b || i==imax-1) {
+            if (last_b !== b || i === imax-1) {
                 if (count >= 2) {
                     if (mark) {
                         var k_begin = i-count-1;
                         var k_end = i;
-                        if (last_b == b) {
+                        if (last_b === b) {
                             k_begin++;
                             k_end++;
                         }
@@ -296,14 +305,14 @@ function fallDown() {
         for (var j=board_height-1; j>=0; j--) {
             if (bg_grid[j][i].blocking) {
                 fallDist = 0;
-            } else if (board[j][i] == null) {
+            } else if (board[j][i] === undefined) {
                 fallDist++;
             } else {
                 if (fallDist > 0) {
                     var obj = board[j][i];
                     obj.y = (j+fallDist)*block_height;
                     board[j+fallDist][i] = obj;
-                    board[j][i] = null;
+                    board[j][i] = undefined;
                     changes++;
                 }
             }
@@ -331,8 +340,8 @@ function checkBoard(mark) {
     for (var j=0; j<board_height; j++) {
         for (var i=0; i<board_width; i++) {
             var obj = board[j][i];
-            if (obj != null && obj.to_remove) {
-                board[j][i] = null;
+            if (obj !== undefined && obj.to_remove) {
+                board[j][i] = undefined;
                 obj.dying = true;
                 //console.log("Removed:"+(j+1)+","+(i+1));
             }
@@ -348,7 +357,7 @@ function pressed(x,y) {
     // console.log("pressed: "+x+","+y);
     pressed_x = x;
     pressed_y = y;
-    selected = null;
+    selected = undefined;
 
     var sx = Math.floor(pressed_x/block_width);
     var sy = Math.floor(pressed_y/block_height);
@@ -367,7 +376,7 @@ function sign(x) {
 
 function moving(x,y) {
     console.log("moving: "+x+","+y);
-    if (selected == null)
+    if (selected === undefined)
         return;
 
     var dx = x-pressed_x;
@@ -424,12 +433,14 @@ function released(x,y) {
     var bx = sx+dx;
     var by = sy+dy;
 
-    var obj = null;
+    // var obj = null;
 
-    if (bx >= 0 && by >= 0 && bx < board_width && by < board_height)
-        obj = board[by][bx];
+    // if (bx >= 0 && by >= 0 && bx < board_width && by < board_height)
+    //     obj = board[by][bx];
 
-    console.log("here: s="+sx+","+sy+" d="+dx+","+dy);
+    var obj = gridObject(board, bx, by);
+
+    console.log("gridObject -> "+obj);
 
     board[sy][sx] = obj;
     board[by][bx] = selected;
@@ -440,7 +451,7 @@ function released(x,y) {
     var old_selx = selected_x*block_width;
     var old_sely = selected_y*block_height;
 
-    if (obj != null) {
+    if (obj !== undefined) {
         old_objx = obj.x;
         old_objy = obj.y;
         obj.x = old_selx;
@@ -451,7 +462,7 @@ function released(x,y) {
 
     var changes = checkBoard(false);
 
-    if (bg_grid[by][bx].blocking || (!changes && obj != null)) {
+    if (bg_grid[by][bx].blocking || (!changes && obj !== undefined)) {
         // console.log("go back");
         board[sy][sx] = selected;
         board[by][bx] = obj;
@@ -459,7 +470,7 @@ function released(x,y) {
         selected.x = old_selx;
         selected.y = old_sely;
 
-        if (obj) {
+        if (obj !== undefined) {
             obj.x = old_objx;
             obj.y = old_objy;
         }
@@ -471,8 +482,8 @@ function released(x,y) {
 function checkNew() {
     for (var i=0; i<board_width; i++) {
         var n=0;
-        while (n<board_height && board[n][i] == null &&
-               bg_grid[n][i].blocking == false)
+        while (n<board_height && board[n][i] === undefined &&
+               bg_grid[n][i].blocking === false)
             n++;
 
         for (var j=0; j<n; j++) {
