@@ -20,12 +20,6 @@ if (gameview.platform() === "harmattan") {
 
 var randomList = new Array();
 
-// var selected;
-// var selected_x;
-// var selected_y;
-
-// var pressed_x = -1;
-// var pressed_y = -1;
 var moving1;
 var moving2;
 
@@ -56,18 +50,53 @@ Number.method('abs', function () {
 
 //-----------------------------------------------------------------------------
 
-// Constructor for Point objects
-function Point(x, y) {
-    this.x = x;
-    this.y = y;
+// Constructs point objects
+var point = function (spec) {
+    var that = {};
+
+    if (typeof spec.x !== 'number' || typeof spec.y !== 'number') {
+        console.log("Error non-number given to point constructor: "+spec);
+        return that;
+    }
+
+    that.x = spec.x;
+    that.y = spec.y;
+
+    that.plus = function (pt) {
+        that.x += pt.x;
+        that.y += pt.y;
+        return that;
+    }
+
+    that.minus = function (pt) {
+        that.x -= pt.x;
+        that.y -= pt.y;
+        return that;
+    }
+
+    that.abs = function () {
+        return Math.max(that.x.abs(),that.y.abs());
+    }
+    
+    that.str = function () {
+        return that.x+", "+that.y;
+    }
+
+    return that;
 }
 
 //-----------------------------------------------------------------------------
 
-var gridObject = function(grid, x, y) {
-    if (x < 0 || y < 0 || x >= board_width || y >= board_height)
+// var gridObject = function(grid, x, y) {
+//     if (x < 0 || y < 0 || x >= board_width || y >= board_height)
+//         return undefined;
+//     return grid[y][x];
+// }
+var gridObject = function(grid, pt) {
+    if (pt.x < 0 || pt.y < 0 ||
+        pt.x >= board_width || pt.y >= board_height)
         return undefined;
-    return grid[y][x];
+    return grid[pt.y][pt.x];
 }
 
 //-----------------------------------------------------------------------------
@@ -76,22 +105,26 @@ var movementPoint = function (x, y) {
     var that = {};
     var my = {
         obj: undefined,
-        x: x,
-        y: y
+        // x: x,
+        // y: y
+        pt: point({x:x, y:y})
     }
 
-    my.bx = Math.floor(x/block_width);
-    my.by = Math.floor(y/block_height);
-
-    that.obj = gridObject(board, my.bx, my.by);
+    // my.bx = Math.floor(x/block_width);
+    // my.by = Math.floor(y/block_height);
+    my.bpt = point({x: Math.floor(x/block_width), y:Math.floor(y/block_height)});
+    that.obj = gridObject(board, my.bpt);
 
     if (that.obj === undefined)
         return undefined;
 
-    that.mouseX = function () { return my.x; }
-    that.mouseY = function () { return my.y; }
-    that.blockX = function () { return my.bx; }
-    that.blockY = function () { return my.by; }
+    // that.mouseX = function () { return my.x; }
+    // that.mouseY = function () { return my.y; }
+    // that.blockX = function () { return my.bx; }
+    // that.blockY = function () { return my.by; }
+
+    that.mousePt = function () { return my.pt; }
+    that.blockPt = function () { return my.bpt; }
     
     return that;
 };
@@ -114,7 +147,7 @@ function randomPositions() {
     var arr = new Array();
     for (var j=0; j<board_height; j++) {
         for (var i=0; i<board_width; i++) {
-            arr.push(new Point(i,j));
+            arr.push(point({x:i, y:j}));
         }
     }
 
@@ -415,60 +448,56 @@ var mousePressed = function (x, y) {
 
 var mouseMoved = function (x, y) {
     if (moving1 === undefined || okDialog.visible || mainMenu.visible ||
-        isRunning()) {
+        isRunning())
+    {
         moving1 = undefined;
         return;
     }
 
-    var dx = x - moving1.mouseX();
-    var dy = y - moving1.mouseY();
+    var dd = point({x:x, y:y}).minus(moving1.mousePt());
 
-    if (dx.abs() + dy.abs() < moveLimit)
+    if (dd.abs() < moveLimit)
         return;
 
-    if (dx.abs() > dy.abs()) {
-        dx = dx.sign(); dy = 0;
+    if (dd.x.abs() > dd.y.abs()) {
+        dd = point({x:dd.x.sign(), y:0});
     } else {
-        dx = 0; dy = dy.sign();
+        dd = point({x:0, y:dd.y.sign()});
     }
 
-    // console.log("(dx,dy)="+dx+","+dy);
+    console.log("dd="+dd.str());
 
-    var bx = moving1.blockX() + dx;
-    var by = moving1.blockY() + dy;
+    var bpt = point(moving1.blockPt()).plus(dd);
 
-    var obj = gridObject(board, bx, by);
+    var obj = gridObject(board, bpt);
 
-    var m1x = moving1.blockX();
-    var m1y = moving1.blockY();
+    var m1 = moving1.blockPt();
 
-    board[m1y][m1x] = obj;
-    board[by][bx] = moving1.obj;
+    board[m1.y][m1.x] = obj;
+    board[bpt.y][bpt.x] = moving1.obj;
 
-    var old_objx;
-    var old_objy;
+    var old_objpt;
 
     if (obj !== undefined) {
-        old_objx = obj.x;
-        old_objy = obj.y;
-        obj.x = m1x*block_width;
-        obj.y = m1y*block_height;
+        old_objpt = point(obj);
+        obj.x = m1.x * block_width;
+        obj.y = m1.y * block_height;
     }
-    moving1.obj.x = bx*block_width;
-    moving1.obj.y = by*block_height;
+    moving1.obj.x = bpt.x * block_width;
+    moving1.obj.y = bpt.y * block_height;
 
     var changes = checkBoard(false);
 
-    if (bg_grid[by][bx].blocking || (!changes && obj !== undefined)) {
-        board[m1y][m1x] = moving1.obj;
-        board[by][bx] = obj;
+    if (bg_grid[bpt.y][bpt.x].blocking || (!changes && obj !== undefined)) {
+        board[m1.y][m1.x] = moving1.obj;
+        board[bpt.y][bpt.x] = obj;
 
-        moving1.obj.x = m1x*block_width;
-        moving1.obj.y = m1y*block_height;
+        moving1.obj.x = m1.x*block_width;
+        moving1.obj.y = m1.y*block_height;
 
         if (obj !== undefined) {
-            obj.x = old_objx;
-            obj.y = old_objy;
+            obj.x = old_objpt.x;
+            obj.y = old_objpt.y;
         }
     }
 };
