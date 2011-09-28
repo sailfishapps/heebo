@@ -1,5 +1,7 @@
 //-----------------------------------------------------------------------------
 
+var moveLimit = 2;
+
 var jewel_maxtype = 5;
 
 var board_width = 8;
@@ -18,12 +20,39 @@ if (gameview.platform() === "harmattan") {
 
 var randomList = new Array();
 
-var selected;
-var selected_x;
-var selected_y;
+// var selected;
+// var selected_x;
+// var selected_y;
 
-var pressed_x = -1;
-var pressed_y = -1;
+// var pressed_x = -1;
+// var pressed_y = -1;
+var moving1;
+var moving2;
+
+//-----------------------------------------------------------------------------
+
+Function.prototype.method = function (name, func) {
+    this.prototype[name] = func;
+    return this;
+};
+
+//-----------------------------------------------------------------------------
+
+Number.method('sign', function () {
+    return this > 0 ? 1 : this < 0 ? -1 : 0;
+});
+
+//-----------------------------------------------------------------------------
+
+Number.method('abs', function () {
+    return Math.abs(this);
+});
+
+//-----------------------------------------------------------------------------
+
+// Number.method('restrict', function (from, to) {
+//     return Math.min(to, Math.max(from, this));
+// });
 
 //-----------------------------------------------------------------------------
 
@@ -38,9 +67,34 @@ function Point(x, y) {
 var gridObject = function(grid, x, y) {
     if (x < 0 || y < 0 || x >= board_width || y >= board_height)
         return undefined;
-    console.log("got this far");
     return grid[y][x];
 }
+
+//-----------------------------------------------------------------------------
+
+var movementPoint = function (x, y) {
+    var that = {};
+    var my = {
+        obj: undefined,
+        x: x,
+        y: y
+    }
+
+    my.bx = Math.floor(x/block_width);
+    my.by = Math.floor(y/block_height);
+
+    that.obj = gridObject(board, my.bx, my.by);
+
+    if (that.obj === undefined)
+        return undefined;
+
+    that.mouseX = function () { return my.x; }
+    that.mouseY = function () { return my.y; }
+    that.blockX = function () { return my.bx; }
+    that.blockY = function () { return my.by; }
+    
+    return that;
+};
 
 //-----------------------------------------------------------------------------
 
@@ -353,129 +407,71 @@ function checkBoard(mark) {
 
 //-----------------------------------------------------------------------------
 
-function pressed(x,y) {
-    // console.log("pressed: "+x+","+y);
-    pressed_x = x;
-    pressed_y = y;
-    selected = undefined;
+var mousePressed = function (x, y) {
+    moving1 = movementPoint(x, y);
+};
 
-    var sx = Math.floor(pressed_x/block_width);
-    var sy = Math.floor(pressed_y/block_height);
+//-----------------------------------------------------------------------------
 
-    if (sx < 0 || sy < 0 || sx >= board_width || sy >= board_height)
+var mouseMoved = function (x, y) {
+    if (moving1 === undefined || okDialog.visible || mainMenu.visible ||
+        isRunning()) {
+        moving1 = undefined;
+        return;
+    }
+
+    var dx = x - moving1.mouseX();
+    var dy = y - moving1.mouseY();
+
+    if (dx.abs() + dy.abs() < moveLimit)
         return;
 
-    selected = board[sy][sx];
-    selected_x = sx;
-    selected_y = sy;
-}
-
-function sign(x) {
-    return x > 0 ? 1 : x < 0 ? -1 : 0;
-}
-
-function moving(x,y) {
-    console.log("moving: "+x+","+y);
-    if (selected === undefined)
-        return;
-
-    var dx = x-pressed_x;
-    var dy = y-pressed_y;
-
-    if (Math.abs(dx) > Math.abs(dy)) {
-        dy = 0;
-        dx = Math.min(block_width,dx);
-        dx = Math.max(-block_width,dx);
+    if (dx.abs() > dy.abs()) {
+        dx = dx.sign(); dy = 0;
     } else {
-        dx = 0;
-        dy = Math.min(block_width,dy);
-        dy = Math.max(-block_width,dy);
+        dx = 0; dy = dy.sign();
     }
 
-    // selected.x = block_width*selected_x+dx;
-    // selected.y = block_height*selected_y+dy;
-    if (Math.abs(dx)+Math.abs(dy) > 2)
-        released(x,y);
-}
+    // console.log("(dx,dy)="+dx+","+dy);
 
-function reset_selected() {
-    if (selected) {
-        selected.x = block_width*selected_x;
-        selected.y = block_height*selected_y;
-    }
-}
-
-function released(x,y) {
-    console.log("released: "+x+","+y);
-
-    if (okDialog.visible || mainMenu.visible || isRunning()) {
-        //reset_selected();
-        return; 
-    }
-    
-    var dx = x-pressed_x;
-    var dy = y-pressed_y;
-
-    if (Math.abs(dx) > Math.abs(dy)) {
-        dx = sign(dx);
-        dy = 0;
-    } else {
-        dx = 0;
-        dy = sign(dy);
-    }
-
-    if (!selected)
-        return;
-
-    var sx = selected_x; //Math.floor(pressed_x/block_width);
-    var sy = selected_y; //Math.floor(pressed_y/block_height);
-
-    var bx = sx+dx;
-    var by = sy+dy;
-
-    // var obj = null;
-
-    // if (bx >= 0 && by >= 0 && bx < board_width && by < board_height)
-    //     obj = board[by][bx];
+    var bx = moving1.blockX() + dx;
+    var by = moving1.blockY() + dy;
 
     var obj = gridObject(board, bx, by);
 
-    console.log("gridObject -> "+obj);
+    var m1x = moving1.blockX();
+    var m1y = moving1.blockY();
 
-    board[sy][sx] = obj;
-    board[by][bx] = selected;
+    board[m1y][m1x] = obj;
+    board[by][bx] = moving1.obj;
 
-    var old_objx = -1;
-    var old_objy = -1;
-
-    var old_selx = selected_x*block_width;
-    var old_sely = selected_y*block_height;
+    var old_objx;
+    var old_objy;
 
     if (obj !== undefined) {
         old_objx = obj.x;
         old_objy = obj.y;
-        obj.x = old_selx;
-        obj.y = old_sely;
+        obj.x = m1x*block_width;
+        obj.y = m1y*block_height;
     }
-    selected.x = bx*block_width;
-    selected.y = by*block_height;
+    moving1.obj.x = bx*block_width;
+    moving1.obj.y = by*block_height;
 
     var changes = checkBoard(false);
 
     if (bg_grid[by][bx].blocking || (!changes && obj !== undefined)) {
-        // console.log("go back");
-        board[sy][sx] = selected;
+        board[m1y][m1x] = moving1.obj;
         board[by][bx] = obj;
 
-        selected.x = old_selx;
-        selected.y = old_sely;
+        moving1.obj.x = m1x*block_width;
+        moving1.obj.y = m1y*block_height;
 
         if (obj !== undefined) {
             obj.x = old_objx;
             obj.y = old_objy;
         }
     }
-}
+};
 
 //-----------------------------------------------------------------------------
 
