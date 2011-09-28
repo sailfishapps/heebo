@@ -25,7 +25,10 @@
 //------------------------------------------------------------------------------
 
 GameView::GameView(QWidget* parent) : QDeclarativeView(parent) {
-  m_mapset = new GameMapSet(":/map.dat", this);
+  readSettings();
+
+  m_mapset = new GameMapSet(":/map.dat", m_level, this);
+  connect(m_mapset, SIGNAL(levelChanged()), this, SLOT(onLevelChanged()));
 
   rootContext()->setContextProperty("mapset", m_mapset);
   rootContext()->setContextProperty("gameview", this);
@@ -41,4 +44,28 @@ QString GameView::platform() const {
 #else
   return "desktop";
 #endif
+}
+
+//------------------------------------------------------------------------------
+
+void GameView::onLevelChanged() {
+  writeSettings();
+}
+
+//------------------------------------------------------------------------------
+
+void GameView::writeSettings() {
+  QSettings s("qmljewels", "qmljewels");
+  s.beginGroup("Mapset");
+  s.setValue("level", m_mapset->level());
+  s.endGroup();
+}
+
+//------------------------------------------------------------------------------
+
+void GameView::readSettings() {
+  QSettings s("qmljewels", "qmljewels");
+  s.beginGroup("Mapset");
+  m_level = s.value("level", 0).toInt();
+  s.endGroup();
 }

@@ -8,12 +8,13 @@ inline uint qHash(const QPoint& p) {
 
 //------------------------------------------------------------------------------
 
-GameMapSet::GameMapSet(const QString& fileName, QObject* parent) :
+GameMapSet::GameMapSet(const QString& fileName, int initialLevel,
+                       QObject* parent) :
   QObject(parent),
   m_fileName(fileName)
 {
   loadMap();
-  setLevel(0);
+  setLevel(initialLevel);
 }
 
 //------------------------------------------------------------------------------

@@ -35,9 +35,14 @@ public:
 
 public slots:
   QString platform() const;
+  void onLevelChanged();
 
 private:
+  void writeSettings();
+  void readSettings();
+
   GameMapSet* m_mapset;
+  int m_level;
 };
 
 #endif /* _GAMEVIEW_H_ */

@@ -13,7 +13,8 @@ class GameMapSet : public QObject {
              NOTIFY levelChanged
              WRITE setLevel)
 public:
-  explicit GameMapSet(const QString& fileName, QObject* parent=0);
+    explicit GameMapSet(const QString& fileName, int initialLevel,
+                        QObject* parent=0);
 
   int level() const;
   int setLevel(int l);
