@@ -451,7 +451,7 @@ function released(x,y) {
 
     var changes = checkBoard(false);
 
-    if (!changes && obj != null) {
+    if (bg_grid[by][bx].blocking || (!changes && obj != null)) {
         // console.log("go back");
         board[sy][sx] = selected;
         board[by][bx] = obj;
@@ -459,90 +459,12 @@ function released(x,y) {
         selected.x = old_selx;
         selected.y = old_sely;
 
-        obj.x = old_objx;
-        obj.y = old_objy;
-    }
-}
-
-/*function clicked(x, y) {
-    if (okDialog.visible || mainMenu.visible)
-        return; 
-
-    var bx = Math.floor(x/block_width);
-    var by = Math.floor(y/block_height);
-
-    if (bx < 0 || by < 0 || bx >= block_width || by >= block_height)
-        return;
-    var obj = board[by][bx];
-
-    var posStr = "("+by+","+bx+")";
-
-    // Click on same object again: unselect
-    if (obj != null && obj.selected) {
-        obj.selected = false;
-        selected = null;
-        return;
-    }
-
-    // First object to be clicked
-    if (!selected) {
-        if (obj == null)
-            return;
-        obj.selected = true;
-        selected = obj;
-        return;
-    }
-
-    if (isRunning())
-        return;
-
-    // Second object to be clicked
-    selected.selected = false;
-
-    var sx = Math.floor(selected.x/block_width);
-    var sy = Math.floor(selected.y/block_height);
-    var dx = Math.abs(bx-sx);
-    var dy = Math.abs(by-sy);
-
-    if ((dx==1 && dy==0) || (dx==0 && dy == 1)) {
-        board[sy][sx] = obj;
-        board[by][bx] = selected;
-
-        var old_objx = obj.x;
-        var old_objy = obj.y;
-
-        var old_selx = selected.x;
-        var old_sely = selected.y;
-
-        if (obj != null) {
-            obj.x = selected.x;
-            obj.y = selected.y;
-        }
-        selected.x = bx*block_width;
-        selected.y = by*block_height;
-
-        var changes = checkBoard(false);
-        // if (changes || obj==null) {
-
-        // } else {
-        if (!changes && obj != null) {
-           // console.log("go back");
-            board[sy][sx] = selected;
-            board[by][bx] = obj;
-
-            selected.x = old_selx;
-            selected.y = old_sely;
-
+        if (obj) {
             obj.x = old_objx;
             obj.y = old_objy;
         }
-    } else if (obj != null) {
-        obj.selected = true;
-        selected = obj;
-        return;
     }
-    selected = null;
-}*/
+}
 
 //-----------------------------------------------------------------------------
 
