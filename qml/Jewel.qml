@@ -33,6 +33,16 @@ Item {
         "empty")+".png"
     }
 
+    function moveToBlock(pt) {
+        x = pt.x * mainPage.block_width;
+        y = pt.y * mainPage.block_height
+    }
+
+    function moveToPoint(pt) {
+        x = pt.x;
+        y = pt.y;
+    }
+
     function animationChanged() {
         if (!yAnimation.running && !xAnimation.running)
             mainPage.animDone();

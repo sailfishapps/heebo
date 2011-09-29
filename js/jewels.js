@@ -1,7 +1,5 @@
 //-----------------------------------------------------------------------------
 
-var moveLimit = 2;
-
 var jewel_maxtype = 5;
 
 var board_width = 8;
@@ -20,10 +18,10 @@ if (gameview.platform() === "harmattan") {
 
 var randomList = new Array();
 
+var moveLimit = 2;
 var moving1;
 var moving2;
 var playerMovement = false;
-var old_objpt;
 
 //-----------------------------------------------------------------------------
 
@@ -43,12 +41,6 @@ Number.method('sign', function () {
 Number.method('abs', function () {
     return Math.abs(this);
 });
-
-//-----------------------------------------------------------------------------
-
-// Number.method('restrict', function (from, to) {
-//     return Math.min(to, Math.max(from, this));
-// });
 
 //-----------------------------------------------------------------------------
 
@@ -95,27 +87,6 @@ var gridObject = function(grid, pt) {
         return undefined;
     return grid[pt.y][pt.x];
 }
-
-//-----------------------------------------------------------------------------
-
-var movementPoint = function (x, y) {
-    var that = {};
-    var my = {
-        obj: undefined,
-        pt: point({x:x, y:y})
-    }
-
-    my.bpt = point({x: Math.floor(x/block_width), y:Math.floor(y/block_height)});
-    that.obj = gridObject(board, my.bpt);
-
-    if (that.obj === undefined)
-        return undefined;
-
-    that.mousePt = function () { return my.pt; }
-    that.blockPt = function () { return my.bpt; }
-    
-    return that;
-};
 
 //-----------------------------------------------------------------------------
 
@@ -172,7 +143,15 @@ function init2DArray(arr) {
 
 function initBoard() {
     board = init2DArray(board);
+    board.set = function(pt, obj) {
+        this[pt.y][pt.x] = obj;
+    };
+
     bg_grid = init2DArray(bg_grid);
+    bg_grid.isBlocking = function(pt) {
+        var obj = this[pt.y][pt.x];
+        return obj && obj.blocking;
+    }
 }
 
 //-----------------------------------------------------------------------------
@@ -429,23 +408,28 @@ function checkBoard(mark) {
 //-----------------------------------------------------------------------------
 
 var mousePressed = function (x, y) {
-    moving1 = movementPoint(x, y);
+    moving1 = {};
+    moving1.pt = point({x: x, y: y});
+    moving1.bpt = point({x: Math.floor(x/block_width),
+                        y:Math.floor(y/block_height)});
+    moving1.obj = gridObject(board, moving1.bpt);
 };
 
 //-----------------------------------------------------------------------------
 
 var mouseMoved = function (x, y) {
-    if (moving1 === undefined || okDialog.visible || mainMenu.visible ||
-        isRunning())
+    if (moving1 === undefined || okDialog.visible ||
+        mainMenu.visible || isRunning())
     {
         if (!playerMovement)
             moving1 = undefined;
         return;
     }
 
-    var dd = point({x:x, y:y}).minus(moving1.mousePt());
+    var dd = point({x:x, y:y}).minus(moving1.pt);
 
-    if (dd.abs() < moveLimit)
+    var dist = dd.x.abs()-dd.y.abs();
+    if (dist.abs() < moveLimit)
         return;
 
     if (dd.x.abs() > dd.y.abs()) {
@@ -454,44 +438,20 @@ var mouseMoved = function (x, y) {
         dd = point({x:0, y:dd.y.sign()});
     }
 
-    // console.log("dd="+dd.str());
-
-    var bpt = point(moving1.blockPt()).plus(dd);
-
-    var obj = gridObject(board, bpt);
-
-    var m1 = moving1.blockPt();
-
-    board[m1.y][m1.x] = obj;
-    board[bpt.y][bpt.x] = moving1.obj;
-
     moving2 = {};
-    moving2.obj = obj;
-    moving2.bpt = bpt;
-    if (obj !== undefined) {
-        old_objpt = point(obj);
-        obj.x = m1.x * block_width;
-        obj.y = m1.y * block_height;
+    moving2.bpt = point(moving1.bpt).plus(dd);
+    moving2.obj = gridObject(board, moving2.bpt);
+
+    board.set(moving1.bpt, moving2.obj);
+    board.set(moving2.bpt, moving1.obj);
+
+    moving1.obj.moveToBlock(moving2.bpt);
+
+    if (moving2.obj !== undefined) {
+        moving2.oldPt = point(moving2.obj);
+        moving2.obj.moveToBlock(moving1.bpt);
     }
-    moving1.obj.x = bpt.x * block_width;
-    moving1.obj.y = bpt.y * block_height;
-
     playerMovement = true;
-
-    // var changes = checkBoard(false);
-
-    // if (bg_grid[bpt.y][bpt.x].blocking || (!changes && obj !== undefined)) {
-    //     board[m1.y][m1.x] = moving1.obj;
-    //     board[bpt.y][bpt.x] = obj;
-
-    //     moving1.obj.x = m1.x*block_width;
-    //     moving1.obj.y = m1.y*block_height;
-
-    //     if (obj !== undefined) {
-    //         obj.x = old_objpt.x;
-    //         obj.y = old_objpt.y;
-    //     }
-    // }
 };
 
 //-----------------------------------------------------------------------------
@@ -521,23 +481,18 @@ function checkNew() {
 //-----------------------------------------------------------------------------
 
 function onChanges() {
-    //console.log("onChanges()");
-
     if (playerMovement) {
         var changes = checkBoard(false);
-        var bpt = moving2.bpt;
-        var m1 = moving1.blockPt();
         
-        if (bg_grid[bpt.y][bpt.x].blocking || (!changes && moving2.obj !== undefined)) {
-            board[m1.y][m1.x] = moving1.obj;
-            board[bpt.y][bpt.x] = moving2.obj;
-            
-            moving1.obj.x = m1.x*block_width;
-            moving1.obj.y = m1.y*block_height;
-            
+        if (bg_grid.isBlocking(moving2.bpt) || 
+            (!changes && moving2.obj !== undefined))
+        {
+            board.set(moving1.bpt, moving1.obj);
+            board.set(moving2.bpt, moving2.obj);
+
+            moving1.obj.moveToBlock(moving1.bpt);
             if (moving2.obj !== undefined) {
-                moving2.obj.x = old_objpt.x;
-                moving2.obj.y = old_objpt.y;
+                moving2.obj.moveToPoint(moving2.oldPt);
             }
         }
         playerMovement = false;
