@@ -87,11 +87,6 @@ var point = function (spec) {
 
 //-----------------------------------------------------------------------------
 
-// var gridObject = function(grid, x, y) {
-//     if (x < 0 || y < 0 || x >= board_width || y >= board_height)
-//         return undefined;
-//     return grid[y][x];
-// }
 var gridObject = function(grid, pt) {
     if (pt.x < 0 || pt.y < 0 ||
         pt.x >= board_width || pt.y >= board_height)
@@ -105,23 +100,14 @@ var movementPoint = function (x, y) {
     var that = {};
     var my = {
         obj: undefined,
-        // x: x,
-        // y: y
         pt: point({x:x, y:y})
     }
 
-    // my.bx = Math.floor(x/block_width);
-    // my.by = Math.floor(y/block_height);
     my.bpt = point({x: Math.floor(x/block_width), y:Math.floor(y/block_height)});
     that.obj = gridObject(board, my.bpt);
 
     if (that.obj === undefined)
         return undefined;
-
-    // that.mouseX = function () { return my.x; }
-    // that.mouseY = function () { return my.y; }
-    // that.blockX = function () { return my.bx; }
-    // that.blockY = function () { return my.by; }
 
     that.mousePt = function () { return my.pt; }
     that.blockPt = function () { return my.bpt; }
