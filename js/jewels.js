@@ -465,7 +465,7 @@ var mouseMoved = function (x, y) {
         dd = point({x:0, y:dd.y.sign()});
     }
 
-    console.log("dd="+dd.str());
+    // console.log("dd="+dd.str());
 
     var bpt = point(moving1.blockPt()).plus(dd);
 
