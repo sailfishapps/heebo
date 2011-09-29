@@ -8,6 +8,7 @@
     <file alias="/images/square.png">images/square_60.png</file>
     <file alias="/images/triangle_down.png">images/triangle_down_60.png</file>
     <file alias="/images/triangle_up.png">images/triangle_up_60.png</file>
+    <file alias="/images/star.png">images/redStar.png</file>
     <!-- Maps -->
     <file>map.dat</file>
     <!-- JavaScript -->
