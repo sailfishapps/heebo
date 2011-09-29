@@ -60,21 +60,32 @@ var point = function (spec) {
         that.x += pt.x;
         that.y += pt.y;
         return that;
-    }
+    };
 
     that.minus = function (pt) {
         that.x -= pt.x;
         that.y -= pt.y;
         return that;
-    }
+    };
 
     that.abs = function () {
         return Math.max(that.x.abs(),that.y.abs());
-    }
+    };
     
     that.str = function () {
         return that.x+", "+that.y;
-    }
+    };
+
+    that.mul = function (f) {
+        that.x *= f;
+        that.y *= f;
+        return that;
+    };
+
+    that.insideGrid = function () {
+        return that.x >= 0 && that.y >= 0 &&
+            that.x < board_width && that.y < board_height;
+    };
 
     return that;
 }
@@ -82,10 +93,7 @@ var point = function (spec) {
 //-----------------------------------------------------------------------------
 
 var gridObject = function(grid, pt) {
-    if (pt.x < 0 || pt.y < 0 ||
-        pt.x >= board_width || pt.y >= board_height)
-        return undefined;
-    return grid[pt.y][pt.x];
+    return pt.insideGrid() ? grid[pt.y][pt.x] : undefined;
 }
 
 //-----------------------------------------------------------------------------
@@ -442,9 +450,11 @@ var mouseMoved = function (x, y) {
     moving2.bpt = point(moving1.bpt).plus(dd);
     moving2.obj = gridObject(board, moving2.bpt);
 
-    board.set(moving1.bpt, moving2.obj);
-    board.set(moving2.bpt, moving1.obj);
+    if (!moving2.bpt.insideGrid() || bg_grid.isBlocking(moving2.bpt))
+        return;
 
+    board.set(moving2.bpt, moving1.obj);
+    board.set(moving1.bpt, moving2.obj);
     moving1.obj.moveToBlock(moving2.bpt);
 
     if (moving2.obj !== undefined) {
@@ -496,8 +506,6 @@ function onChanges() {
             }
         }
         playerMovement = false;
-        moving1 = undefined;
-        moving2 = undefined;
     }
 
     fallDown();
