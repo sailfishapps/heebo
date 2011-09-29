@@ -22,6 +22,8 @@ var randomList = new Array();
 
 var moving1;
 var moving2;
+var playerMovement = false;
+var old_objpt;
 
 //-----------------------------------------------------------------------------
 
@@ -436,7 +438,8 @@ var mouseMoved = function (x, y) {
     if (moving1 === undefined || okDialog.visible || mainMenu.visible ||
         isRunning())
     {
-        moving1 = undefined;
+        if (!playerMovement)
+            moving1 = undefined;
         return;
     }
 
@@ -462,8 +465,9 @@ var mouseMoved = function (x, y) {
     board[m1.y][m1.x] = obj;
     board[bpt.y][bpt.x] = moving1.obj;
 
-    var old_objpt;
-
+    moving2 = {};
+    moving2.obj = obj;
+    moving2.bpt = bpt;
     if (obj !== undefined) {
         old_objpt = point(obj);
         obj.x = m1.x * block_width;
@@ -472,20 +476,22 @@ var mouseMoved = function (x, y) {
     moving1.obj.x = bpt.x * block_width;
     moving1.obj.y = bpt.y * block_height;
 
-    var changes = checkBoard(false);
+    playerMovement = true;
 
-    if (bg_grid[bpt.y][bpt.x].blocking || (!changes && obj !== undefined)) {
-        board[m1.y][m1.x] = moving1.obj;
-        board[bpt.y][bpt.x] = obj;
+    // var changes = checkBoard(false);
 
-        moving1.obj.x = m1.x*block_width;
-        moving1.obj.y = m1.y*block_height;
+    // if (bg_grid[bpt.y][bpt.x].blocking || (!changes && obj !== undefined)) {
+    //     board[m1.y][m1.x] = moving1.obj;
+    //     board[bpt.y][bpt.x] = obj;
 
-        if (obj !== undefined) {
-            obj.x = old_objpt.x;
-            obj.y = old_objpt.y;
-        }
-    }
+    //     moving1.obj.x = m1.x*block_width;
+    //     moving1.obj.y = m1.y*block_height;
+
+    //     if (obj !== undefined) {
+    //         obj.x = old_objpt.x;
+    //         obj.y = old_objpt.y;
+    //     }
+    // }
 };
 
 //-----------------------------------------------------------------------------
@@ -516,6 +522,28 @@ function checkNew() {
 
 function onChanges() {
     //console.log("onChanges()");
+
+    if (playerMovement) {
+        var changes = checkBoard(false);
+        var bpt = moving2.bpt;
+        var m1 = moving1.blockPt();
+        
+        if (bg_grid[bpt.y][bpt.x].blocking || (!changes && moving2.obj !== undefined)) {
+            board[m1.y][m1.x] = moving1.obj;
+            board[bpt.y][bpt.x] = moving2.obj;
+            
+            moving1.obj.x = m1.x*block_width;
+            moving1.obj.y = m1.y*block_height;
+            
+            if (moving2.obj !== undefined) {
+                moving2.obj.x = old_objpt.x;
+                moving2.obj.y = old_objpt.y;
+            }
+        }
+        playerMovement = false;
+        moving1 = undefined;
+        moving2 = undefined;
+    }
 
     fallDown();
 
