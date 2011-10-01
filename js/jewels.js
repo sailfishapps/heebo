@@ -16,11 +16,17 @@ if (gameview.platform() === "harmattan") {
     var block_height = 48;
 }
 
-var randomList = new Array();
+// List of coordinates of potentially uncleared points
+var unclearedPoints;
 
+// Pixels to drag/swipe until it's interpreted as a movement
 var moveLimit = 3;
+
+// Keeps information about the two blocks that are swiched
 var moving1;
 var moving2;
+
+// True when movement/switching of blocks is going on
 var playerMovement = false;
 
 //-----------------------------------------------------------------------------
@@ -46,11 +52,17 @@ Number.method('abs', function () {
 
 //-----------------------------------------------------------------------------
 
+var isNumber = function (obj) {
+    return typeof obj === 'number';
+}
+
+//-----------------------------------------------------------------------------
+
 // Constructs point objects
 var point = function (spec) {
     var that = {};
 
-    if (typeof spec.x !== 'number' || typeof spec.y !== 'number') {
+    if (!isNumber(spec.x) || !isNumber(spec.y)) {
         console.log("Error non-number given to point constructor: "+spec);
         return that;
     }
@@ -107,26 +119,6 @@ var random = function (from, to) {
 
 //-----------------------------------------------------------------------------
 // Functions for setting up the game level, boards and blocks
-//-----------------------------------------------------------------------------
-
-// FIXME: buggy implementation...
-var randomPositions = function () {
-    var arr = [];
-    for (var j=0; j<board_height; j++) {
-        for (var i=0; i<board_width; i++) {
-            arr.push(point({x:i, y:j}));
-        }
-    }
-
-    var newArr = [];
-    while (arr.length) {
-        var r = random(0,arr.length-1);
-        var e = arr.splice(r,1);
-        newArr.push(e[0]);
-    }
-    return newArr;
-};
-
 //-----------------------------------------------------------------------------
 
 // Initialises a game grid, possibly destroying old elements
@@ -199,20 +191,21 @@ var newBackgroundBlock = function (j, i) {
 // Starts new level
 var startNewGame = function () {
     initBoard();
-    
-    for (var i=0; i<jewel_maxtype; i++) {
-        randomList[i] = randomPositions();
-    }
 
     for (var j=0; j<board_height; j++)
         for (var i=0; i<board_width; i++)
             newBackgroundBlock(j, i);
 
+    unclearedPoints = [];
+
     for (var j=0; j<board_height; j++) {
         for (var i=0; i<board_width; i++) {
             var b = mapset.at(j,i);
-            if (b)
+            if (b) {
                 bg_grid[j][i].blocking = true;
+            } else {
+                unclearedPoints.push(point({x:i, y:j}));
+            }
         }
     }
 
@@ -308,25 +301,45 @@ var isRunning = function () {
 //-----------------------------------------------------------------------------
 
 // Clear random a block of given type
-// FIXME: buggy implementation!!
-var clearRandomBlock = function (block_type) {
-    var list = randomList[block_type-1];
+var clearRandomBlock = function (block_type, count) {
+    var i, pt, bg, obj;
 
-    var done = false;
-    while (list.length && !done) {
-        var p = list.pop();
-        var bg = bg_grid[p.y][p.x];
+    if (!isNumber(block_type) || !isNumber(count)) {
+        console.log("Bad call: clearRandomBlock("+block_type+", "+count+")");
+        return;
+    }
 
-        if (bg.blocking || bg.cleared)
-            continue;
+    // First, prune the unclearedPoints list from already cleared
+    // points.
+    for (i=unclearedPoints.length-1; i>=0; i--) {
+        pt = unclearedPoints[i];
+        bg = bg_grid[pt.y][pt.x];
+        if (bg.blocking || bg.cleared) {
+            unclearedPoints.splice(i, 1);
+        }
+    }
 
-        var bb = board[p.y][p.x];
-        if (bb !== undefined && bb.type === block_type) {
-            bg.cleared = true;
-            done = true;
-        }        
+    // Make a copy of the unclearedPoints list so that we can freely
+    // remove items from it.
+    var list = unclearedPoints.slice(0);
+
+    // Second, try to find an uncleared point with the correct type.
+    while (list.length > 0 && count > 0) {
+        // Remove a random point from the list.
+        i = random(0,list.length-1);
+        pt = list.splice(i, 1)[0];
+
+        obj = board[pt.y][pt.x];
+
+        // If the block object is defined and of the correct type
+        // clear it.
+        if (obj !== undefined && obj.type === block_type) {
+            bg_grid[pt.y][pt.x].cleared = true;
+            count--;
+            // console.log("Cleared "+pt.str()+" with type "+block_type);
+        }
     } 
-}
+};
 
 //-----------------------------------------------------------------------------
 
@@ -358,12 +371,14 @@ var fallDown = function () {
 
 var checkSubsequentOneWay = function (jmax, imax, rows, mark) {
     var changes = 0;
+    var last_b, count;
+    var i, j;
 
     // Check rows/columns for subsequent items
-    for (var j=0; j<jmax; j++) {
-        var last_b = 0;
-        var count = 0;
-        for (var i=0; i<imax; i++) {
+    for (j=0; j<jmax; j++) {
+        last_b = 0;
+        count = 0;
+        for (i=0; i<imax; i++) {
             var obj = rows ? board[j][i] : board[i][j];
             var b = 0;
 
@@ -395,10 +410,9 @@ var checkSubsequentOneWay = function (jmax, imax, rows, mark) {
                                 bg_grid[k][j].cleared = true;
                             }
                         }
-
-                        while (count >= 3) {
-                            clearRandomBlock(last_b);
-                            count--;
+                        
+                        if (count >= 3) {
+                            clearRandomBlock(last_b, count-2);
                         }
                     }
                     changes++;
