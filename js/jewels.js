@@ -18,11 +18,13 @@ if (gameview.platform() === "harmattan") {
 
 var randomList = new Array();
 
-var moveLimit = 2;
+var moveLimit = 3;
 var moving1;
 var moving2;
 var playerMovement = false;
 
+//-----------------------------------------------------------------------------
+// Utility functions, object constructors
 //-----------------------------------------------------------------------------
 
 Function.prototype.method = function (name, func) {
@@ -88,48 +90,47 @@ var point = function (spec) {
     };
 
     return that;
-}
+};
 
 //-----------------------------------------------------------------------------
 
-var gridObject = function(grid, pt) {
+var gridObject = function (grid, pt) {
     return pt.insideGrid() ? grid[pt.y][pt.x] : undefined;
-}
+};
 
 //-----------------------------------------------------------------------------
 
-function init() {
-    startNewGame();
-}
-
-//-----------------------------------------------------------------------------
-
-function random(from, to) {
+var random = function (from, to) {
     return Math.floor(Math.random()*(to-from+1)+from);
-}
+};
+
 
 //-----------------------------------------------------------------------------
+// Functions for setting up the game level, boards and blocks
+//-----------------------------------------------------------------------------
 
-function randomPositions() {
-    var arr = new Array();
+// FIXME: buggy implementation...
+var randomPositions = function () {
+    var arr = [];
     for (var j=0; j<board_height; j++) {
         for (var i=0; i<board_width; i++) {
             arr.push(point({x:i, y:j}));
         }
     }
 
-    var newArr = new Array();
+    var newArr = [];
     while (arr.length) {
         var r = random(0,arr.length-1);
         var e = arr.splice(r,1);
         newArr.push(e[0]);
     }
     return newArr;
-}
+};
 
 //-----------------------------------------------------------------------------
 
-function init2DArray(arr) {
+// Initialises a game grid, possibly destroying old elements
+var init2DArray = function (arr) {
     // Destroy old 2d array if there is such
     if (arr !== undefined) {
         for (var i=0; i<board_width; i++) {
@@ -145,11 +146,12 @@ function init2DArray(arr) {
     for (var j=0; j<board_height; j++) 
         arr[j] = new Array(board_width);
     return arr;
-}
+};
 
 //-----------------------------------------------------------------------------
 
-function initBoard() {
+// Initialises the board and the background grid
+var initBoard = function () {
     board = init2DArray(board);
     board.set = function(pt, obj) {
         this[pt.y][pt.x] = obj;
@@ -160,15 +162,14 @@ function initBoard() {
         var obj = this[pt.y][pt.x];
         return obj && obj.blocking;
     }
-}
+};
 
 //-----------------------------------------------------------------------------
 
-function newBlock(j, i, type) {
+var newBlock = function (j, i, type) {
     var component = Qt.createComponent("Jewel.qml");
     
-    // while (component.status != Component.Ready)
-    // {}
+    // while (component.status != Component.Ready) {}
     
     var obj = component.createObject(background);
     obj.x = i*block_width;
@@ -177,46 +178,26 @@ function newBlock(j, i, type) {
     obj.type = type;
     obj.spawned = true;
     board[j][i] = obj;
-}
+};
 
 //-----------------------------------------------------------------------------
 
-function newBackgroundBlock(j, i) {
+var newBackgroundBlock = function (j, i) {
     var component = Qt.createComponent("Block.qml");
     
-    // while (component.status != Component.Ready)
-    // {}
+    // while (component.status != Component.Ready) {}
     
     var obj = component.createObject(background);
     obj.x = i*block_width;
     obj.y = j*block_height;
 
     bg_grid[j][i] = obj;
-}
+};
 
 //-----------------------------------------------------------------------------
 
-function randomBlockType() {
-    return random(1,5);
-}
-
-//-----------------------------------------------------------------------------
-
-function firstLevel() {
-    mapset.level = 0;
-    startNewGame();
-}
-
-//-----------------------------------------------------------------------------
-
-function nextLevel() {
-    mapset.level++;
-    startNewGame();
-}
-
-//-----------------------------------------------------------------------------
-
-function startNewGame() {
+// Starts new level
+var startNewGame = function () {
     initBoard();
     
     for (var i=0; i<jewel_maxtype; i++) {
@@ -252,7 +233,7 @@ function startNewGame() {
 
             var type = 0;
             do {
-                type = randomBlockType();
+                type = random(1, jewel_maxtype);
             } while (type === skip1 || type === skip2);
 
             newBlock(j, i, type);
@@ -260,11 +241,56 @@ function startNewGame() {
     }
     
     return true;
-}
+};
 
 //-----------------------------------------------------------------------------
 
-function isRunning() {
+// This is called once when the game has loaded
+var init = function () {
+    startNewGame();
+};
+
+//-----------------------------------------------------------------------------
+
+// Restart with the first level
+var firstLevel = function () {
+    mapset.level = 0;
+    startNewGame();
+};
+
+//-----------------------------------------------------------------------------
+
+// Start the next level
+var nextLevel = function () {
+    mapset.level++;
+    startNewGame();
+};
+
+
+//-----------------------------------------------------------------------------
+// Main game logic functions, i.e. moving blocks, checking conditions,
+// reacting to events.
+// -----------------------------------------------------------------------------
+
+// Check victory condition
+var victoryCheck = function () {
+    var victory = true;
+    for (var j=0; j<board_height && victory; j++) {
+        for (var i=0; i<board_width && victory; i++) {
+            victory =
+                bg_grid[j][i].cleared || bg_grid[j][i].blocking;
+        }
+    }
+
+    if (victory) {
+        okDialog.show("Victory! ZÖMG!!");
+    }
+};
+    
+//-----------------------------------------------------------------------------
+
+// Checks if there are still animations running
+var isRunning = function () {
     var running = false;
     for (var j=0; j<board_height && !running; j++) {
         for (var i=0; i<board_width && !running; i++) {
@@ -277,11 +303,13 @@ function isRunning() {
     }
 
     return running;
-}
+};
 
 //-----------------------------------------------------------------------------
 
-function clearRandomBlock(block_type) {
+// Clear random a block of given type
+// FIXME: buggy implementation!!
+var clearRandomBlock = function (block_type) {
     var list = randomList[block_type-1];
 
     var done = false;
@@ -302,7 +330,33 @@ function clearRandomBlock(block_type) {
 
 //-----------------------------------------------------------------------------
 
-function checkBoardOneWay(jmax, imax, rows, mark) {
+// Check if blocks should fall down
+var fallDown = function () {
+    var changes = 0;
+    for (var i=0; i<board_width; i++) {
+        var fallDist = 0;
+        for (var j=board_height-1; j>=0; j--) {
+            if (bg_grid[j][i].blocking) {
+                fallDist = 0;
+            } else if (board[j][i] === undefined) {
+                fallDist++;
+            } else {
+                if (fallDist > 0) {
+                    var obj = board[j][i];
+                    obj.y = (j+fallDist)*block_height;
+                    board[j+fallDist][i] = obj;
+                    board[j][i] = undefined;
+                    changes++;
+                }
+            }
+        }
+    }
+    return changes;
+};
+
+//-----------------------------------------------------------------------------
+
+var checkSubsequentOneWay = function (jmax, imax, rows, mark) {
     var changes = 0;
 
     // Check rows/columns for subsequent items
@@ -356,43 +410,19 @@ function checkBoardOneWay(jmax, imax, rows, mark) {
     }
 
     return changes;
-}
+};
 
 //-----------------------------------------------------------------------------
 
-function fallDown() {
-    var changes = 0;
-    for (var i=0; i<board_width; i++) {
-        var fallDist = 0;
-        for (var j=board_height-1; j>=0; j--) {
-            if (bg_grid[j][i].blocking) {
-                fallDist = 0;
-            } else if (board[j][i] === undefined) {
-                fallDist++;
-            } else {
-                if (fallDist > 0) {
-                    var obj = board[j][i];
-                    obj.y = (j+fallDist)*block_height;
-                    board[j+fallDist][i] = obj;
-                    board[j][i] = undefined;
-                    changes++;
-                }
-            }
-        }
-    }
-    return changes;
-}
-
-//-----------------------------------------------------------------------------
-
-function checkBoard(mark) {
+// Checks board for 3 or more subsequent jewels
+var checkForSubsequentJewels = function (mark) {
     var changes = 0;
 
     // Check rows for subsequent items
-    changes += checkBoardOneWay(board_height, board_width, true, mark);
+    changes += checkSubsequentOneWay(board_height, board_width, true, mark);
 
     // Check columns for subsequent items
-    changes += checkBoardOneWay(board_width, board_height, false, mark);
+    changes += checkSubsequentOneWay(board_width, board_height, false, mark);
 
     // If we're just checking, now is a good time to return
     if (!mark)
@@ -411,11 +441,75 @@ function checkBoard(mark) {
     }
 
     return changes;
-}
+};
 
 //-----------------------------------------------------------------------------
 
+// Checks if new blocks need to be spawned
+var spawnNewJewels = function () {
+    for (var i=0; i<board_width; i++) {
+        var n=0;
+        while (n<board_height && board[n][i] === undefined &&
+               bg_grid[n][i].blocking === false)
+            n++;
+
+        for (var j=0; j<n; j++) {
+            var component = Qt.createComponent("Jewel.qml");
+    
+            var obj = component.createObject(background);
+            obj.x = i*block_width;
+            obj.y = -block_height*(j+1);
+
+            obj.type = random(1, jewel_maxtype);
+            obj.spawned = true;
+            board[n-j-1][i] = obj;
+            obj.y = block_height*(n-j-1);
+        }
+    }
+};
+
+//-----------------------------------------------------------------------------
+
+// Called when "stuff has changed", i.e. movement stopped, jewels
+// destroyed, ...
+var onChanges = function () {
+    if (playerMovement) {
+        var changes = checkForSubsequentJewels(false);
+        
+        if (bg_grid.isBlocking(moving2.bpt) || 
+            (!changes && moving2.obj !== undefined))
+        {
+            board.set(moving1.bpt, moving1.obj);
+            board.set(moving2.bpt, moving2.obj);
+
+            moving1.obj.moveToBlock(moving1.bpt);
+            if (moving2.obj !== undefined) {
+                moving2.obj.moveToPoint(moving2.oldPt);
+            }
+        }
+        playerMovement = false;
+    }
+
+    fallDown();
+
+    if (!isRunning()) {
+        spawnNewJewels();
+        fallDown();
+    }
+
+    if (!isRunning()) 
+        checkForSubsequentJewels(true);
+
+    victoryCheck();
+};
+
+//-----------------------------------------------------------------------------
+
+// Called when user presses mouse button or taps down
 var mousePressed = function (x, y) {
+    if (playerMovement)
+        return;
+
     moving1 = {};
     moving1.pt = point({x: x, y: y});
     moving1.bpt = point({x: Math.floor(x/block_width),
@@ -425,14 +519,18 @@ var mousePressed = function (x, y) {
 
 //-----------------------------------------------------------------------------
 
+// Called when user moves mouse or swipes 
 var mouseMoved = function (x, y) {
-    if (moving1 === undefined || okDialog.visible ||
-        mainMenu.visible || isRunning())
+    if (moving1 === undefined || moving1.obj === undefined ||
+        okDialog.visible || mainMenu.visible || isRunning())
     {
         if (!playerMovement)
             moving1 = undefined;
         return;
     }
+
+    if (playerMovement)
+        return;
 
     var dd = point({x:x, y:y}).minus(moving1.pt);
 
@@ -464,76 +562,3 @@ var mouseMoved = function (x, y) {
     playerMovement = true;
 };
 
-//-----------------------------------------------------------------------------
-
-function checkNew() {
-    for (var i=0; i<board_width; i++) {
-        var n=0;
-        while (n<board_height && board[n][i] === undefined &&
-               bg_grid[n][i].blocking === false)
-            n++;
-
-        for (var j=0; j<n; j++) {
-            var component = Qt.createComponent("Jewel.qml");
-    
-            var obj = component.createObject(background);
-            obj.x = i*block_width;
-            obj.y = -block_height*(j+1);
-
-            obj.type = randomBlockType();
-            obj.spawned = true;
-            board[n-j-1][i] = obj;
-            obj.y = block_height*(n-j-1);
-        }
-    }
-}
-
-//-----------------------------------------------------------------------------
-
-function onChanges() {
-    if (playerMovement) {
-        var changes = checkBoard(false);
-        
-        if (bg_grid.isBlocking(moving2.bpt) || 
-            (!changes && moving2.obj !== undefined))
-        {
-            board.set(moving1.bpt, moving1.obj);
-            board.set(moving2.bpt, moving2.obj);
-
-            moving1.obj.moveToBlock(moving1.bpt);
-            if (moving2.obj !== undefined) {
-                moving2.obj.moveToPoint(moving2.oldPt);
-            }
-        }
-        playerMovement = false;
-    }
-
-    fallDown();
-
-    if (!isRunning()) {
-        checkNew();
-        fallDown();
-    }
-
-    if (!isRunning()) 
-        checkBoard(true);
-
-    victoryCheck();
-}
-
-//-----------------------------------------------------------------------------
-
-function victoryCheck() {
-    var victory = true;
-    for (var j=0; j<board_height && victory; j++) {
-        for (var i=0; i<board_width && victory; i++) {
-            victory =
-                bg_grid[j][i].cleared || bg_grid[j][i].blocking;
-        }
-    }
-
-    if (victory) {
-        okDialog.show("Victory! ZÖMG!!");
-    }
-}
-    
