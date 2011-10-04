@@ -12,7 +12,7 @@ Image {
     
     z: blocking ? 1 : -1
     
-    source: "qrc:///images/"+(blocking ? "empty" :
+    source: "qrc:///images/"+(blocking ? "block_wall_1" :
                               cleared ? "block_gold" :
                               "bg" )+".png"
 }

@@ -10,6 +10,7 @@
     <file alias="/images/triangle_up.png">images/triangle_up.png</file>
     <file alias="/images/star.png">images/redStar.png</file>
     <file alias="/images/block_gold.png">images/block_gold.png</file>
+    <file alias="/images/block_wall_1.png">images/block_wall_1.png</file>
     <file alias="/images/bg.png">images/bg_60.png</file>
     <!-- Maps -->
     <file>map.dat</file>

@@ -527,7 +527,6 @@ var mousePressed = function (x, y) {
             // console.log("Weird: playerMovement===true but isRunning()===false");
             playerMovement=false;
         }
-            
         return;
     }
 
@@ -552,7 +551,6 @@ var mouseMoved = function (x, y) {
 
     if (playerMovement)
         return;
-    playerMovement = true;
 
     var dd = point({x:x, y:y}).minus(moving1.pt);
 
@@ -572,6 +570,8 @@ var mouseMoved = function (x, y) {
 
     if (!moving2.bpt.insideGrid() || bg_grid.isBlocking(moving2.bpt))
         return;
+
+    playerMovement = true;
 
     board.set(moving2.bpt, moving1.obj);
     board.set(moving1.bpt, moving2.obj);
