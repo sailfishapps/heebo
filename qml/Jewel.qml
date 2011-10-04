@@ -8,6 +8,8 @@ Item {
     width: mainPage.block_width
     height: mainPage.block_height
 
+    z: 0
+
     property int type;
     property bool spawned: false;
     property bool selected: false;
@@ -26,13 +28,12 @@ Item {
         
         width: jewel.width; height: jewel.width
 
-        source: "qrc:///images/"+(
-        type == 1 ? "circle" :
-        type == 2 ? "polygon" :
-        type == 3 ? "square" :
-        type == 4 ? "triangle_down" :
-        type == 5 ? "triangle_up" :
-        "empty")+".png"
+        source: "qrc:///images/"+(type == 1 ? "circle" :
+                                  type == 2 ? "polygon" :
+                                  type == 3 ? "square" :
+                                  type == 4 ? "triangle_down" :
+                                  type == 5 ? "triangle_up" :
+                                  "empty")+".png"
 
         opacity: 1
 

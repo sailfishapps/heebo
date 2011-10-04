@@ -20,7 +20,7 @@ if (gameview.platform() === "harmattan") {
 var unclearedPoints;
 
 // Pixels to drag/swipe until it's interpreted as a movement
-var moveLimit = 3;
+var moveLimit = 5;
 
 // Keeps information about the two blocks that are swiched
 var moving1;
@@ -190,6 +190,7 @@ var newBackgroundBlock = function (j, i) {
 
 // Starts new level
 var startNewGame = function () {
+    playerMovement = false;
     initBoard();
 
     for (var j=0; j<board_height; j++)
@@ -521,8 +522,14 @@ var onChanges = function () {
 
 // Called when user presses mouse button or taps down
 var mousePressed = function (x, y) {
-    if (playerMovement)
+    if (playerMovement) {
+        if (!isRunning()) {
+            // console.log("Weird: playerMovement===true but isRunning()===false");
+            playerMovement=false;
+        }
+            
         return;
+    }
 
     moving1 = {};
     moving1.pt = point({x: x, y: y});
@@ -545,6 +552,7 @@ var mouseMoved = function (x, y) {
 
     if (playerMovement)
         return;
+    playerMovement = true;
 
     var dd = point({x:x, y:y}).minus(moving1.pt);
 
@@ -573,6 +581,5 @@ var mouseMoved = function (x, y) {
         moving2.oldPt = point(moving2.obj);
         moving2.obj.moveToBlock(moving1.bpt);
     }
-    playerMovement = true;
 };
 

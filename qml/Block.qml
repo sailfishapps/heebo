@@ -1,7 +1,7 @@
 import QtQuick 1.0
 import com.nokia.meego 1.0
 
-Rectangle {
+Image {
     id: block
 
     property bool cleared: false;
@@ -10,10 +10,9 @@ Rectangle {
     width: mainPage.block_width
     height: mainPage.block_height
     
-    z: -1
+    z: blocking ? 1 : -1
     
-    color:
-    blocking ? "black" :
-    cleared ? "yellow" :
-    "#2E2E2F";
+    source: "qrc:///images/"+(blocking ? "empty" :
+                              cleared ? "block_gold" :
+                              "bg" )+".png"
 }
