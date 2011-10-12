@@ -15,15 +15,15 @@
     <!-- Maps -->
     <file>map.dat</file>
     <!-- JavaScript -->
-    <file>js/jewels.js</file>
+    <file alias="js/jewels.js">src/js/jewels.js</file>
     <!-- QML -->
-    <file>qml/JewelButton.qml</file>
-    <file>qml/Jewel.qml</file>
-    <file>qml/Block.qml</file>
-    <file>qml/JewelDialog.qml</file>
-    <file>qml/MainPage.qml</file>
-    <file>qml/JMenu.qml</file>
-    <file>qml/JMenuLayout.qml</file>
-    <file>qml/JMenuItem.qml</file>
+    <file alias="qml/JewelButton.qml">src/qml/JewelButton.qml</file>
+    <file alias="qml/Jewel.qml">src/qml/Jewel.qml</file>
+    <file alias="qml/Block.qml">src/qml/Block.qml</file>
+    <file alias="qml/JewelDialog.qml">src/qml/JewelDialog.qml</file>
+    <file alias="qml/MainPage.qml">src/qml/MainPage.qml</file>
+    <file alias="qml/JMenu.qml">src/qml/JMenu.qml</file>
+    <file alias="qml/JMenuLayout.qml">src/qml/JMenuLayout.qml</file>
+    <file alias="qml/JMenuItem.qml">src/qml/JMenuItem.qml</file>
   </qresource>
 </RCC>

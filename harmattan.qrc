@@ -2,7 +2,7 @@
 <RCC>
   <qresource prefix="/">
     <!-- QML -->
-    <file alias="qml/main.qml">qml/harmattan/main.qml</file>
-    <file alias="qml/JewelPage.qml">qml/harmattan/JewelPage.qml</file>
+    <file alias="qml/main.qml">src/qml/harmattan/main.qml</file>
+    <file alias="qml/JewelPage.qml">src/qml/harmattan/JewelPage.qml</file>
   </qresource>
 </RCC>
