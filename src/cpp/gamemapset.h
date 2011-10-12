@@ -11,13 +11,17 @@ class GameMapSet : public QObject {
   Q_PROPERTY(int level
              READ level
              NOTIFY levelChanged
-             WRITE setLevel)
+             WRITE setLevel);
+  Q_PROPERTY(bool onLastLevel
+             READ onLastLevel);
+  
 public:
-    explicit GameMapSet(const QString& fileName, int initialLevel,
-                        QObject* parent=0);
-
+  explicit GameMapSet(const QString& fileName, int initialLevel,
+                      QObject* parent=0);
+  
   int level() const;
   int setLevel(int l);
+  bool onLastLevel() const { return m_level == m_number-1; }
 
 public slots:
   int at(int r, int c) const;

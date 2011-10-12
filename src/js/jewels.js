@@ -277,7 +277,9 @@ var victoryCheck = function () {
     }
 
     if (victory) {
-        okDialog.show("Victory! ZÖMG!!");
+        okDialog.show(mapset.onLastLevel ?
+                      "That was the last level!\n CONGRATULATIONS!!!" :
+                      "You cleared the level!\n ZÖMG!");
     }
 };
     
