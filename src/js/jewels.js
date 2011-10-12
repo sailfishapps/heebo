@@ -2,8 +2,8 @@
 
 var jewel_maxtype = 5;
 
-var board_width = 8;
-var board_height = 12;
+var board_width = 6;
+var board_height = 9;
 
 var board;
 var bg_grid;
@@ -12,8 +12,8 @@ if (gameview.platform() === "harmattan") {
     var block_width = 80;
     var block_height = 80;
 } else {
-    var block_width = 48;
-    var block_height = 48;
+    var block_width = 60;
+    var block_height = 60;
 }
 
 // List of coordinates of potentially uncleared points
