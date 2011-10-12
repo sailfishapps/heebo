@@ -2,7 +2,7 @@
 <RCC>
   <qresource prefix="/">
     <!-- Images -->
-    <file alias="/images/empty.png">images/empty_60.png</file>
+    <file alias="/images/empty.png">images/empty_80.png</file>
     <file alias="/images/circle.png">images/circle.png</file>
     <file alias="/images/polygon.png">images/polygon.png</file>
     <file alias="/images/square.png">images/square.png</file>
@@ -11,7 +11,7 @@
     <file alias="/images/star.png">images/redStar.png</file>
     <file alias="/images/block_gold.png">images/block_gold.png</file>
     <file alias="/images/block_wall_1.png">images/block_wall_1.png</file>
-    <file alias="/images/bg.png">images/bg_60.png</file>
+    <file alias="/images/bg.png">images/bg_80.png</file>
     <!-- Maps -->
     <file>map.dat</file>
     <!-- JavaScript -->

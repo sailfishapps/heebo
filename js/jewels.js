@@ -9,8 +9,8 @@ var board;
 var bg_grid;
 
 if (gameview.platform() === "harmattan") {
-    var block_width = 60;
-    var block_height = 60;
+    var block_width = 80;
+    var block_height = 80;
 } else {
     var block_width = 48;
     var block_height = 48;
