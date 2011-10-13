@@ -9,7 +9,7 @@ Item {
 
     z: 0
 
-    property int type;
+    property int type: 0;
     property bool spawned: false;
     property bool selected: false;
     property bool to_remove: false;
@@ -33,7 +33,7 @@ Item {
                                   type == 4 ? "triangle_down" :
                                   type == 5 ? "triangle_up" :
                                   "empty")
-                                +(mainPage.isRunning?"-blink":"")
+                                +(mainPage.isRunning && type?"-blink":"")
                                 +".png"
         opacity: 1
 
