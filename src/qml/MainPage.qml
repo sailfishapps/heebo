@@ -10,6 +10,8 @@ JewelPage {
     property int toolbar_height: 99
 
     property int font_size: 42
+
+    property bool isRunning: false
     
     signal animDone()
     signal jewelKilled();

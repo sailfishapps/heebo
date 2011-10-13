@@ -32,8 +32,9 @@ Item {
                                   type == 3 ? "square" :
                                   type == 4 ? "triangle_down" :
                                   type == 5 ? "triangle_up" :
-                                  "empty")+".png"
-
+                                  "empty")
+                                +(mainPage.isRunning?"-blink":"")
+                                +".png"
         opacity: 1
 
         Behavior on opacity {

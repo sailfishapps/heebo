@@ -298,6 +298,7 @@ var isRunning = function () {
         }
     }
 
+    mainPage.isRunning = running;
     return running;
 };
 
