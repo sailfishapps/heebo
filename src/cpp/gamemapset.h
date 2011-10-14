@@ -24,7 +24,7 @@ public:
   bool onLastLevel() const { return m_level == m_number-1; }
 
 public slots:
-  int at(int r, int c) const;
+  QString at(int r, int c) const;
 
 signals:
   void levelChanged();

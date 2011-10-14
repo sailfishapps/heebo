@@ -202,9 +202,10 @@ var startNewGame = function () {
     for (var j=0; j<board_height; j++) {
         for (var i=0; i<board_width; i++) {
             var b = mapset.at(j,i);
-            if (b) {
+            if (b === 'W') {
                 bg_grid[j][i].blocking = true;
             } else {
+                bg_grid[j][i].wall_border = b;
                 unclearedPoints.push(point({x:i, y:j}));
             }
         }

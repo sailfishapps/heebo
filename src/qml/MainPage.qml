@@ -83,7 +83,10 @@ JewelPage {
                 text: "New Game"
                 onClicked: Jewels.firstLevel()
             }
-            JMenuItem { text: "About" }
+            JMenuItem {
+                text: "About"
+                onClicked: Jewels.nextLevel()
+            }
         }
     }
 

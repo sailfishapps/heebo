@@ -10,9 +10,9 @@ GameMap::GameMap(int width, int height) :
 
 //------------------------------------------------------------------------------
 
-int GameMap::at(int r, int c) const {
+QChar GameMap::at(int r, int c) const {
   if (r < 0 || r >= m_height || c < 0 || c >=m_width)
-    return -1;
+    return ' ';
   return m_map[r][c];
 }
 
@@ -33,14 +33,15 @@ void GameMap::load(QTextStream& in) {
       return;
     }
 
-    QList<int> list;
+    QList<QChar> list;
     for (int i=0; i<m_width; i++) {
       QChar ch = line[i];
-      if (!ch.isDigit()) {
-        qCritical() << "Character" << ch << "on line" << n << "is not a digit.";
+      if (!QString("012346789W|-<>").contains(ch)) {
+        qCritical() << "Character" << ch << "on line" << n
+                    << "is not an allowed map character.";
         return;
       }
-      list.append(ch.digitValue());
+      list.append(ch);
     }
     m_map.append(list);
   }      

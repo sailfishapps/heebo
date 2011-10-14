@@ -12,6 +12,18 @@
     <file alias="/images/star.png">images/redStar.png</file>
     <file alias="/images/block_gold.png">images/block_gold.png</file>
     <file alias="/images/block_wall_1.png">images/block_wall_1.png</file>
+    <file alias="/images/wb_2.png">images/block_wall_bottom.png</file>
+    <file alias="/images/wb_4.png">images/block_wall_left.png</file>
+    <file alias="/images/wb_6.png">images/block_wall_right.png</file>
+    <file alias="/images/wb_8.png">images/block_wall_top.png</file>
+    <file alias="/images/wb_1.png">images/wb_1.png</file>
+    <file alias="/images/wb_3.png">images/wb_3.png</file>
+    <file alias="/images/wb_7.png">images/wb_7.png</file>
+    <file alias="/images/wb_9.png">images/wb_9.png</file>
+    <file alias="/images/wb_deadend_left.png">images/wb_deadend_left.png</file>
+    <file alias="/images/wb_deadend_right.png">images/wb_deadend_right.png</file>
+    <file alias="/images/wb_leftright.png">images/wb_leftright.png</file>
+    <file alias="/images/wb_updown.png">images/wb_updown.png</file>
     <!-- blink -->
     <file alias="/images/circle-blink.png">images/circle-blink.png</file>
     <file alias="/images/polygon-blink.png">images/polygon-blink.png</file>

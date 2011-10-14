@@ -36,8 +36,19 @@ int GameMapSet::setLevel(int l) {
 
 //------------------------------------------------------------------------------
 
-int GameMapSet::at(int r, int c) const {
-  return m_maps[m_level]->at(r,c);
+QString GameMapSet::at(int r, int c) const {
+  QChar ch = m_maps[m_level]->at(r,c);
+  
+  if (ch == '|') 
+    return "updown";
+  else if (ch == '-')
+    return "leftright";
+  else if (ch == '<')
+    return "deadend_left";
+  else if (ch == '>')
+    return "deadend_right";
+  else
+    return ch;
 }
 
 //------------------------------------------------------------------------------
