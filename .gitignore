@@ -13,6 +13,6 @@ TAGS
 /build/harmattan/build-stamp
 /build/harmattan/configure-stamp
 /build/harmattan/qmljewels
-/build/qmljewel_0.0.1_armel.changes
-/build/qmljewel_0.0.1_armel.deb
+/build/qmljewel_*_armel.changes
+/build/qmljewel_*_armel.deb
 /build/harmattan/debian/files
