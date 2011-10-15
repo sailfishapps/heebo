@@ -374,60 +374,76 @@ var fallDown = function () {
 
 //-----------------------------------------------------------------------------
 
-var checkSubsequentOneWay = function (jmax, imax, rows, mark) {
-    var changes = 0;
-    var last_b, count;
-    var i, j;
+// Check one line (row/column) for subsequent jewels of same colour.
+// j gives the row/column
+// 
+var checkSubsequentLine = function(j, rows, mark) {
+    var last_b = 0, count = 0, changes = 0, i;
+    var imax = rows ? board_width : board_height;
 
-    // Check rows/columns for subsequent items
-    for (j=0; j<jmax; j++) {
-        last_b = 0;
-        count = 0;
-        for (i=0; i<imax; i++) {
-            var obj = rows ? board[j][i] : board[i][j];
-            var b = 0;
+    for (i=0; i<imax; i++) {
+        var obj = rows ? board[j][i] : board[i][j];
+        var b = 0;
 
-            if (obj)
-                b = obj.type;
+        if (obj)
+            b = obj.type;
 
-            if (b != 0 && last_b === b)
-                count++;
+        if (b != 0 && last_b === b)
+            count++;
 
-            if (last_b !== b || i === imax-1) {
-                if (count >= 2) {
-                    if (mark) {
-                        var k_begin = i-count-1;
-                        var k_end = i;
-                        if (last_b === b) {
-                            k_begin++;
-                            k_end++;
-                        }
-                        
-                        // console.log("Removing "+(rows?"row":"column")+" "+(j+1)+
-                        //             " from "+(k_begin+1)+" to "+k_end);
-                        
-                        for (var k=k_begin; k<k_end; k++) {
-                            if (rows) {
-                                board[j][k].to_remove = true;
-                                bg_grid[j][k].cleared = true;
-                            } else {
-                                board[k][j].to_remove = true;
-                                bg_grid[k][j].cleared = true;
-                            }
-                        }
-                        
-                        if (count >= 3) {
-                            clearRandomBlock(last_b, count-2);
+        if (last_b !== b || i === imax-1) {
+            if (count >= 2) {
+                if (mark) {
+                    var k_begin = i-count-1;
+                    var k_end = i;
+                    if (last_b === b) {
+                        k_begin++;
+                        k_end++;
+                    }
+                    
+                    // console.log("Removing "+(rows?"row":"column")+" "+(j+1)+
+                    //             " from "+(k_begin+1)+" to "+k_end);
+                    
+                    for (var k=k_begin; k<k_end; k++) {
+                        if (rows) {
+                            board[j][k].to_remove = true;
+                            bg_grid[j][k].cleared = true;
+                        } else {
+                            board[k][j].to_remove = true;
+                            bg_grid[k][j].cleared = true;
                         }
                     }
-                    changes++;
+                    
+                    if (count >= 3) {
+                        clearRandomBlock(last_b, count-2);
+                    }
                 }
-                count = 0;
+                changes++;
             }
-            last_b = b;
+            count = 0;
         }
+        last_b = b;
     }
+    return changes;
+};
 
+//-----------------------------------------------------------------------------
+
+var checkSubsequentOnRows = function (mark) {
+    var changes = 0, j;
+    for (j=0; j<board_height; j++) {
+        changes += checkSubsequentLine(j, true, mark);
+    }
+    return changes;
+};
+
+//-----------------------------------------------------------------------------
+
+var checkSubsequentOnColumns = function (mark) {
+    var changes = 0, i;
+    for (i=0; i<board_width; i++) {
+        changes += checkSubsequentLine(i, false, mark);
+    }
     return changes;
 };
 
@@ -438,10 +454,10 @@ var checkForSubsequentJewels = function (mark) {
     var changes = 0;
 
     // Check rows for subsequent items
-    changes += checkSubsequentOneWay(board_height, board_width, true, mark);
+    changes += checkSubsequentOnRows(mark);
 
     // Check columns for subsequent items
-    changes += checkSubsequentOneWay(board_width, board_height, false, mark);
+    changes += checkSubsequentOnColumns(mark);
 
     // If we're just checking, now is a good time to return
     if (!mark)
@@ -489,11 +505,22 @@ var spawnNewJewels = function () {
 
 //-----------------------------------------------------------------------------
 
+var checkSwitch = function (pt1, pt2) {
+    var changes = 0;
+    changes += checkSubsequentLine(pt1.x, false, false);
+    changes += checkSubsequentLine(pt1.y, true, false);
+    changes += checkSubsequentLine(pt2.x, false, false);
+    changes += checkSubsequentLine(pt2.y, true, false);
+    return changes;
+};
+
+//-----------------------------------------------------------------------------
+
 // Called when "stuff has changed", i.e. movement stopped, jewels
 // destroyed, ...
 var onChanges = function () {
     if (playerMovement) {
-        var changes = checkForSubsequentJewels(false);
+        var changes = checkSwitch(moving1.bpt, moving2.bpt);
         
         if (bg_grid.isBlocking(moving2.bpt) || 
             (!changes && moving2.obj !== undefined))
