@@ -16,6 +16,8 @@ JewelPage {
 
     property int font_size: 42
 
+    property real buttonOffset: 0.0
+
     property bool isRunning: false
     
     signal animDone()
@@ -102,6 +104,7 @@ JewelPage {
             anchors {
                 right: parent.right
                 verticalCenter: parent.verticalCenter
+                verticalCenterOffset: -40*mainPage.buttonOffset
                 rightMargin: 20
             }
 
@@ -111,6 +114,17 @@ JewelPage {
                 onPressed: menuButton.source="qrc:///images/icon_menu_pressed.png"
                 onReleased: menuButton.source="qrc:///images/icon_menu.png"
             }
+
+            Behavior on anchors.verticalCenterOffset {
+                /* SmoothedAnimation { velocity: 150 } */
+                SpringAnimation {
+                    epsilon: 0.25
+                    damping: 0.1
+                    spring: 2
+                    /* velocity: 150 */
+                }
+            }
+
         }
     }
 
@@ -138,6 +152,10 @@ JewelPage {
             anchors.fill: parent
             onClicked: mainMenu.hide()
         }
+
+        Behavior on opacity {
+            SmoothedAnimation { velocity: 2.0 }
+        }
     }
 
     Rectangle {
@@ -153,12 +171,14 @@ JewelPage {
         function show() {
             mainMenu.opacity = 1;
             tintRectangle.show();
+            mainPage.buttonOffset = 1.0;
         }
         
         function hide() {
             mainMenu.opacity = 0;
             tintRectangle.hide();
             mainMenu.closed();
+            mainPage.buttonOffset = 0.0;
         }
 
         border { color: "black"; width: 2 }
