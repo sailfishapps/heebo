@@ -33,7 +33,7 @@ JewelPage {
     JewelDialog {
         id: okDialog
         anchors.centerIn: parent
-        z: 10
+        z: 50
     }
 
     Item {
@@ -51,6 +51,7 @@ JewelPage {
 
     Rectangle {
         id: toolBar
+        z: 20
         width: parent.width; height: mainPage.toolbar_height
         //color: activePalette.window
         anchors.bottom: mainPage.bottom
@@ -97,6 +98,7 @@ JewelPage {
             id: menuButton
             source: "qrc:///images/icon_menu.png"
             width: 64; height: 64
+
             anchors {
                 right: parent.right
                 verticalCenter: parent.verticalCenter
@@ -106,12 +108,65 @@ JewelPage {
             MouseArea {
                 anchors.fill: parent
                 onClicked: mainMenu.toggle()
+                onPressed: menuButton.source="qrc:///images/icon_menu_pressed.png"
+                onReleased: menuButton.source="qrc:///images/icon_menu.png"
             }
         }
     }
 
-    JMenu {
+    Rectangle {
+        id: tintRectangle
+        anchors.fill: parent
+        color: "#3399FF"
+        opacity: 0.0
+        visible: opacity > 0
+
+        z: 10
+
+        function show() {
+            var colors = ["#3399FF", "#11FF00", "#7300E6", "#FF3C26",
+                          "#B300B3", "#FFD500"];
+
+            tintRectangle.color = colors[Jewels.random(0,5)];
+            tintRectangle.opacity = 0.65;
+        }
+        function hide() {
+            tintRectangle.opacity = 0;
+        }            
+
+        MouseArea {
+            anchors.fill: parent
+            onClicked: mainMenu.hide()
+        }
+    }
+
+    Rectangle {
         id: mainMenu
+        z: 50
+
+        signal closed
+
+        function toggle() {
+            visible ? hide() : show();
+        }
+    
+        function show() {
+            mainMenu.opacity = 1;
+            tintRectangle.show();
+        }
+        
+        function hide() {
+            mainMenu.opacity = 0;
+            tintRectangle.hide();
+            mainMenu.closed();
+        }
+
+        border { color: "black"; width: 2 }
+        radius: 2
+        
+        opacity: 0
+        
+        visible: opacity > 0
         
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.verticalCenter: parent.verticalCenter
