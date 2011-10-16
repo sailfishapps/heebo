@@ -9,6 +9,11 @@ JewelPage {
     property int block_height: Jewels.block_height;
     property int toolbar_height: 99
 
+    property string mainFont: "Nokia Pure Text"
+    property int mainFontSize: 36
+    property color uiAccentColour: "#D800D8"
+    property color mainFontColour: "#F2F2F2"
+
     property int font_size: 42
 
     property bool isRunning: false
@@ -47,21 +52,61 @@ JewelPage {
     Rectangle {
         id: toolBar
         width: parent.width; height: mainPage.toolbar_height
-        color: activePalette.window
+        //color: activePalette.window
         anchors.bottom: mainPage.bottom
 
-        JewelButton {
-            id: startButton
+        gradient: Gradient {
+            GradientStop { position: 0.0; color: "#0C0C0C" }
+            GradientStop { position: 1.0; color: "#242424" }
+        }
+
+        Row {
             anchors {
                 left: parent.left
                 verticalCenter: parent.verticalCenter
-                horizontalCenter: parent.horizontalCenter
-                leftMargin: 20
+                leftMargin: 100
+            }
+            Text {
+                text: "Level: "
+                font.family: mainPage.mainFont
+                font.pixelSize: mainPage.mainFontSize
+                color: mainPage.uiAccentColour
+            }
+            Text {
+                id: currentLevelText
+                text: "??"
+                font.family: mainPage.mainFont
+                font.pixelSize: mainPage.mainFontSize
+                color: mainPage.mainFontColour
+            }                
+            Text {
+                text: "/"
+                font.family: mainPage.mainFont
+                font.pixelSize: mainPage.mainFontSize
+                color: mainPage.uiAccentColour
+            }                
+            Text {
+                id: lastLevelText
+                text: "??"
+                font.family: mainPage.mainFont
+                font.pixelSize: mainPage.mainFontSize
+                color: mainPage.mainFontColour
+            }                
+        }
+        Image {
+            id: menuButton
+            source: "qrc:///images/icon_menu.png"
+            width: 64; height: 64
+            anchors {
+                right: parent.right
+                verticalCenter: parent.verticalCenter
                 rightMargin: 20
             }
-            text: "Menu"
-            onClicked: mainMenu.toggle()
-            /* onClicked: Jewels.nextLevel() */
+
+            MouseArea {
+                anchors.fill: parent
+                onClicked: mainMenu.toggle()
+            }
         }
     }
 
@@ -82,6 +127,10 @@ JewelPage {
             JMenuItem {
                 text: "New Game"
                 onClicked: Jewels.firstLevel()
+            }
+            JMenuItem {
+                text: "Help"
+                onClicked: Jewels.checkMovesAndReport()
             }
             JMenuItem {
                 text: "About"

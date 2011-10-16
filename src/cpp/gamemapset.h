@@ -12,6 +12,8 @@ class GameMapSet : public QObject {
              READ level
              NOTIFY levelChanged
              WRITE setLevel);
+  Q_PROPERTY(int numLevels
+             READ numLevels);
   Q_PROPERTY(bool onLastLevel
              READ onLastLevel);
   
@@ -21,6 +23,7 @@ public:
   
   int level() const;
   int setLevel(int l);
+  int numLevels() const { return m_number; }
   bool onLastLevel() const { return m_level == m_number-1; }
 
 public slots:

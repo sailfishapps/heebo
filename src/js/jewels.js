@@ -195,6 +195,10 @@ var newBackgroundBlock = function (j, i) {
 
 // Starts new level
 var startNewGame = function () {
+    currentLevelText.text = mapset.level+1;
+    lastLevelText.text = mapset.numLevels;
+    mainPage.isRunning = false;
+
     playerMovement = false;
     initBoard();
 
