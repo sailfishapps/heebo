@@ -69,13 +69,15 @@ var point = function (spec) {
 
     that.x = spec.x;
     that.y = spec.y;
-
+    
+    // FIXME: this is confusing, changes object itself
     that.plus = function (pt) {
         that.x += pt.x;
         that.y += pt.y;
         return that;
     };
 
+    // FIXME: this is confusing, changes object itself
     that.minus = function (pt) {
         that.x -= pt.x;
         that.y -= pt.y;
@@ -90,6 +92,7 @@ var point = function (spec) {
         return that.x+", "+that.y;
     };
 
+    // FIXME: this is confusing, changes object itself
     that.mul = function (f) {
         that.x *= f;
         that.y *= f;
@@ -127,8 +130,10 @@ var init2DArray = function (arr) {
     if (arr !== undefined) {
         for (var i=0; i<board_width; i++) {
             for (var j=0; j<board_height; j++) {
-                if (arr[j][i] !== undefined)
+                if (arr[j][i] !== undefined) {
                     arr[j][i].destroy();
+                    arr[j][i] = undefined;
+                }
             }
         }
         delete arr;
@@ -213,8 +218,9 @@ var startNewGame = function () {
 
     for (var j=0; j<board_height; j++) {
         for (var i=0; i<board_width; i++) {
-            if (bg_grid[j][i].blocking)
+            if (bg_grid[j][i].blocking) {
                 continue;
+            }
             
             var skip1 = 0;
             if (j > 1 && !bg_grid[j-2][i].blocking && !bg_grid[j-1][i].blocking
@@ -376,7 +382,7 @@ var fallDown = function () {
 
 // Check one line (row/column) for subsequent jewels of same colour.
 // j gives the row/column
-// 
+// rows is true for checking row, false for column
 var checkSubsequentLine = function(j, rows, mark) {
     var last_b = 0, count = 0, changes = 0, i;
     var imax = rows ? board_width : board_height;
@@ -480,6 +486,104 @@ var checkForSubsequentJewels = function (mark) {
 
 //-----------------------------------------------------------------------------
 
+var checkSwitch = function (pt1, pt2) {
+    var changes = 0;
+    changes += checkSubsequentLine(pt1.x, false, false);
+    changes += checkSubsequentLine(pt1.y, true, false);
+    changes += checkSubsequentLine(pt2.x, false, false);
+    changes += checkSubsequentLine(pt2.y, true, false);
+    return changes;
+};
+
+//-----------------------------------------------------------------------------
+
+var checkSingleStep = function(obj, pt, dx, dy) {
+    var pt2, obj2, changes;
+
+    if (obj === undefined || bg_grid.isBlocking(pt)) {
+        console.log("We should never get here.");
+        return false;
+    }
+    
+    pt2 = point(pt).plus({x: dx, y: dy});
+    if (!pt2.insideGrid() || bg_grid.isBlocking(pt2)) {
+        console.log(pt.str()+" -> "+pt2.str()+" X (outside or blocking)");
+        return false;
+    }
+
+    obj2 = gridObject(board, pt2);
+    if (obj2 === undefined) {
+        console.log(pt.str()+" -> "+pt2.str()+" OK (nothing there)");
+        return true;
+    }
+    
+    board.set(pt, obj2);
+    board.set(pt2, obj);
+
+    changes = checkSwitch(pt, pt2);
+
+    board.set(pt, obj);
+    board.set(pt2, obj2);
+
+    if (changes>0) {
+        console.log(pt.str()+" -> "+pt2.str()+" OK");
+    } else {
+        console.log(pt.str()+" -> "+pt2.str()+" X (no changes)");
+    }    
+
+    return changes>0;
+};
+
+//-----------------------------------------------------------------------------
+
+var checkMoves = function () {
+    var i, j, obj;
+    var di, dj;
+    var pt;
+    
+    for (i=0; i<board_width; i++) {
+        for (j=0; j<board_height; j++) {
+            pt = point({x: i, y: j});
+            obj = gridObject(board, pt);
+
+            // No need to check if there's no object at i,j
+            if (obj === undefined || bg_grid.isBlocking(pt))
+                continue;
+            
+            if (checkSingleStep(obj, pt, -1,  0))
+                return {p: pt, t: obj.type, d: "left"};
+            if (checkSingleStep(obj, pt,  1,  0))
+                return {p: pt, t: obj.type, d: "right"};
+            if (checkSingleStep(obj, pt,  0, -1))
+                return {p: pt, t: obj.type, d: "up"};
+            if (checkSingleStep(obj, pt,  0,  1))
+                return {p: pt, t: obj.type, d: "down"};
+        }
+    }
+    
+    return {p: undefined};
+};
+
+//-----------------------------------------------------------------------------
+
+var checkMovesAndReport = function () {
+    var foo = checkMoves();
+    if (foo.p !== undefined) {
+        var tt = (foo.t === 1 ? "circle" :
+                  foo.t === 2 ? "polygon" :
+                  foo.t === 3 ? "square" :
+                  foo.t === 4 ? "triangle_down" :
+                  foo.t === 5 ? "triangle_up" : "?");
+        console.log("Try: move "+tt+" ("+(foo.p.x+1)+","+(foo.p.y+1)+") to "+foo.d);
+        if (bg_grid.isBlocking(foo.p))
+            console.log("THIS IS UTTERLY IMPOSSIBLE!!!");
+    } else {
+        console.log("NO MOVES!! ZOMG!!!!");
+    }
+};
+
+//-----------------------------------------------------------------------------
+
 // Checks if new blocks need to be spawned
 var spawnNewJewels = function () {
     for (var i=0; i<board_width; i++) {
@@ -501,17 +605,6 @@ var spawnNewJewels = function () {
             obj.y = block_height*(n-j-1);
         }
     }
-};
-
-//-----------------------------------------------------------------------------
-
-var checkSwitch = function (pt1, pt2) {
-    var changes = 0;
-    changes += checkSubsequentLine(pt1.x, false, false);
-    changes += checkSubsequentLine(pt1.y, true, false);
-    changes += checkSubsequentLine(pt2.x, false, false);
-    changes += checkSubsequentLine(pt2.y, true, false);
-    return changes;
 };
 
 //-----------------------------------------------------------------------------
@@ -547,6 +640,9 @@ var onChanges = function () {
         checkForSubsequentJewels(true);
 
     victoryCheck();
+
+    if (!isRunning())
+        checkMovesAndReport();
 };
 
 //-----------------------------------------------------------------------------
