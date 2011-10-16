@@ -3,7 +3,9 @@ import QtQuick 1.0
 Rectangle {
     id: container
 
-    signal closed
+    property int mode: 0
+    
+    signal closed(int mode)
     
     function show(text) {
         dialogText.text = text;
@@ -12,7 +14,7 @@ Rectangle {
 
     function hide() {
         container.opacity = 0;
-        container.closed();
+        container.closed(mode);
     }
 
     width: dialogText.width + 20

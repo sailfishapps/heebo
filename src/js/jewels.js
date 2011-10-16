@@ -271,7 +271,6 @@ var nextLevel = function () {
     startNewGame();
 };
 
-
 //-----------------------------------------------------------------------------
 // Main game logic functions, i.e. moving blocks, checking conditions,
 // reacting to events.
@@ -288,6 +287,7 @@ var victoryCheck = function () {
     }
 
     if (victory) {
+        okDialog.mode = mapset.onLastLevel ? 1 : 0;
         okDialog.show(mapset.onLastLevel ?
                       "That was the last level!\n CONGRATULATIONS!!!" :
                       "You cleared the level!\n ZÖMG!");
@@ -351,7 +351,6 @@ var clearRandomBlock = function (block_type, count) {
         if (obj !== undefined && obj.type === block_type) {
             bg_grid[pt.y][pt.x].cleared = true;
             count--;
-            // console.log("Cleared "+pt.str()+" with type "+block_type);
         }
     } 
 };
@@ -410,9 +409,6 @@ var checkSubsequentLine = function(j, rows, mark) {
                         k_begin++;
                         k_end++;
                     }
-                    
-                    // console.log("Removing "+(rows?"row":"column")+" "+(j+1)+
-                    //             " from "+(k_begin+1)+" to "+k_end);
                     
                     for (var k=k_begin; k<k_end; k++) {
                         if (rows) {
@@ -480,7 +476,6 @@ var checkForSubsequentJewels = function (mark) {
             if (obj !== undefined && obj.to_remove) {
                 board[j][i] = undefined;
                 obj.dying = true;
-                //console.log("Removed:"+(j+1)+","+(i+1));
             }
         }
     }
@@ -505,19 +500,19 @@ var checkSingleStep = function(obj, pt, dx, dy) {
     var pt2, obj2, changes;
 
     if (obj === undefined || bg_grid.isBlocking(pt)) {
-        console.log("We should never get here.");
+        // console.log("We should never get here.");
         return false;
     }
     
     pt2 = point(pt).plus({x: dx, y: dy});
     if (!pt2.insideGrid() || bg_grid.isBlocking(pt2)) {
-        console.log(pt.str()+" -> "+pt2.str()+" X (outside or blocking)");
+        // console.log(pt.str()+" -> "+pt2.str()+" X (outside or blocking)");
         return false;
     }
 
     obj2 = gridObject(board, pt2);
     if (obj2 === undefined) {
-        console.log(pt.str()+" -> "+pt2.str()+" OK (nothing there)");
+        // console.log(pt.str()+" -> "+pt2.str()+" OK (nothing there)");
         return true;
     }
     
@@ -529,11 +524,11 @@ var checkSingleStep = function(obj, pt, dx, dy) {
     board.set(pt, obj);
     board.set(pt2, obj2);
 
-    if (changes>0) {
-        console.log(pt.str()+" -> "+pt2.str()+" OK");
-    } else {
-        console.log(pt.str()+" -> "+pt2.str()+" X (no changes)");
-    }    
+    // if (changes>0) {
+    //     console.log(pt.str()+" -> "+pt2.str()+" OK");
+    // } else {
+    //     console.log(pt.str()+" -> "+pt2.str()+" X (no changes)");
+    // }    
 
     return changes>0;
 };
@@ -554,35 +549,23 @@ var checkMoves = function () {
             if (obj === undefined || bg_grid.isBlocking(pt))
                 continue;
             
-            if (checkSingleStep(obj, pt, -1,  0))
-                return {p: pt, t: obj.type, d: "left"};
-            if (checkSingleStep(obj, pt,  1,  0))
-                return {p: pt, t: obj.type, d: "right"};
-            if (checkSingleStep(obj, pt,  0, -1))
-                return {p: pt, t: obj.type, d: "up"};
-            if (checkSingleStep(obj, pt,  0,  1))
-                return {p: pt, t: obj.type, d: "down"};
+            if (checkSingleStep(obj, pt, -1,  0)) return true;
+            if (checkSingleStep(obj, pt,  1,  0)) return true;
+            if (checkSingleStep(obj, pt,  0, -1)) return true;
+            if (checkSingleStep(obj, pt,  0,  1)) return true;
         }
     }
     
-    return {p: undefined};
+    return false;
 };
 
 //-----------------------------------------------------------------------------
 
 var checkMovesAndReport = function () {
-    var foo = checkMoves();
-    if (foo.p !== undefined) {
-        var tt = (foo.t === 1 ? "circle" :
-                  foo.t === 2 ? "polygon" :
-                  foo.t === 3 ? "square" :
-                  foo.t === 4 ? "triangle_down" :
-                  foo.t === 5 ? "triangle_up" : "?");
-        console.log("Try: move "+tt+" ("+(foo.p.x+1)+","+(foo.p.y+1)+") to "+foo.d);
-        if (bg_grid.isBlocking(foo.p))
-            console.log("THIS IS UTTERLY IMPOSSIBLE!!!");
-    } else {
-        console.log("NO MOVES!! ZOMG!!!!");
+    var movesLeft = checkMoves();
+    if (!movesLeft) {
+        okDialog.mode = 2;
+        okDialog.show("No more moves! I'll reshuffle the blocks.");
     }
 };
 
@@ -647,6 +630,40 @@ var onChanges = function () {
 
     if (!isRunning())
         checkMovesAndReport();
+};
+
+//-----------------------------------------------------------------------------
+
+var reshuffleBlocks = function () {
+    var obj;
+    for (var j=0; j<board_height; j++) {
+        for (var i=0; i<board_width; i++) {
+            obj = gridObject(board, point({x:i, y:j}));
+            if (obj === undefined)
+                continue;
+
+            obj.type = random(1, jewel_maxtype);
+        }
+    }
+    onChanges();
+};
+
+//-----------------------------------------------------------------------------
+
+var dialogClosed = function (mode) {
+    switch (mode) {
+    case 0:
+        nextLevel();
+        break;
+    case 1:
+        mainMenu.toggle();
+        break;
+    case 2:
+        reshuffleBlocks();
+        break;
+    default:
+        console.log("dialogClosed("+mode+"): unkown mode.");
+    }
 };
 
 //-----------------------------------------------------------------------------

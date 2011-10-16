@@ -27,7 +27,7 @@ JewelPage {
         Jewels.init();
         animDone.connect(Jewels.onChanges);
         jewelKilled.connect(Jewels.onChanges);
-        okDialog.closed.connect(Jewels.nextLevel);
+        okDialog.closed.connect(Jewels.dialogClosed);
     }
 
     JewelDialog {
@@ -130,7 +130,7 @@ JewelPage {
             }
             JMenuItem {
                 text: "Help"
-                onClicked: Jewels.checkMovesAndReport()
+                onClicked: Jewels.reshuffleBlocks()
             }
             JMenuItem {
                 text: "About"
