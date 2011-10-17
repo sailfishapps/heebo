@@ -29,7 +29,9 @@ JewelPage {
     property int toolbar_height: 99
 
     property string mainFont: "Nokia Pure Text"
+    property int dialogFontSize: 22
     property int mainFontSize: 36
+    property color darkColour:     "#333333"
     property color uiAccentColour: "#D800D8"
     property color mainFontColour: "#F2F2F2"
 
@@ -49,6 +51,9 @@ JewelPage {
         animDone.connect(Jewels.onChanges);
         jewelKilled.connect(Jewels.onChanges);
         okDialog.closed.connect(Jewels.dialogClosed);
+
+        /* okDialog.mode = 42; */
+        /* okDialog.show("ZÖMG!"); */
     }
 
     JewelDialog {
@@ -224,7 +229,14 @@ JewelPage {
             }
             JMenuItem {
                 text: "Help"
-                onClicked: Jewels.reshuffleBlocks()
+                onClicked: {
+                    okDialog.mode = 42;
+                    okDialog.show("ZÖMG! You cleared the level!\n"+
+                                  "Want to have a go at the\n"+
+                                  "next one?",
+                                  "Yes, bring it on!");
+                }
+
             }
             JMenuItem {
                 text: "About"

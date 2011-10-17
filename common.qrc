@@ -25,14 +25,16 @@
     <file alias="/images/wb_leftright.png">images/wb_leftright.png</file>
     <file alias="/images/wb_updown.png">images/wb_updown.png</file>
     <!-- blinking blocks -->
-    <file alias="/images/circle-blink.png">images/circle-blink.png</file>
-    <file alias="/images/polygon-blink.png">images/polygon-blink.png</file>
-    <file alias="/images/square-blink.png">images/square-blink.png</file>
-    <file alias="/images/triangle_down-blink.png">images/triangle_down-blink.png</file>
-    <file alias="/images/triangle_up-blink.png">images/triangle_up-blink.png</file>
+    <file alias="/images/circle-blink.png">images/circle_eyeshut.png</file>
+    <file alias="/images/polygon-blink.png">images/polygon_eyeshut.png</file>
+    <file alias="/images/square-blink.png">images/square_eyeshut.png</file>
+    <file alias="/images/triangle_down-blink.png">images/triangle_down_eyeshut.png</file>
+    <file alias="/images/triangle_up-blink.png">images/triangle_up_eyeshut.png</file>
     <!-- UI images -->
     <file alias="/images/icon_menu.png">images/icon_menu.png</file>
     <file alias="/images/icon_menu_pressed.png">images/icon_menu_pressed.png</file>
+    <file alias="/images/icon_next_black.png">images/icon_next_black.png</file>
+    <file alias="/images/icon_next_pressed.png">images/icon_next_pressed.png</file>
     <!-- Maps -->
     <file>map.dat</file>
     <!-- JavaScript -->

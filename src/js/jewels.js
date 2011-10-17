@@ -27,13 +27,13 @@ var board_height = 9;
 var board;
 var bg_grid;
 
-if (gameview.platform() === "harmattan") {
+// if (gameview.platform() === "harmattan") {
     var block_width = 80;
     var block_height = 80;
-} else {
-    var block_width = 60;
-    var block_height = 60;
-}
+// } else {
+//     var block_width = 60;
+//     var block_height = 60;
+// }
 
 // List of coordinates of potentially uncleared points
 var unclearedPoints;
@@ -309,7 +309,11 @@ var victoryCheck = function () {
         okDialog.mode = mapset.onLastLevel ? 1 : 0;
         okDialog.show(mapset.onLastLevel ?
                       "That was the last level!\n CONGRATULATIONS!!!" :
-                      "You cleared the level!\n ZÖMG!");
+                      "ZÖMG! You cleared the level!\n"+
+                      "Want to have a go at the\n"+
+                      "next one?",
+                      "Yes, bring it on!"
+                     );
     }
 };
     
@@ -681,7 +685,7 @@ var dialogClosed = function (mode) {
         reshuffleBlocks();
         break;
     default:
-        console.log("dialogClosed("+mode+"): unkown mode.");
+        console.log("dialogClosed("+mode+"): unknown dialog mode.");
     }
 };
 

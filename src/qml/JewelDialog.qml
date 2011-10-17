@@ -36,36 +36,83 @@ Rectangle {
         container.closed(mode);
     }
 
-    width: dialogText.width + 20
-    height: dialogText.height + okButton.height + 40
+    width: Math.max(dialogText.width+40, answerText.width+buttonImage.width+100)
+    height: /*400*/ dialogText.height + buttonImage.height + 50
 
-    border { color: "black"; width: 2 }
-    radius: 2
+    /* border { color: "black"; width: 2 } */
+    radius: 8
 
     opacity: 0
 
     visible: opacity > 0
 
+    color: "#F2F2F2"
+
+        
     Text {
         id: dialogText
+        text: ""
+
+        font.family: mainPage.mainFont
+        font.bold: true
+        font.pixelSize: mainPage.dialogFontSize
+        color: mainPage.darkColour
+
         anchors {
             top: parent.top
             left: parent.left
-            leftMargin: 10
-            topMargin: 10
+            leftMargin: 20
+            rightMargin: 20
+            topMargin: 20
+            bottomMargin: 10
         }
-        text: ""
-        font.pixelSize: mainPage.font_size
     }
 
-    JewelButton {
-        id: okButton
+    Text {
+        id: answerText
+        text: "Yes, bring it on!"
+        font.family: mainPage.mainFont
+        /* font.bold: true */
+        font.pixelSize: mainPage.dialogFontSize
+        color: mainPage.uiAccentColour
         anchors {
             top: dialogText.bottom
-            topMargin: 20
-            horizontalCenter: parent.horizontalCenter
+            left: parent.left
+            leftMargin: 50
+            rightMargin: 20
+            topMargin: 30
+            bottomMargin: 20
         }
-        text: "OK"
+
+    }
+    Image {
+        id: buttonImage
+        source: "qrc:///images/icon_next_black.png"
+
+        anchors {
+            top: dialogText.bottom
+            left: answerText.right
+            leftMargin: 30
+            rightMargin: 40
+            topMargin: 10
+            bottomMargin: 20
+        }
+    }
+
+    MouseArea {
+        id: mouseArea
+        anchors.fill: parent
         onClicked: container.hide()
     }
+
+    /* JewelButton { */
+    /*     id: okButton */
+    /*     anchors { */
+    /*         top: dialogText.bottom */
+    /*         topMargin: 20 */
+    /*         horizontalCenter: parent.horizontalCenter */
+    /*     } */
+    /*     text: "OK" */
+    /*     onClicked: container.hide() */
+    /* } */
 }
