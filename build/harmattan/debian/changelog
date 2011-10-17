@@ -1,11 +1,5 @@
-qmljewel (0.0.2) unstable; urgency=low
+heebo (0.1.0) unstable; urgency=low
 
-  * Several improvement. New levels.
+  * First version of the Heebo game.
 
- -- Mats Sjöberg <mats@sjoberg.fi>  Sat, 15 Oct 2011 15:38:59 +0300
-
-qmljewel (0.0.1) unstable; urgency=low
-
-  * First version of qmljewel.
-
- -- Mats Sjöberg <mats@sjoberg.fi>  Sun, 14 Aug 2011 15:24:12 +0300
+ -- Mats Sjöberg <mats@sjoberg.fi>  Mon, 17 Oct 2011 19:53:37 +0300

@@ -1,7 +1,7 @@
 # -*- makefile -*-
 
 TEMPLATE = app
-TARGET = qmljewels
+TARGET = heebo
 DEPENDPATH += .
 INCLUDEPATH += .
 QT += declarative 
@@ -10,19 +10,10 @@ OBJECTS_DIR = obj
 # Input
 HEADERS += ../../src/cpp/gameview.h ../../src/cpp/gamemapset.h	\
            ../../src/cpp/gamemap.h
-SOURCES += ../../src/cpp/gameview.cpp ../../src/cpp/qmljewels.cpp	\
+SOURCES += ../../src/cpp/gameview.cpp ../../src/cpp/heebo.cpp	\
            ../../src/cpp/gamemapset.cpp ../../src/cpp/gamemap.cpp
 
 OTHER_FILES += \
-    # js/jewels.js \
-    # qml/JewelButton.qml \
-    # qml/Jewel.qml \
-    # qml/Block.qml \
-    # qml/JewelDialog.qml \
-    # qml/MainPage.qml \
-    # qml/main_harmattan.qml \
-    # qmljewels.desktop \
-    # qmljewels.svg \
     debian/rules \
     debian/README \
     debian/copyright \

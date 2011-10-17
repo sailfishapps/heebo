@@ -1,16 +1,16 @@
-Source: qmljewel
+Source: heebo
 Section: user/games
 Priority: optional
 Maintainer: Mats Sjöberg <mats@sjoberg.fi>
 Build-Depends: debhelper (>= 5), libqt4-dev
 Standards-Version: 3.7.3
-Homepage: http://www.sjoberg.fi/mats/software/qmljewel.html
+Homepage: http://www.sjoberg.fi/mats/software/heebo.html
 
-Package: qmljewel
+Package: heebo
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
-Description: Phun game.
-  Phun game.
-XSBC-Maemo-Display-Name: qmljewel
+Description: Simple "match three" game.
+  Simple and addictive "match three" game with quirky characters.             
+XSBC-Maemo-Display-Name: Heebo
 XB-Maemo-Icon-26: iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAABGdBTUEAALGP C/xhBQAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAA AAd0SU1FB9sKDw8qO3PCLIoAAAT5SURBVHja7ZtLdtpIFIY/yRj8wMjqDeCs wN4B9DQTPM8AegX2DiCTnuJegekV2L0C8ApMViDcC4hwzul0/Lw9KCk8AlKp EBg6uufcAwdVqer/dV+6EpBJJplkkkkmP61Yy17AFRygCpyMfR7OGT4E+oH2 gJ5vcb+RzLpCzRWuXEGKXWSnieQqiF1W6gqydYzASO2yGrPTVHNcQYJz1DYJ eN0VvGIXydcRy5kEGarjI4Wz2cdCtRx1joAMzxXq6wy8EgJ3BdmuRYPbv1Ia NWZcc5UJIirrBNxxhXbJG4EudpG9y2hA+boiyi7rkwBqjZKHuEI7iC9vDv52 /2rS1HXBlTzl70kICF1j/wpxhds3I8EVjl3Bn+fHJS/eCnaaZlYQauEMcQXf FY7fBHy+Hm/i05F+FlHFrhkBY+usjgRXKLuCv9uO39zBbTy4rWNFlIkrzCDB WYnPh7k9bmO64EJribIoTXdYbkwIIm9YoGj5bujnuUr0uL1LNS6uNohLra7Q Xmael3GNC3Lj4Bw/Ph4EV1Gms0qS7BCkyMoyCPCmCdC5suHGDm71SMhV1Did SnFeneAK3jLKW5mlJU/vaiUhwXKQ3bY6v+Or73FE2+WJsll0y2ZL9+oDR/OO P3Tg628aizmw14H8KXw9h4c/4scXziHfgK1g9afej+Pso9Hxx2t47sHeBQPf 4t3CBAR3Ytdx43RJANhtw8652uy/5/B6Fz/HLsPWidJpkSG89OH5ZvRbsQvb VU59i78WNf+reeY/rUlyea6i3Mfx1TyToKeRWq/SyPuSRHUzQ+jrO81R0Ntt m5fF0+DHYkFkXWDHcFBNSlqhoczPLsePlXv49hG+HMHDBWyfgjOAg1vYaUJO M5nZZcjXYe8SHB/2O4FbDOIxWHGFD3BuYj2vQ+Xfj38mm7ddU0TkqqPA9jKA 18Gc8WPwnnrwdK309U6RuNui5Vt8NCWga2IF4/LUg2+tyQCl3bB0VNDLRezg daAC4MunH4/lKnDQo+db/GpKgB/RwFwZEaaydQylPkPfwjUlQNLe1HMfHjsj M12GhG60fQr2IfjWfJwrJ2CajKegcHnpq6BoeqVDVwlBj8vaEjAtYbB76aso Hgn6BKzDySA4TzaGgGVJFAE2P7lkBMQcH/4PMA4XIaBvuup7avTx+IzwGaGP x3uNR3ym85aBAVdoJr0ZcgX5IDWZJx+klvq8GG2u3AJ+5wKAVquFZVlYlkWr 1Zo4lua8RTDEpUHHJA58DrKnZU2eXkT9/sucZU3nxchh1DsGdkz+vNfpBq2x XMe9YKGTBjtJV/0bde/abI7cL/weHktzXpp7n9sU3cAgmF5rPKotHgXmTrzv AO7E0wJhOm+GptcWD62AiNb4molWSzxpKdzYoOCnvVdtAnyLGzBPxiuUi2Cv pOoCY3VBD/WuX5LbUdPYY1L0VJO8W2gnBHKPapImKo50WuQpzBkmBW90O2xC QsGgsZ5wjhH4xC4wZZ7HgTtodY3/aeg/I8jX1cONhOA/rbQhEix4pHvDtN+B wpnGlT9LBL4PHJmCX7gjNOYOWtlh70I9NsvX1UOP72boqN+KXTVGN9qbmn0q LjDDJSpB7b3sYmkANJKkupX0BH2Lm6D6agSbXBbwd2mBT9UCZlhELSDjdNFb WqCz8IsOqyZgqniqkuwPE73wc2P/MJFJJplkkkkm6y//AfmfWTbz3L6gAAAA AElFTkSuQmCC
 
