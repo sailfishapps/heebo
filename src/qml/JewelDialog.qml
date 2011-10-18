@@ -66,51 +66,40 @@ Image {
         }
     }
 
-    Text {
-        id: answerText
-        text: "Yes, bring it on!"
-        font.family: mainPage.mainFont
-        /* font.bold: true */
-        font.pixelSize: mainPage.dialogFontSize
-        color: mainPage.uiAccentColour
+    Item {
+        id: answerItem
         anchors {
+            horizontalCenter: container.horizontalCenter
             bottom: container.bottom
-            left: parent.left
-            leftMargin: 50
-            rightMargin: 20
-            topMargin: 30
-            bottomMargin: 60
+            bottomMargin: 25
         }
 
-    }
-    Image {
-        id: buttonImage
-        source: "qrc:///images/icon_next_black.png"
+        width: answerText.paintedWidth + buttonImage.paintedWidth+50
+        height: Math.max(answerText.paintedHeight, buttonImage.paintedHeight)+20
+        
+        Text {
+            id: answerText
+            text: "Yes, bring it on!"
+            font.family: mainPage.mainFont
+            font.pixelSize: mainPage.dialogFontSize
+            color: mainPage.uiAccentColour
+            anchors {
+                verticalCenter: answerItem.verticalCenter
+                left: answerItem.left
+            }
+        }
 
-        anchors {
-            bottom: container.bottom
-            left: answerText.right
-            leftMargin: 30
-            rightMargin: 40
-            topMargin: 10
-            bottomMargin: 40
+        Image {
+            id: buttonImage
+            source: "qrc:///images/icon_next_black.png"
+
+            anchors {
+                verticalCenter: answerItem.verticalCenter
+                left: answerText.right
+                leftMargin: 30
+            }
         }
     }
-    /* Rectangle { */
-    /*     id: dropShadow */
-    /*     width: container.width */
-    /*     height: container.height */
-    /*     radius: container.radius */
-    /*     color: "black" */
-    /*     opacity: 0.3 */
-    /*     z: -10 */
-    /*     anchors { */
-    /*         horizontalCenter: container.horizontalCenter */
-    /*         verticalCenter: container.verticalCenter */
-    /*         horizontalCenterOffset: 5 */
-    /*         verticalCenterOffset: 5 */
-    /*     } */
-    /* } */
 
     MouseArea {
         id: mouseArea

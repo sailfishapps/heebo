@@ -54,12 +54,13 @@ JewelPage {
         okDialog.closed.connect(tintRectangle.hide);
         okDialog.opened.connect(tintRectangle.show);
 
-        okDialog.mode = 42;
-        okDialog.show("ZÖMG!", "ÖKÖÖ");
+        /* okDialog.mode = 42; */
+        /* okDialog.show("ZÖMG!", "ÖKÖÖ"); */
         /* okDialog.show("ZÖMG! You cleared the level! "+ */
         /*               "Want to have a go at the "+ */
         /*               "next one?", */
         /*               "Yes, bring it on!"); */
+        /* mainMenu.show() */
     }
 
     JewelDialog {
@@ -76,7 +77,6 @@ JewelPage {
         MouseArea {
             anchors.fill: parent
             onPressed: Jewels.mousePressed(mouse.x, mouse.y)
-            /* onReleased: Jewels.released(mouse.x, mouse.y) */
             onPositionChanged: if (pressed) Jewels.mouseMoved(mouse.x, mouse.y)
         }
     }
@@ -149,7 +149,7 @@ JewelPage {
                 SpringAnimation {
                     epsilon: 0.25
                     damping: 0.1
-                    spring: 2
+                    spring: 3
                     /* velocity: 150 */
                 }
             }
@@ -173,13 +173,14 @@ JewelPage {
             tintRectangle.color = colors[Jewels.random(0,5)];
             tintRectangle.opacity = 0.65;
         }
+
         function hide() {
             tintRectangle.opacity = 0;
         }            
 
         MouseArea {
             anchors.fill: parent
-            onClicked: mainMenu.hide()
+            onClicked: { mainMenu.hide(); okDialog.hide(); }
         }
 
         Behavior on opacity {
@@ -212,19 +213,21 @@ JewelPage {
             mainPage.buttonOffset = 0.0;
         }
 
-        /* radius: 8 */
-
-        /* color: "#F2F2F2" */
-        
         opacity: 0
-        
         visible: opacity > 0
         
-        anchors.horizontalCenter: parent.horizontalCenter
-        anchors.verticalCenter: parent.verticalCenter
-        /* width: menuLayout.width+40 */
-        /* height: menuLayout.height+40 */
-        /* width: 356; height: 514 */
+        anchors {
+            horizontalCenter: parent.horizontalCenter
+            verticalCenter: parent.verticalCenter
+            verticalCenterOffset: -16
+        }
+
+        Image {
+            source: "qrc:///images/heebo_logo.png"
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.baseline: parent.top
+            anchors.baselineOffset: -32
+        }
         
         JMenuLayout {
             id: menuLayout
