@@ -25,11 +25,13 @@ Rectangle {
     property int mode: 0
     
     signal closed(int mode)
+    signal opened
     
     function show(text, answer) {
         dialogText.text = text;
         answerText.text = answer;
         container.opacity = 1;
+        container.opened()
     }
 
     function hide() {

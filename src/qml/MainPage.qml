@@ -51,6 +51,8 @@ JewelPage {
         animDone.connect(Jewels.onChanges);
         jewelKilled.connect(Jewels.onChanges);
         okDialog.closed.connect(Jewels.dialogClosed);
+        okDialog.closed.connect(tintRectangle.hide);
+        okDialog.opened.connect(tintRectangle.show);
 
         /* okDialog.mode = 42; */
         /* okDialog.show("ZÖMG!", "ÖKÖÖ"); */
@@ -58,7 +60,7 @@ JewelPage {
 
     JewelDialog {
         id: okDialog
-        anchors.centerIn: parent
+        anchors.centerIn: background
         z: 50
     }
 
@@ -79,7 +81,6 @@ JewelPage {
         id: toolBar
         z: 20
         width: parent.width; height: mainPage.toolbar_height
-        //color: activePalette.window
         anchors.bottom: mainPage.bottom
 
         gradient: Gradient {
@@ -205,8 +206,9 @@ JewelPage {
             mainPage.buttonOffset = 0.0;
         }
 
-        border { color: "black"; width: 2 }
-        radius: 2
+        radius: 8
+
+        color: "#F2F2F2"
         
         opacity: 0
         
@@ -214,8 +216,9 @@ JewelPage {
         
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.verticalCenter: parent.verticalCenter
-        width: menuLayout.width+40
-        height: menuLayout.height+40
+        /* width: menuLayout.width+40 */
+        /* height: menuLayout.height+40 */
+        width: 356; height: 514
         
         JMenuLayout {
             id: menuLayout
