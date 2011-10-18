@@ -19,7 +19,7 @@
 
 import QtQuick 1.0
 
-Rectangle {
+Image {
     id: container
 
     property int mode: 0
@@ -39,18 +39,10 @@ Rectangle {
         container.closed(mode);
     }
 
-    width: Math.max(dialogText.width+40, answerText.width+buttonImage.width+100)
-    height: /*400*/ dialogText.height + buttonImage.height + 50
-
-    /* border { color: "black"; width: 2 } */
-    radius: 8
-
     opacity: 0
-
     visible: opacity > 0
 
-    color: "#F2F2F2"
-
+    source: "qrc:///images/dialog_small.png"
         
     Text {
         id: dialogText
@@ -61,6 +53,9 @@ Rectangle {
         font.pixelSize: mainPage.dialogFontSize
         color: mainPage.darkColour
 
+        width: container.paintedWidth-40
+        wrapMode: Text.Wrap
+        
         anchors {
             top: parent.top
             left: parent.left
@@ -79,12 +74,12 @@ Rectangle {
         font.pixelSize: mainPage.dialogFontSize
         color: mainPage.uiAccentColour
         anchors {
-            top: dialogText.bottom
+            bottom: container.bottom
             left: parent.left
             leftMargin: 50
             rightMargin: 20
             topMargin: 30
-            bottomMargin: 20
+            bottomMargin: 60
         }
 
     }
@@ -93,29 +88,29 @@ Rectangle {
         source: "qrc:///images/icon_next_black.png"
 
         anchors {
-            top: dialogText.bottom
+            bottom: container.bottom
             left: answerText.right
             leftMargin: 30
             rightMargin: 40
             topMargin: 10
-            bottomMargin: 20
+            bottomMargin: 40
         }
     }
-    Rectangle {
-        id: dropShadow
-        width: container.width
-        height: container.height
-        radius: container.radius
-        color: "black"
-        opacity: 0.3
-        z: -10
-        anchors {
-            horizontalCenter: container.horizontalCenter
-            verticalCenter: container.verticalCenter
-            horizontalCenterOffset: 5
-            verticalCenterOffset: 5
-        }
-    }
+    /* Rectangle { */
+    /*     id: dropShadow */
+    /*     width: container.width */
+    /*     height: container.height */
+    /*     radius: container.radius */
+    /*     color: "black" */
+    /*     opacity: 0.3 */
+    /*     z: -10 */
+    /*     anchors { */
+    /*         horizontalCenter: container.horizontalCenter */
+    /*         verticalCenter: container.verticalCenter */
+    /*         horizontalCenterOffset: 5 */
+    /*         verticalCenterOffset: 5 */
+    /*     } */
+    /* } */
 
     MouseArea {
         id: mouseArea

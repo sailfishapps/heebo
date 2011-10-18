@@ -54,8 +54,12 @@ JewelPage {
         okDialog.closed.connect(tintRectangle.hide);
         okDialog.opened.connect(tintRectangle.show);
 
-        /* okDialog.mode = 42; */
-        /* okDialog.show("ZÖMG!", "ÖKÖÖ"); */
+        okDialog.mode = 42;
+        okDialog.show("ZÖMG!", "ÖKÖÖ");
+        /* okDialog.show("ZÖMG! You cleared the level! "+ */
+        /*               "Want to have a go at the "+ */
+        /*               "next one?", */
+        /*               "Yes, bring it on!"); */
     }
 
     JewelDialog {
@@ -183,9 +187,11 @@ JewelPage {
         }
     }
 
-    Rectangle {
+   Image {
         id: mainMenu
         z: 50
+
+        source: "qrc:///images/main_menu_bg.png"
 
         signal closed
 
@@ -206,9 +212,9 @@ JewelPage {
             mainPage.buttonOffset = 0.0;
         }
 
-        radius: 8
+        /* radius: 8 */
 
-        color: "#F2F2F2"
+        /* color: "#F2F2F2" */
         
         opacity: 0
         
@@ -218,7 +224,7 @@ JewelPage {
         anchors.verticalCenter: parent.verticalCenter
         /* width: menuLayout.width+40 */
         /* height: menuLayout.height+40 */
-        width: 356; height: 514
+        /* width: 356; height: 514 */
         
         JMenuLayout {
             id: menuLayout

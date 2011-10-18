@@ -313,8 +313,8 @@ var victoryCheck = function () {
                           "Wow, cool!!");
         } else {
             okDialog.mode = 0;
-            okDialog.show("ZÖMG! You cleared the level!\n"+
-                          "Want to have a go at the\n"+
+            okDialog.show("ZÖMG! You cleared the level! "+
+                          "Want to have a go at the "+
                           "next one?",
                           "Yes, bring it on!");
         }

@@ -35,6 +35,8 @@
     <file alias="/images/icon_menu_pressed.png">images/icon_menu_pressed.png</file>
     <file alias="/images/icon_next_black.png">images/icon_next_black.png</file>
     <file alias="/images/icon_next_pressed.png">images/icon_next_pressed.png</file>
+    <file alias="/images/main_menu_bg.png">images/main_menu_bg.png</file>
+    <file alias="/images/dialog_small.png">images/dialog_small.png</file>
     <!-- Maps -->
     <file>map.dat</file>
     <!-- JavaScript -->
