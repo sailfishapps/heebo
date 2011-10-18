@@ -53,7 +53,7 @@ JewelPage {
         okDialog.closed.connect(Jewels.dialogClosed);
 
         /* okDialog.mode = 42; */
-        /* okDialog.show("ZÖMG!"); */
+        /* okDialog.show("ZÖMG!", "ÖKÖÖ"); */
     }
 
     JewelDialog {

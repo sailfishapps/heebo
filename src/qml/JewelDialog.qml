@@ -26,8 +26,9 @@ Rectangle {
     
     signal closed(int mode)
     
-    function show(text) {
+    function show(text, answer) {
         dialogText.text = text;
+        answerText.text = answer;
         container.opacity = 1;
     }
 
@@ -98,21 +99,25 @@ Rectangle {
             bottomMargin: 20
         }
     }
+    Rectangle {
+        id: dropShadow
+        width: container.width
+        height: container.height
+        radius: container.radius
+        color: "black"
+        opacity: 0.3
+        z: -10
+        anchors {
+            horizontalCenter: container.horizontalCenter
+            verticalCenter: container.verticalCenter
+            horizontalCenterOffset: 5
+            verticalCenterOffset: 5
+        }
+    }
 
     MouseArea {
         id: mouseArea
         anchors.fill: parent
         onClicked: container.hide()
     }
-
-    /* JewelButton { */
-    /*     id: okButton */
-    /*     anchors { */
-    /*         top: dialogText.bottom */
-    /*         topMargin: 20 */
-    /*         horizontalCenter: parent.horizontalCenter */
-    /*     } */
-    /*     text: "OK" */
-    /*     onClicked: container.hide() */
-    /* } */
 }

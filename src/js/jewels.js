@@ -306,14 +306,18 @@ var victoryCheck = function () {
     }
 
     if (victory) {
-        okDialog.mode = mapset.onLastLevel ? 1 : 0;
-        okDialog.show(mapset.onLastLevel ?
-                      "That was the last level!\n CONGRATULATIONS!!!" :
-                      "ZÖMG! You cleared the level!\n"+
-                      "Want to have a go at the\n"+
-                      "next one?",
-                      "Yes, bring it on!"
-                     );
+        if (mapset.onLastLevel) {
+            okDialog.mode = 1;
+            okDialog.show("That was the last level!\n"+
+                          "CONGRATULATIONS!!!",
+                          "Wow, cool!!");
+        } else {
+            okDialog.mode = 0;
+            okDialog.show("ZÖMG! You cleared the level!\n"+
+                          "Want to have a go at the\n"+
+                          "next one?",
+                          "Yes, bring it on!");
+        }
     }
 };
     
@@ -588,7 +592,9 @@ var checkMovesAndReport = function () {
     var movesLeft = checkMoves();
     if (!movesLeft) {
         okDialog.mode = 2;
-        okDialog.show("No more moves! I'll reshuffle the blocks.");
+        okDialog.show("No more moves!\n"+
+                      "I'll reshuffle the blocks.",
+                      "OK, thanks!");
     }
 };
 
