@@ -18,9 +18,20 @@
 */
 
 import QtQuick 1.0
-import com.nokia.meego 1.0
 
-Page {
-    orientationLock: PageOrientation.LockPortrait
-
+Text {
+    property string style: "normal"
+    
+    font.pixelSize: style === "title"  ? 26 :
+                    style === "small"  ? 18 : 24
+    font.bold: style === "title"                    
+    font.family: mainPage.mainFont
+    color: mainPage.darkColour
+    
+    anchors {
+        topMargin: 30
+        left: parent.left
+        leftMargin: 25
+    }
+    width: parent.width-50
 }

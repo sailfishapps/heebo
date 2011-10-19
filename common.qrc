@@ -50,5 +50,8 @@
     <file alias="qml/MainPage.qml">src/qml/MainPage.qml</file>
     <file alias="qml/JMenuLayout.qml">src/qml/JMenuLayout.qml</file>
     <file alias="qml/JMenuItem.qml">src/qml/JMenuItem.qml</file>
+    <file alias="qml/FullPage.qml">src/qml/FullPage.qml</file>
+    <file alias="qml/FullPageText.qml">src/qml/FullPageText.qml</file>
+    <file alias="qml/ToolBar.qml">src/qml/ToolBar.qml</file>
   </qresource>
 </RCC>

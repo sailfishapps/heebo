@@ -63,6 +63,15 @@ JewelPage {
         /* mainMenu.show() */
     }
 
+    function openFile(file) {
+        var component = Qt.createComponent(file)
+
+        if (component.status == Component.Ready)
+            pageStack.push(component);
+        else
+            console.log("Error loading component:", component.errorString());
+    }
+
     JewelDialog {
         id: okDialog
         anchors.centerIn: background
@@ -244,7 +253,7 @@ JewelPage {
             }
             JMenuItem {
                 text: "About"
-                onClicked: Jewels.nextLevel()
+                onClicked: { mainMenu.hide(); openFile("FullPage.qml") }
             }
         }
     }

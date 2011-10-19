@@ -20,4 +20,6 @@
 import QtQuick 1.0
 
 Rectangle {
+    SystemPalette { id: activePalette }
+    color: activePalette.window
 }
