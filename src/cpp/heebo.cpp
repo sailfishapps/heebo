@@ -24,8 +24,8 @@ Q_DECL_EXPORT int main(int argc, char** argv) {
     QApplication app(argc, argv);
     
     GameView view;
-    view.show();
-    // view.showFullScreen();
+    // view.show();
+    view.showFullScreen();
 
     return app.exec();
 }

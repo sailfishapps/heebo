@@ -23,11 +23,10 @@ import com.nokia.meego 1.0
 PageStackWindow {
     id: appWindow
     initialPage: mainPage
-    // showStatusBar: false
-    color: "black"
 
     MainPage {
         id: mainPage
+        anchors.fill: parent
         orientationLock: PageOrientation.LockPortrait
     }
 }
