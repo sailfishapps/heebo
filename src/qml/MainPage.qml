@@ -81,16 +81,8 @@ JewelPage {
         }
     }
 
-    Rectangle {
+    ToolBar {
         id: toolBar
-        z: 20
-        width: parent.width; height: mainPage.toolbar_height
-        anchors.bottom: mainPage.bottom
-
-        gradient: Gradient {
-            GradientStop { position: 0.0; color: "#0C0C0C" }
-            GradientStop { position: 1.0; color: "#242424" }
-        }
 
         Row {
             anchors {
