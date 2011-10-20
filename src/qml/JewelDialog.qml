@@ -39,6 +39,10 @@ Image {
         container.closed(mode);
     }
 
+    function isClosed() {
+        return container.opacity === 0;
+    }
+
     opacity: 0
     visible: opacity > 0
 

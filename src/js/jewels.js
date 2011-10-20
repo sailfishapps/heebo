@@ -305,7 +305,7 @@ var victoryCheck = function () {
         }
     }
 
-    if (victory) {
+    if (victory && okDialog.isClosed()) {
         if (mapset.onLastLevel) {
             okDialog.mode = 1;
             okDialog.show("That was the last level!\n"+
