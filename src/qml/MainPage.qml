@@ -247,6 +247,17 @@ JewelPage {
                 text: "About"
                 onClicked: { mainMenu.hide(); openFile("AboutPage.qml") }
             }
+            JMenuItem {
+                text: "Next (debug)"
+                onClicked: {
+                    mainMenu.hide();
+                    okDialog.mode = 0;
+                    okDialog.show("ZÖMG! You cleared the level! "+
+                                  "Want to have a go at the "+
+                                  "next one?",
+                                  "Yes, bring it on!");
+                }
+            }
         }
     }
 
