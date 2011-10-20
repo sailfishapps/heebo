@@ -22,6 +22,11 @@ import QtQuick 1.0
 import "../js/constants.js" as Constants
 
 MainPage {
+/* These are to test full screen pages on desktop which doesn't have
+   Harmattan's pagestacks. */
+
+/* AboutPage { */
+/* HelpPage { */
     id: mainPage
     width: Constants.block_width*Constants.board_width
     height: Constants.block_height*Constants.board_height+Constants.toolbar_height

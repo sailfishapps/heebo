@@ -241,18 +241,11 @@ JewelPage {
             }
             JMenuItem {
                 text: "Help"
-                onClicked: {
-                    okDialog.mode = 42;
-                    okDialog.show("ZÖMG! You cleared the level!\n"+
-                                  "Want to have a go at the\n"+
-                                  "next one?",
-                                  "Yes, bring it on!");
-                }
-
+                onClicked: { mainMenu.hide(); openFile("HelpPage.qml") }
             }
             JMenuItem {
                 text: "About"
-                onClicked: { mainMenu.hide(); openFile("FullPage.qml") }
+                onClicked: { mainMenu.hide(); openFile("AboutPage.qml") }
             }
         }
     }

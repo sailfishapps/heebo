@@ -28,46 +28,6 @@ JewelPage {
 
     anchors.fill: parent
 
-    Image {
-        id: logoImage
-        source: "qrc:///images/heebo_logo.png";
-        anchors {
-            top: parent.top
-            topMargin: 30
-            horizontalCenter: parent.horizontalCenter
-        }
-    }
-
-    FullPageText {
-        id: text1
-        text: "Hello, world"
-
-        anchors.top: logoImage.bottom
-    }
-
-    FullPageText {
-        id: text2
-        text: "FOOBAR"
-        style: "title"
-
-        anchors.top: text1.bottom
-    }
-
-    FullPageText {
-        id: text3
-        text: "Hello, world, again"
-
-        anchors.top: text2.bottom
-    }
-
-    FullPageText {
-        id: text4
-        text: "Tiny text"
-        style: "small"
-
-        anchors.top: text3.bottom
-    }
-
     ToolBar {
         id: toolBar
 
