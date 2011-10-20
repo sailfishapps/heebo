@@ -19,8 +19,6 @@
 
 import QtQuick 1.0
 
-//import "qrc:///js/jewels.js" as Jewels
-
 JewelPage {
     id: mainPage
     

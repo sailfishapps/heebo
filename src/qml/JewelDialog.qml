@@ -109,5 +109,7 @@ Image {
         id: mouseArea
         anchors.fill: parent
         onClicked: container.hide()
+        onPressed: buttonImage.source="qrc:///images/icon_next_pressed.png"
+        onReleased: buttonImage.source="qrc:///images/icon_next_black.png"
     }
 }
