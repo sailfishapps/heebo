@@ -19,27 +19,13 @@
 
 //-----------------------------------------------------------------------------
 
-var jewel_maxtype = 5;
-
-var board_width = 6;
-var board_height = 9;
+Qt.include("constants.js")
 
 var board;
 var bg_grid;
 
-// if (gameview.platform() === "harmattan") {
-    var block_width = 80;
-    var block_height = 80;
-// } else {
-//     var block_width = 60;
-//     var block_height = 60;
-// }
-
 // List of coordinates of potentially uncleared points
 var unclearedPoints;
-
-// Pixels to drag/swipe until it's interpreted as a movement
-var moveLimit = 5;
 
 // Keeps information about the two blocks that are swiched
 var moving1;
@@ -50,31 +36,6 @@ var playerMovement = false;
 
 //-----------------------------------------------------------------------------
 // Utility functions, object constructors
-//-----------------------------------------------------------------------------
-
-Function.prototype.method = function (name, func) {
-    this.prototype[name] = func;
-    return this;
-};
-
-//-----------------------------------------------------------------------------
-
-Number.method('sign', function () {
-    return this > 0 ? 1 : this < 0 ? -1 : 0;
-});
-
-//-----------------------------------------------------------------------------
-
-Number.method('abs', function () {
-    return Math.abs(this);
-});
-
-//-----------------------------------------------------------------------------
-
-var isNumber = function (obj) {
-    return typeof obj === 'number';
-}
-
 //-----------------------------------------------------------------------------
 
 // Constructs point objects

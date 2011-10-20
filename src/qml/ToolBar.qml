@@ -19,10 +19,12 @@
 
 import QtQuick 1.0
 
+import "../js/constants.js" as Constants
+
 Rectangle {
     id: toolBar
     z: 20
-    width: parent.width; height: 99
+    width: parent.width; height: Constants.toolbar_height
     anchors.bottom: parent.bottom
     
     gradient: Gradient {

@@ -19,10 +19,10 @@
 
 import QtQuick 1.0
 
-import "../js/jewels.js" as Jewels
+import "../js/constants.js" as Constants
 
 MainPage {
     id: mainPage
-    width: Jewels.block_width*Jewels.board_width
-    height: Jewels.block_height*Jewels.board_height+toolbar_height
+    width: Constants.block_width*Constants.board_width
+    height: Constants.block_height*Constants.board_height+Constants.toolbar_height
 }

@@ -26,7 +26,6 @@ JewelPage {
     
     property int block_width: Jewels.block_width;
     property int block_height: Jewels.block_height;
-    property int toolbar_height: 99
 
     property string mainFont: "Nokia Pure Text"
     property int dialogFontSize: 22
