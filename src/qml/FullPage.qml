@@ -19,13 +19,11 @@
 
 import QtQuick 1.0
 
+import "qrc:///js/constants.js" as Constants
+
 JewelPage {
     id: mainPage
     
-    property string mainFont: "Nokia Pure Text"
-    property color darkColour:     "#333333"
-    property color uiAccentColour: "#D900D9"
-
     anchors.fill: parent
 
     ToolBar {

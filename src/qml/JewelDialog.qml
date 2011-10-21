@@ -19,6 +19,8 @@
 
 import QtQuick 1.0
 
+import "qrc:///js/constants.js" as Constants
+
 Image {
     id: container
 
@@ -52,10 +54,10 @@ Image {
         id: dialogText
         text: ""
 
-        font.family: mainPage.mainFont
+        font.family: Constants.font_family
+        font.pixelSize: Constants.fontsize_dialog
         font.bold: true
-        font.pixelSize: mainPage.dialogFontSize
-        color: mainPage.darkColour
+        color: Constants.color_dark
 
         width: container.paintedWidth-40
         wrapMode: Text.Wrap
@@ -84,9 +86,9 @@ Image {
         Text {
             id: answerText
             text: "Yes, bring it on!"
-            font.family: mainPage.mainFont
-            font.pixelSize: mainPage.dialogFontSize
-            color: mainPage.uiAccentColour
+            font.family: Constants.font_family
+            font.pixelSize: Constants.fontsize_dialog
+            color: Constants.color_uiaccent
             anchors {
                 verticalCenter: answerItem.verticalCenter
                 left: answerItem.left

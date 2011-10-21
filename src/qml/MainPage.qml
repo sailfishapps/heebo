@@ -19,23 +19,12 @@
 
 import QtQuick 1.0
 
+import "qrc:///js/constants.js" as Constants
 import "qrc:///js/jewels.js" as Jewels
 
 JewelPage {
     id: mainPage
     
-    property int block_width: Jewels.block_width;
-    property int block_height: Jewels.block_height;
-
-    property string mainFont: "Nokia Pure Text"
-    property int dialogFontSize: 22
-    property int mainFontSize: 36
-    property color darkColour:     "#333333"
-    property color uiAccentColour: "#D800D8"
-    property color mainFontColour: "#F2F2F2"
-
-    property int font_size: 42
-
     property real buttonOffset: 0.0
 
     property bool isRunning: false
@@ -100,29 +89,29 @@ JewelPage {
             }
             Text {
                 text: "Level: "
-                font.family: mainPage.mainFont
-                font.pixelSize: mainPage.mainFontSize
-                color: mainPage.uiAccentColour
+                font.family: Constants.font_family
+                font.pixelSize: Constants.fontsize_main
+                color: Constants.color_uiaccent
             }
             Text {
                 id: currentLevelText
                 text: "??"
-                font.family: mainPage.mainFont
-                font.pixelSize: mainPage.mainFontSize
-                color: mainPage.mainFontColour
+                font.family: Constants.font_family
+                font.pixelSize: Constants.fontsize_main
+                color: Constants.color_main
             }                
             Text {
                 text: "/"
-                font.family: mainPage.mainFont
-                font.pixelSize: mainPage.mainFontSize
-                color: mainPage.uiAccentColour
+                font.family: Constants.font_family
+                font.pixelSize: Constants.fontsize_main
+                color: Constants.color_uiaccent
             }                
             Text {
                 id: lastLevelText
                 text: "??"
-                font.family: mainPage.mainFont
-                font.pixelSize: mainPage.mainFontSize
-                color: mainPage.mainFontColour
+                font.family: Constants.font_family
+                font.pixelSize: Constants.fontsize_main
+                color: Constants.color_main
             }                
         }
         Image {

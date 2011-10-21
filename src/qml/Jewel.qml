@@ -20,11 +20,13 @@
 import QtQuick 1.0
 import Qt.labs.particles 1.0
 
+import "qrc:///js/constants.js" as Constants
+
 Item {
     id: jewel
 
-    width: mainPage.block_width
-    height: mainPage.block_height
+    width: Constants.block_width
+    height: Constants.block_height
 
     z: 0
 
@@ -75,8 +77,8 @@ Item {
     }
 
     function moveToBlock(pt) {
-        x = pt.x * mainPage.block_width;
-        y = pt.y * mainPage.block_height
+        x = pt.x * Constants.block_width;
+        y = pt.y * Constants.block_height
     }
 
     function moveToPoint(pt) {

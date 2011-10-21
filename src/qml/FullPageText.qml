@@ -19,14 +19,16 @@
 
 import QtQuick 1.0
 
+import "qrc:///js/constants.js" as Constants
+
 Text {
     property string style: "normal"
     
     font.pixelSize: style === "title"  ? 26 :
                     style === "small"  ? 18 : 24
     font.bold: style === "title"                    
-    font.family: mainPage.mainFont
-    color: mainPage.darkColour
+    font.family: Constants.font_family
+    color: Constants.color_dark
     
     anchors {
         topMargin: 30

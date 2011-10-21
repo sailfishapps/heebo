@@ -693,7 +693,7 @@ var mouseMoved = function (x, y) {
     var dd = point({x:x, y:y}).minus(moving1.pt);
 
     var dist = dd.x.abs()-dd.y.abs();
-    if (dist.abs() < moveLimit)
+    if (dist.abs() < move_limit)
         return;
 
     if (dd.x.abs() > dd.y.abs()) {

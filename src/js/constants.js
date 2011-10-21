@@ -21,11 +21,14 @@
 
 .pragma library
 
+// Number of different "jewel" types
 var jewel_maxtype = 5;
 
+// Board size
 var board_width = 6;
 var board_height = 9;
 
+// Block pixel size
 var block_width = 80;
 var block_height = 80;
 
@@ -33,7 +36,17 @@ var block_height = 80;
 var toolbar_height = 99;
 
 // Pixels to drag/swipe until it's interpreted as a movement
-var moveLimit = 5;
+var move_limit = 5;
+
+// Font settings
+var font_family = "Nokia Pure Text";
+var fontsize_dialog = 22;
+var fontsize_main = 36;
+
+var color_uiaccent = "#D800D8";
+var color_dark = "#333333";
+var color_main = "#F2F2F2";
+
 
 //-----------------------------------------------------------------------------
 // Utility functions
