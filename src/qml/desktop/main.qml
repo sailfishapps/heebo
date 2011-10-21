@@ -24,7 +24,6 @@ import "../js/constants.js" as Constants
 MainPage {
 /* These are to test full screen pages on desktop which doesn't have
    Harmattan's pagestacks. */
-
 /* AboutPage { */
 /* HelpPage { */
     id: mainPage

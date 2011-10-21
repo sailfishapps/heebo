@@ -19,47 +19,67 @@
 
 import QtQuick 1.0
 
+import "qrc:///js/constants.js" as Constants
+
 FullPage {
     id: mainPage
-    
-    Image {
-        id: logoImage
-        source: "qrc:///images/heebo_logo.png";
-        anchors {
-            top: parent.top
-            topMargin: 30
-            horizontalCenter: parent.horizontalCenter
+    Flickable {
+        id: flickList
+        anchors { top: parent.top; 
+                  left: parent.left; right: parent.right }
+        height: parent.height-99
+        clip: true
+        flickableDirection: Flickable.VerticalFlick
+        contentWidth: parent.width
+        contentHeight: logoImage.height + versionText.paintedHeight +
+        cred1Text.paintedHeight + cred2Text.paintedHeight +
+        gplText.paintedHeight + 30*6
+        
+        Image {
+            id: logoImage
+            source: "qrc:///images/heebo_logo.png";
+            anchors {
+                top: parent.top
+                topMargin: 30
+                horizontalCenter: parent.horizontalCenter
+            }
+        }
+
+
+        FullPageText {
+            id: versionText
+            text: "Version "+Constants.heebo_version
+            style: "small"
+            anchors.top: logoImage.bottom
+            horizontalAlignment: Text.AlignHCenter
+        }
+
+
+        FullPageText {
+            id: cred1Text
+            text: "<i>Häxxoring</i><br\><b>Mats Sj&ouml;berg</b><br\>"+
+            "mats@sjoberg.fi<br\>sazius@identi.ca"
+
+            anchors.top: versionText.bottom
+            horizontalAlignment: Text.AlignHCenter
+        }
+
+        FullPageText {
+            id: cred2Text
+            text: "<i>Gräffix</i><br\><b>Niklas Gustafsson</b><br\>nikui@nikui.net"
+
+            anchors.top: cred1Text.bottom
+            horizontalAlignment: Text.AlignHCenter
+        }
+        FullPageText {
+            id: gplText
+            text: Constants.heebo_copyright+"<br/><br/>"+Constants.GPL
+            style: "small"
+
+            anchors.top: cred2Text.bottom
         }
     }
-
-    FullPageText {
-        id: text1
-        text: "Hello, world"
-
-        anchors.top: logoImage.bottom
+    ScrollBar {
+        flickableItem: flickList
     }
-
-    FullPageText {
-        id: text2
-        text: "FOOBAR"
-        style: "title"
-
-        anchors.top: text1.bottom
-    }
-
-    FullPageText {
-        id: text3
-        text: "Hello, world, again"
-
-        anchors.top: text2.bottom
-    }
-
-    FullPageText {
-        id: text4
-        text: "Tiny text"
-        style: "small"
-
-        anchors.top: text3.bottom
-    }
-
 }

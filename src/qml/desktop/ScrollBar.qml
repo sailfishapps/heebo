@@ -18,8 +18,7 @@
 */
 
 import QtQuick 1.0
-import com.nokia.meego 1.0
 
-Page {
-    orientationLock: PageOrientation.LockPortrait
+Rectangle {
+    property variant flickableItem: 0
 }

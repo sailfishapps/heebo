@@ -29,6 +29,9 @@ Text {
     font.bold: style === "title"                    
     font.family: Constants.font_family
     color: Constants.color_dark
+
+    textFormat: Text.RichText
+    wrapMode: Text.Wrap
     
     anchors {
         topMargin: 30

@@ -4,5 +4,6 @@
     <!-- QML -->
     <file alias="qml/main.qml">src/qml/harmattan/main.qml</file>
     <file alias="qml/JewelPage.qml">src/qml/harmattan/JewelPage.qml</file>
+    <file alias="qml/ScrollBar.qml">src/qml/harmattan/ScrollBar.qml</file>
   </qresource>
 </RCC>
