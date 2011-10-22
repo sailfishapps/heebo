@@ -48,23 +48,43 @@ void EditorWindow::createActions() {
   m_exitAction = new QAction(tr("E&xit"), this);
   m_exitAction->setShortcut(tr("Ctrl+Q"));
   connect(m_exitAction, SIGNAL(triggered()), this, SLOT(exit()));
+
+  m_newLevelAction = new QAction(tr("&New level"), this);
+  m_newLevelAction->setShortcut(tr("Ctrl+N"));
+  connect(m_newLevelAction, SIGNAL(triggered()), this, SLOT(newLevel()));
+
+  m_moveLeftAction = new QAction(tr("Move level &left"), this);
+  m_moveLeftAction->setShortcut(tr("Ctrl+Left"));
+  connect(m_moveLeftAction, SIGNAL(triggered()), this, SLOT(moveLeft()));
+
+  m_moveRightAction = new QAction(tr("Move level &left"), this);
+  m_moveRightAction->setShortcut(tr("Ctrl+Right"));
+  connect(m_moveRightAction, SIGNAL(triggered()), this, SLOT(moveRight()));
 }
 
 //------------------------------------------------------------------------------
 
 void EditorWindow::createMenus() {
-  m_mainMenu = new QMenu(tr("&Editor"), this);
-  m_mainMenu->addSeparator();
-  m_mainMenu->addAction(m_exitAction);
-  menuBar()->addMenu(m_mainMenu);
-
     /* menu:
   HeeboEditor
   - Open Mapset
   - Save 
   - Save as ...
   - Preferences
-  - Exit
+  - Exit*/
+
+  m_mainMenu = new QMenu(tr("&Editor"), this);
+  // m_mainMenu->addSeparator();
+  m_mainMenu->addAction(m_exitAction);
+  menuBar()->addMenu(m_mainMenu);
+
+  m_levelMenu = new QMenu(tr("&Levels"), this);
+  m_levelMenu->addAction(m_newLevelAction);
+  m_levelMenu->addAction(m_moveLeftAction);
+  m_levelMenu->addAction(m_moveRightAction);
+  menuBar()->addMenu(m_levelMenu);
+
+  /*
   Maps
   - Insert new map
   Help
@@ -76,6 +96,25 @@ void EditorWindow::createMenus() {
 
 void EditorWindow::exit() {
   qApp->exit();
+}
+
+//------------------------------------------------------------------------------
+
+void EditorWindow::newLevel() {
+  qDebug() << "newLevel";
+  
+}
+
+//------------------------------------------------------------------------------
+
+void EditorWindow::moveLeft() {
+  qDebug() << "moveLeft";
+}
+
+//------------------------------------------------------------------------------
+
+void EditorWindow::moveRight() {
+  qDebug() << "moveRight";
 }
 
 //------------------------------------------------------------------------------

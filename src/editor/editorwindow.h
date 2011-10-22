@@ -36,7 +36,10 @@ public:
 
 private slots:
   void exit();
-
+  void newLevel();
+  void moveLeft();
+  void moveRight();
+  
 private:
   void loadMapset(const QString& fileName);
   
@@ -50,8 +53,12 @@ private:
   void createMenus();
 
   QAction* m_exitAction;
+  QAction* m_newLevelAction;
+  QAction* m_moveLeftAction;
+  QAction* m_moveRightAction;
 
   QMenu* m_mainMenu;
+  QMenu* m_levelMenu;
 
   QTabWidget* m_tabWidget;
 };
