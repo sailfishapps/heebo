@@ -29,10 +29,24 @@ GameMap::GameMap(int width, int height) :
 
 //------------------------------------------------------------------------------
 
+bool GameMap::OK(int r, int c) const {
+  return r >= 0 && r < m_height && c >= 0 && c < m_width;
+}
+
+//------------------------------------------------------------------------------
+
 QChar GameMap::at(int r, int c) const {
-  if (r < 0 || r >= m_height || c < 0 || c >=m_width)
+  if (!OK(r, c)) {
+    qDebug() << "GameMap::at(" << r << "," << c << "): coordinate not valid.";
     return ' ';
+  }
   return m_map[r][c];
+}
+
+//------------------------------------------------------------------------------
+
+QChar GameMap::at(const QPoint& p) const {
+  return at(p.y(), p.x());
 }
 
 //------------------------------------------------------------------------------
@@ -50,6 +64,23 @@ QString GameMap::atName(int r, int c) const {
     return "deadend_right";
   else
     return ch;
+}
+
+//------------------------------------------------------------------------------
+
+void GameMap::set(int r, int c, QChar ch) {
+  if (!OK(r, c)) {
+    qDebug() << "GameMap::set(" << r << "," << c << "): coordinate not valid.";
+    return;
+  }
+  m_map[r][c] = ch;
+}
+
+//------------------------------------------------------------------------------
+
+
+void GameMap::set(const QPoint& p, QChar ch) {
+  set(p.y(), p.x(), ch);
 }
 
 //------------------------------------------------------------------------------
@@ -91,3 +122,13 @@ GameMap* GameMap::fromTextStream(QTextStream& in, int w, int h) {
   return gm;
 }
   
+//------------------------------------------------------------------------------
+
+void GameMap::debugDump() {
+  for (int j=0; j<height(); j++) {
+    QString row;
+    for (int i=0; i<width(); i++)
+      row += at(j, i);
+    qDebug() << row;
+  }
+}

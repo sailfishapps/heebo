@@ -28,11 +28,20 @@ class MapWidget : public QGraphicsView {
 public:
   MapWidget(GameMap* map, QWidget* parent=0);
 
+protected:
+  void mouseReleaseEvent(QMouseEvent*);
+
 private:
   void populateScene();
-  
+
+  void drawBlock(int, int);
+  void drawBlock(const QPoint& p) { drawBlock(p.x(), p.y()); }
+
+  void updateBorder(int, int);
+
   QGraphicsScene* m_scene;
   GameMap* m_map;
+  QRect m_mapRect;
 };
 
 #endif /* _MAPWIDGET_H_ */

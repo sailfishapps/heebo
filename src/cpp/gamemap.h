@@ -20,7 +20,6 @@
 #ifndef _GAMEMAP_H_
 #define _GAMEMAP_H_
 
-// #include <QTextStream>
 #include <QtCore>
 
 //------------------------------------------------------------------------------
@@ -30,14 +29,21 @@ public:
   static GameMap* fromTextStream(QTextStream&, int, int);
 
   QChar at(int r, int c) const;
+  QChar at(const QPoint& p) const;
   QString atName(int r, int c) const;
+
+  void set(int r, int c, QChar ch);
+  void set(const QPoint& p, QChar ch);
 
   int width() const { return m_width; }
   int height() const { return m_height; }
 
+  void debugDump();
+
 private:
   GameMap(int, int);
   void load(QTextStream&);
+  bool OK(int r, int c) const;
 
   QList< QList<QChar> > m_map;
   int m_width, m_height;

@@ -22,6 +22,7 @@ TEMPLATE = app
 TARGET = editor
 DEPENDPATH += .
 INCLUDEPATH += . ../
+LIBS += -lm
 
 # Input
 HEADERS += editorwindow.h mapwidget.h
