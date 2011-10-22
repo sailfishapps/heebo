@@ -19,10 +19,9 @@
 ######################################################################
 
 TEMPLATE = app
-TARGET = 
+TARGET = editor
 DEPENDPATH += .
 INCLUDEPATH += . ../
-
 
 # Input
 HEADERS += editorwindow.h mapwidget.h
@@ -30,3 +29,5 @@ HEADERS += ../cpp/gamemap.h ../cpp/gamemapset.h
 
 SOURCES += editor.cpp editorwindow.cpp mapwidget.cpp
 SOURCES += ../cpp/gamemap.cpp ../cpp/gamemapset.cpp
+
+RESOURCES += editor.qrc

@@ -34,15 +34,30 @@ MapWidget::MapWidget(GameMap* map, QWidget* parent) :
 //------------------------------------------------------------------------------
 
 void MapWidget::populateScene() {
-  int w = 60, h = 60;
-
-  QBrush wall(Qt::lightGray);
-  QBrush floor(Qt::black);
+  static const int w = 60, h = 60;
 
   for (int j=0; j<m_map->height(); j++) {
     for (int i=0; i<m_map->width(); i++) {
-      QChar ch = m_map->at(j, i);
-      m_scene->addRect(QRectF(i*w, j*h, w, h), QPen(),  ch == 'W' ? wall : floor); 
+      QString blockName = m_map->atName(j, i);
+
+      QString fileName = QString(":/images/%1.png").
+        arg(blockName == "W" ? "block_wall_1" : "bg");
+
+      QGraphicsPixmapItem* pm =
+        m_scene->addPixmap(QPixmap(fileName).
+                           scaled(w, h, Qt::IgnoreAspectRatio,
+                                  Qt::SmoothTransformation));
+      pm->setOffset(i*w, j*h);
+
+      if (blockName != "W" && blockName != "0") {
+        QString borderFileName = QString(":/images/wb_%1.png").arg(blockName);
+        QGraphicsPixmapItem* pm =
+          m_scene->addPixmap(QPixmap(borderFileName).
+                             scaled(w, h, Qt::IgnoreAspectRatio,
+                                    Qt::SmoothTransformation));
+        pm->setOffset(i*w, j*h);
+        pm->setZValue(5);
+      }
     }
   }
       

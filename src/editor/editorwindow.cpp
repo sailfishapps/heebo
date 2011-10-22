@@ -24,6 +24,8 @@
 EditorWindow::EditorWindow() : QMainWindow(), m_mapset(NULL) {
   readSettings();
 
+  setWindowTitle("Heebo level editor");
+
   createActions();
   createMenus();
 
