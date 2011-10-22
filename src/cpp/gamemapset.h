@@ -39,6 +39,8 @@ class GameMapSet : public QObject {
 public:
   explicit GameMapSet(const QString& fileName, int initialLevel,
                       QObject* parent=0);
+
+  void save(const QString& fileName="");
   
   int level() const;
   int setLevel(int l);

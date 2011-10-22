@@ -107,3 +107,28 @@ void GameMapSet::loadMap() {
 GameMap* GameMapSet::map(int l) {
   return levelOK(l) ? m_maps[l] : NULL;
 }
+
+//------------------------------------------------------------------------------
+
+void GameMapSet::save(const QString& fileName) {
+  if (!fileName.isEmpty())
+    m_fileName = fileName;
+
+  QFile fp(m_fileName);
+  if (!fp.open(QIODevice::WriteOnly | QIODevice::Text)) {
+    qCritical() << "Unable to open" << m_fileName << "for opening.";
+    return;
+  }
+
+  QTextStream out(&fp);
+
+  out << "# Heebo game map set.\n";
+  out << "# width\n" << m_width << "\n";
+  out << "# height\n" << m_height << "\n";
+  out << "# number of maps\n" << m_number << "\n";
+
+  for (int i=0; i<m_number; i++) {
+    out << "# map" << i+1 << "\n";
+    m_maps[i]->save(out);
+  }
+}

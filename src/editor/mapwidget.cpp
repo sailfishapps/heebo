@@ -69,8 +69,6 @@ void MapWidget::mouseReleaseEvent(QMouseEvent* event) {
   }    
 
   drawBlock(mapPos);
-
-  m_map->debugDump();
 }
 
 //------------------------------------------------------------------------------

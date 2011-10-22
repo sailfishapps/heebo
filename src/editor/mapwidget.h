@@ -24,9 +24,8 @@
 #include "cpp/gamemap.h"
 
 class MapWidget : public QGraphicsView {
-  Q_OBJECT
 public:
-  MapWidget(GameMap* map, QWidget* parent=0);
+  explicit MapWidget(GameMap* map, QWidget* parent=0);
 
 protected:
   void mouseReleaseEvent(QMouseEvent*);

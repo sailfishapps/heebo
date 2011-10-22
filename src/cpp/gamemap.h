@@ -38,7 +38,7 @@ public:
   int width() const { return m_width; }
   int height() const { return m_height; }
 
-  void debugDump();
+  void save(QTextStream&) const;
 
 private:
   GameMap(int, int);

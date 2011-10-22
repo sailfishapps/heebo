@@ -124,11 +124,10 @@ GameMap* GameMap::fromTextStream(QTextStream& in, int w, int h) {
   
 //------------------------------------------------------------------------------
 
-void GameMap::debugDump() {
+void GameMap::save(QTextStream& out) const {
   for (int j=0; j<height(); j++) {
-    QString row;
     for (int i=0; i<width(); i++)
-      row += at(j, i);
-    qDebug() << row;
+      out << at(j, i);
+    out << "\n";
   }
 }

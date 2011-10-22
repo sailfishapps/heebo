@@ -39,6 +39,7 @@ EditorWindow::EditorWindow() : QMainWindow(), m_mapset(NULL) {
 
 EditorWindow::~EditorWindow() {
   writeSettings();
+  m_mapset->save();
 }
 
 //------------------------------------------------------------------------------
