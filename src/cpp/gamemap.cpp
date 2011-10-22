@@ -37,6 +37,23 @@ QChar GameMap::at(int r, int c) const {
 
 //------------------------------------------------------------------------------
 
+QString GameMap::atName(int r, int c) const {
+  QChar ch = at(r, c);
+    
+  if (ch == '|') 
+    return "updown";
+  else if (ch == '-')
+    return "leftright";
+  else if (ch == '<')
+    return "deadend_left";
+  else if (ch == '>')
+    return "deadend_right";
+  else
+    return ch;
+}
+
+//------------------------------------------------------------------------------
+
 void GameMap::load(QTextStream& in) {
   int n = 0;
   while (n < m_height && !in.atEnd()) {

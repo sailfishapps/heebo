@@ -17,30 +17,34 @@
   along with Heebo.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef _GAMEMAP_H_
-#define _GAMEMAP_H_
-
-// #include <QTextStream>
-#include <QtCore>
+#include "mapwidget.h"
 
 //------------------------------------------------------------------------------
 
-class GameMap {
-public:
-  static GameMap* fromTextStream(QTextStream&, int, int);
+MapWidget::MapWidget(GameMap* map, QWidget* parent) :
+  QGraphicsView(parent),
+  m_map(map)
+{
+  m_scene = new QGraphicsScene(this);
+  populateScene();
+  setScene(m_scene);
+  show();
+}
 
-  QChar at(int r, int c) const;
-  QString atName(int r, int c) const;
+//------------------------------------------------------------------------------
 
-  int width() const { return m_width; }
-  int height() const { return m_height; }
+void MapWidget::populateScene() {
+  int w = 60, h = 60;
 
-private:
-  GameMap(int, int);
-  void load(QTextStream&);
+  QBrush wall(Qt::lightGray);
+  QBrush floor(Qt::black);
 
-  QList< QList<QChar> > m_map;
-  int m_width, m_height;
-};
+  for (int j=0; j<m_map->height(); j++) {
+    for (int i=0; i<m_map->width(); i++) {
+      QChar ch = m_map->at(j, i);
+      m_scene->addRect(QRectF(i*w, j*h, w, h), QPen(),  ch == 'W' ? wall : floor); 
+    }
+  }
+      
+}
 
-#endif /* _GAMEMAP_H_ */

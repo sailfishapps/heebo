@@ -16,3 +16,4 @@ TAGS
 /build/heebo_*_armel.changes
 /build/heebo_*_armel.deb
 /build/harmattan/debian/files
+/src/editor/editor

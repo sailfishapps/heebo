@@ -45,6 +45,8 @@ public:
   int numLevels() const { return m_number; }
   bool onLastLevel() const { return m_level == m_number-1; }
 
+  GameMap* map(int l);
+
 public slots:
   QString at(int r, int c) const;
 
@@ -53,6 +55,9 @@ signals:
 
 private:
   void loadMap();
+
+  bool levelOK(int);
+
 
   QString m_fileName;
   

@@ -17,30 +17,43 @@
   along with Heebo.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef _GAMEMAP_H_
-#define _GAMEMAP_H_
+#ifndef _EDITORWINDOW_H_
+#define _EDITORWINDOW_H_
 
-// #include <QTextStream>
-#include <QtCore>
+#include <QtGui>
 
-//------------------------------------------------------------------------------
+#include "mapwidget.h"
 
-class GameMap {
+#include "cpp/gamemapset.h"
+#include "cpp/gamemap.h"
+
+class EditorWindow : public QMainWindow {
+  Q_OBJECT
+
 public:
-  static GameMap* fromTextStream(QTextStream&, int, int);
+  EditorWindow();
+  ~EditorWindow();
 
-  QChar at(int r, int c) const;
-  QString atName(int r, int c) const;
-
-  int width() const { return m_width; }
-  int height() const { return m_height; }
+private slots:
+  void exit();
 
 private:
-  GameMap(int, int);
-  void load(QTextStream&);
+  void loadMapset(const QString& fileName);
+  
+  GameMapSet* m_mapset;
 
-  QList< QList<QChar> > m_map;
-  int m_width, m_height;
+  // UI stuff
+  void readSettings();
+  void writeSettings();
+  
+  void createActions();
+  void createMenus();
+
+  QAction* m_exitAction;
+
+  QMenu* m_mainMenu;
+
+  QTabWidget* m_tabWidget;
 };
 
-#endif /* _GAMEMAP_H_ */
+#endif /* _EDITORWINDOW_H_ */

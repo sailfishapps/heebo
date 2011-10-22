@@ -44,8 +44,14 @@ int GameMapSet::level() const {
 
 //------------------------------------------------------------------------------
 
+bool GameMapSet::levelOK(int l) {
+  return l >= 0 && l < m_number;
+}
+
+//------------------------------------------------------------------------------
+
 int GameMapSet::setLevel(int l) {
-  if (l != m_level && l >= 0 && l < m_number) {
+  if (l != m_level && levelOK(l)) {
     m_level = l;
     emit levelChanged();
   }
@@ -56,18 +62,7 @@ int GameMapSet::setLevel(int l) {
 //------------------------------------------------------------------------------
 
 QString GameMapSet::at(int r, int c) const {
-  QChar ch = m_maps[m_level]->at(r,c);
-  
-  if (ch == '|') 
-    return "updown";
-  else if (ch == '-')
-    return "leftright";
-  else if (ch == '<')
-    return "deadend_left";
-  else if (ch == '>')
-    return "deadend_right";
-  else
-    return ch;
+  return m_maps[m_level]->atName(r,c);
 }
 
 //------------------------------------------------------------------------------
@@ -109,4 +104,6 @@ void GameMapSet::loadMap() {
 
 //------------------------------------------------------------------------------
 
-
+GameMap* GameMapSet::map(int l) {
+  return levelOK(l) ? m_maps[l] : NULL;
+}
