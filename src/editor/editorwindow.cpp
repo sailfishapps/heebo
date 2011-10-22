@@ -105,9 +105,15 @@ void EditorWindow::exit() {
 
 //------------------------------------------------------------------------------
 
+QString EditorWindow::mapLabel(int index) {
+  return QString("# %1").arg(index+1);
+}
+
+//------------------------------------------------------------------------------
+
 void EditorWindow::updateTabLabels(int from) {
   for (int i=from; i<m_tabWidget->count(); i++)
-    m_tabWidget->setTabText(i, QString("# %1").arg(i+1));
+    m_tabWidget->setTabText(i, mapLabel(i));
 }
 
 //------------------------------------------------------------------------------
@@ -117,7 +123,7 @@ void EditorWindow::newLevel() {
 
   GameMap* m = m_mapset->newMap(index);
   MapWidget* mw = new MapWidget(m, this);
-  m_tabWidget->insertTab(index, mw, QString("# %1").arg(index+1));
+  m_tabWidget->insertTab(index, mw, mapLabel(index));
 
   updateTabLabels(index+1);
 
@@ -137,14 +143,49 @@ void EditorWindow::removeLevel() {
 
 //------------------------------------------------------------------------------
 
+void EditorWindow::swapMaps(int i, int j) {
+  if (i == j) {
+    qDebug() << "swapMaps:" << i << j << "makes no sense.";
+    return;
+  }
+
+  if (i > j)
+    qSwap(i, j);
+
+  m_mapset->swapMaps(i, j);
+
+  MapWidget* mw_i = qobject_cast<MapWidget*>(m_tabWidget->widget(i));
+  MapWidget* mw_j = qobject_cast<MapWidget*>(m_tabWidget->widget(j));
+
+  m_tabWidget->removeTab(j);
+  m_tabWidget->removeTab(i);
+
+  m_tabWidget->insertTab(i, mw_j, mapLabel(i));
+  m_tabWidget->insertTab(j, mw_i, mapLabel(j));
+
+  updateTabLabels(qMin(i, j));
+}
+
+//------------------------------------------------------------------------------
+
 void EditorWindow::moveLeft() {
-  qDebug() << "moveLeft";
+  int index = m_tabWidget->currentIndex();
+  if (index <= 0)
+    return;
+
+  swapMaps(index-1, index);  
+  m_tabWidget->setCurrentIndex(index-1);
 }
 
 //------------------------------------------------------------------------------
 
 void EditorWindow::moveRight() {
-  qDebug() << "moveRight";
+  int index = m_tabWidget->currentIndex();
+  if (index < 0 || index >= m_tabWidget->count()-1)
+    return;
+
+  swapMaps(index, index+1);
+  m_tabWidget->setCurrentIndex(index+1);
 }
 
 //------------------------------------------------------------------------------
@@ -184,6 +225,6 @@ void EditorWindow::loadMapset(const QString& fileName) {
   for (int i=0; i<m_mapset->numLevels(); i++) {
     GameMap* m = m_mapset->map(i);
     MapWidget* mw = new MapWidget(m, this);
-    m_tabWidget->addTab(mw, QString("# %1").arg(i+1));
+    m_tabWidget->addTab(mw, mapLabel(i));
   }
 }

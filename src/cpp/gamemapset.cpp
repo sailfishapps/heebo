@@ -44,14 +44,14 @@ int GameMapSet::level() const {
 
 //------------------------------------------------------------------------------
 
-bool GameMapSet::levelOK(int l) {
+bool GameMapSet::OK(int l) {
   return l >= 0 && l < m_number;
 }
 
 //------------------------------------------------------------------------------
 
 int GameMapSet::setLevel(int l) {
-  if (l != m_level && levelOK(l)) {
+  if (l != m_level && OK(l)) {
     m_level = l;
     emit levelChanged();
   }
@@ -105,7 +105,7 @@ void GameMapSet::loadMap() {
 //------------------------------------------------------------------------------
 
 GameMap* GameMapSet::map(int l) {
-  return levelOK(l) ? m_maps[l] : NULL;
+  return OK(l) ? m_maps[l] : NULL;
 }
 
 //------------------------------------------------------------------------------
@@ -147,4 +147,11 @@ GameMap* GameMapSet::newMap(int index) {
 void GameMapSet::removeMap(int index) {
   m_maps.removeAt(index);
   m_number--;
+}
+
+//------------------------------------------------------------------------------
+
+void GameMapSet::swapMaps(int i, int j) {
+  if (OK(i) && OK(j))
+    m_maps.swap(i, j);
 }

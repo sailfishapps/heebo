@@ -49,6 +49,7 @@ public:
 
   GameMap* newMap(int);
   void removeMap(int);
+  void swapMaps(int, int);
 
   GameMap* map(int l);
 
@@ -61,8 +62,7 @@ signals:
 private:
   void loadMap();
 
-  bool levelOK(int);
-
+  bool OK(int);
 
   QString m_fileName;
   

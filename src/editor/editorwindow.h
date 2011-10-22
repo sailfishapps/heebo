@@ -44,6 +44,8 @@ private slots:
 private:
   void loadMapset(const QString& fileName);
   void updateTabLabels(int from=0);
+  void swapMaps(int, int);
+  QString mapLabel(int);
   
   GameMapSet* m_mapset;
 
