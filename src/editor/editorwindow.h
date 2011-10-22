@@ -37,11 +37,13 @@ public:
 private slots:
   void exit();
   void newLevel();
+  void removeLevel();
   void moveLeft();
   void moveRight();
   
 private:
   void loadMapset(const QString& fileName);
+  void updateTabLabels(int from=0);
   
   GameMapSet* m_mapset;
 
@@ -52,13 +54,14 @@ private:
   void createActions();
   void createMenus();
 
+  QMenu* m_mainMenu;
   QAction* m_exitAction;
+
+  QMenu* m_levelMenu;
   QAction* m_newLevelAction;
+  QAction* m_removeLevelAction;
   QAction* m_moveLeftAction;
   QAction* m_moveRightAction;
-
-  QMenu* m_mainMenu;
-  QMenu* m_levelMenu;
 
   QTabWidget* m_tabWidget;
 };

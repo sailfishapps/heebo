@@ -116,14 +116,6 @@ void GameMap::load(QTextStream& in) {
 
 //------------------------------------------------------------------------------
 
-GameMap* GameMap::fromTextStream(QTextStream& in, int w, int h) {
-  GameMap* gm = new GameMap(w,h);
-  gm->load(in);
-  return gm;
-}
-  
-//------------------------------------------------------------------------------
-
 void GameMap::save(QTextStream& out) const {
   for (int j=0; j<height(); j++) {
     for (int i=0; i<width(); i++)
@@ -131,3 +123,28 @@ void GameMap::save(QTextStream& out) const {
     out << "\n";
   }
 }
+
+//------------------------------------------------------------------------------
+
+GameMap* GameMap::fromTextStream(QTextStream& in, int w, int h) {
+  GameMap* gm = new GameMap(w,h);
+  gm->load(in);
+  return gm;
+}
+
+//------------------------------------------------------------------------------
+
+GameMap* GameMap::emptyMap(int w, int h) {
+  GameMap* gm = new GameMap(w,h);
+
+  for (int j=0; j<h; j++) {
+    QList<QChar> list;
+    for (int i=0; i<w; i++)
+      list.append('0');
+    gm->m_map.append(list);
+  }
+
+  return gm;
+}
+
+  

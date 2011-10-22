@@ -53,6 +53,10 @@ void EditorWindow::createActions() {
   m_newLevelAction->setShortcut(tr("Ctrl+N"));
   connect(m_newLevelAction, SIGNAL(triggered()), this, SLOT(newLevel()));
 
+  m_removeLevelAction = new QAction(tr("&Remove level"), this);
+  // m_removeLevelAction->setShortcut(tr("Ctrl+N"));
+  connect(m_removeLevelAction, SIGNAL(triggered()), this, SLOT(removeLevel()));
+
   m_moveLeftAction = new QAction(tr("Move level &left"), this);
   m_moveLeftAction->setShortcut(tr("Ctrl+Left"));
   connect(m_moveLeftAction, SIGNAL(triggered()), this, SLOT(moveLeft()));
@@ -80,6 +84,7 @@ void EditorWindow::createMenus() {
 
   m_levelMenu = new QMenu(tr("&Levels"), this);
   m_levelMenu->addAction(m_newLevelAction);
+  m_levelMenu->addAction(m_removeLevelAction);
   m_levelMenu->addAction(m_moveLeftAction);
   m_levelMenu->addAction(m_moveRightAction);
   menuBar()->addMenu(m_levelMenu);
@@ -100,9 +105,34 @@ void EditorWindow::exit() {
 
 //------------------------------------------------------------------------------
 
+void EditorWindow::updateTabLabels(int from) {
+  for (int i=from; i<m_tabWidget->count(); i++)
+    m_tabWidget->setTabText(i, QString("# %1").arg(i+1));
+}
+
+//------------------------------------------------------------------------------
+
 void EditorWindow::newLevel() {
-  qDebug() << "newLevel";
-  
+  int index = m_tabWidget->currentIndex()+1;
+
+  GameMap* m = m_mapset->newMap(index);
+  MapWidget* mw = new MapWidget(m, this);
+  m_tabWidget->insertTab(index, mw, QString("# %1").arg(index+1));
+
+  updateTabLabels(index+1);
+
+  m_tabWidget->setCurrentIndex(index);
+}
+
+//------------------------------------------------------------------------------
+
+void EditorWindow::removeLevel() {
+  int index = m_tabWidget->currentIndex();
+
+  m_mapset->removeMap(index);
+  m_tabWidget->removeTab(index);
+
+  updateTabLabels(index);
 }
 
 //------------------------------------------------------------------------------
@@ -154,6 +184,6 @@ void EditorWindow::loadMapset(const QString& fileName) {
   for (int i=0; i<m_mapset->numLevels(); i++) {
     GameMap* m = m_mapset->map(i);
     MapWidget* mw = new MapWidget(m, this);
-    m_tabWidget->addTab(mw, QString("Level %1").arg(i+1));
+    m_tabWidget->addTab(mw, QString("# %1").arg(i+1));
   }
 }

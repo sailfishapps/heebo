@@ -132,3 +132,19 @@ void GameMapSet::save(const QString& fileName) {
     m_maps[i]->save(out);
   }
 }
+
+//------------------------------------------------------------------------------
+
+GameMap* GameMapSet::newMap(int index) {
+  GameMap* gm = GameMap::emptyMap(m_width, m_height);
+  m_maps.insert(index, gm);
+  m_number++;
+  return gm;
+}
+
+//------------------------------------------------------------------------------
+
+void GameMapSet::removeMap(int index) {
+  m_maps.removeAt(index);
+  m_number--;
+}

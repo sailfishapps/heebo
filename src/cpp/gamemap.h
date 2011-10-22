@@ -27,6 +27,7 @@
 class GameMap {
 public:
   static GameMap* fromTextStream(QTextStream&, int, int);
+  static GameMap* emptyMap(int, int);
 
   QChar at(int r, int c) const;
   QChar at(const QPoint& p) const;

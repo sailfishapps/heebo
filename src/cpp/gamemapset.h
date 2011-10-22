@@ -47,6 +47,9 @@ public:
   int numLevels() const { return m_number; }
   bool onLastLevel() const { return m_level == m_number-1; }
 
+  GameMap* newMap(int);
+  void removeMap(int);
+
   GameMap* map(int l);
 
 public slots:
