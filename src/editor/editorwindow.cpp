@@ -84,7 +84,7 @@ void EditorWindow::createActions() {
   m_moveLeftAction->setShortcut(tr("Ctrl+Left"));
   connect(m_moveLeftAction, SIGNAL(triggered()), this, SLOT(moveLeft()));
 
-  m_moveRightAction = new QAction(tr("Move level &left"), this);
+  m_moveRightAction = new QAction(tr("Move level &right"), this);
   m_moveRightAction->setShortcut(tr("Ctrl+Right"));
   connect(m_moveRightAction, SIGNAL(triggered()), this, SLOT(moveRight()));
 }
@@ -199,6 +199,8 @@ void EditorWindow::saveMapset() {
     saveAsMapset();
   else
     m_mapset->save();
+
+  setChanges(false);
 }
 
 //------------------------------------------------------------------------------
@@ -208,6 +210,8 @@ void EditorWindow::saveAsMapset() {
     QFileDialog::getSaveFileName(this, tr("Save mapset"), QString(),
                                  mapsetFileFilter);
   m_mapset->save(fileName);
+
+  setChanges(false);
 }
 
 //------------------------------------------------------------------------------
