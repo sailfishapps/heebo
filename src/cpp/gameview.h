@@ -28,6 +28,7 @@
 //------------------------------------------------------------------------------
 
 class GameView : public QDeclarativeView {
+Q_OBJECT
 public:
   explicit GameView(QWidget* parent=0);
 
