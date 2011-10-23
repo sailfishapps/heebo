@@ -169,7 +169,11 @@ JewelPage {
 
         MouseArea {
             anchors.fill: parent
-            onClicked: { mainMenu.hide(); okDialog.hide(); }
+            onClicked: {
+                mainMenu.hide();
+                if (!okDialog.isClosed())
+                  okDialog.hide();
+            }
         }
 
         Behavior on opacity {
