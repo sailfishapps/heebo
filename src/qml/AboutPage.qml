@@ -45,7 +45,6 @@ FullPage {
             }
         }
 
-
         FullPageText {
             id: versionText
             text: "Version "+Constants.heebo_version
@@ -54,11 +53,9 @@ FullPage {
             horizontalAlignment: Text.AlignHCenter
         }
 
-
         FullPageText {
             id: cred1Text
-            text: "<i>Häxxoring</i><br\><b>Mats Sj&ouml;berg</b><br\>"+
-            "mats@sjoberg.fi<br\>sazius@identi.ca"
+            text: Constants.heebo_credit_coding
 
             anchors.top: versionText.bottom
             horizontalAlignment: Text.AlignHCenter
@@ -66,7 +63,7 @@ FullPage {
 
         FullPageText {
             id: cred2Text
-            text: "<i>Gräffix</i><br\><b>Niklas Gustafsson</b><br\>nikui@nikui.net"
+            text: Constants.heebo_credit_graphics
 
             anchors.top: cred1Text.bottom
             horizontalAlignment: Text.AlignHCenter
