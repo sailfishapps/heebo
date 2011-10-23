@@ -19,12 +19,20 @@
 
 #include "editorwindow.h"
 
+const int board_width  = 6;
+const int board_height = 9;
+
+const QString titleName = "Heebo level editor";
+const QString mapsetFileFilter = "Mapset files (*.dat)";
+
 //------------------------------------------------------------------------------
 
-EditorWindow::EditorWindow() : QMainWindow(), m_mapset(NULL) {
+EditorWindow::EditorWindow(const QString& fileName) :
+  QMainWindow(),
+  m_mapset(NULL),
+  changes(false)
+{
   readSettings();
-
-  setWindowTitle("Heebo level editor");
 
   createActions();
   createMenus();
@@ -32,19 +40,34 @@ EditorWindow::EditorWindow() : QMainWindow(), m_mapset(NULL) {
   m_tabWidget = new QTabWidget(this);
   setCentralWidget(m_tabWidget);
 
-  loadMapset("../../map.dat");
+  loadMapset(fileName);
 }
 
 //------------------------------------------------------------------------------
 
 EditorWindow::~EditorWindow() {
   writeSettings();
-  m_mapset->save();
 }
 
 //------------------------------------------------------------------------------
 
 void EditorWindow::createActions() {
+  m_newAction = new QAction(tr("&New mapset"), this);
+  // m_newAction->setShortcut(tr("Ctrl+"));
+  connect(m_newAction, SIGNAL(triggered()), this, SLOT(newMapset()));
+
+  m_openAction = new QAction(tr("&Open..."), this);
+  m_openAction->setShortcut(tr("Ctrl+O"));
+  connect(m_openAction, SIGNAL(triggered()), this, SLOT(openMapset()));
+
+  m_saveAction = new QAction(tr("&Save"), this);
+  m_saveAction->setShortcut(tr("Ctrl+S"));
+  connect(m_saveAction, SIGNAL(triggered()), this, SLOT(saveMapset()));
+
+  m_saveAsAction = new QAction(tr("Save &As..."), this);
+  m_saveAsAction->setShortcut(tr("Shift+Ctrl+S"));
+  connect(m_saveAsAction, SIGNAL(triggered()), this, SLOT(saveAsMapset()));
+
   m_exitAction = new QAction(tr("E&xit"), this);
   m_exitAction->setShortcut(tr("Ctrl+Q"));
   connect(m_exitAction, SIGNAL(triggered()), this, SLOT(exit()));
@@ -54,7 +77,7 @@ void EditorWindow::createActions() {
   connect(m_newLevelAction, SIGNAL(triggered()), this, SLOT(newLevel()));
 
   m_removeLevelAction = new QAction(tr("&Remove level"), this);
-  // m_removeLevelAction->setShortcut(tr("Ctrl+N"));
+  // m_removeLevelAction->setShortcut(tr("Ctrl+"));
   connect(m_removeLevelAction, SIGNAL(triggered()), this, SLOT(removeLevel()));
 
   m_moveLeftAction = new QAction(tr("Move level &left"), this);
@@ -69,16 +92,12 @@ void EditorWindow::createActions() {
 //------------------------------------------------------------------------------
 
 void EditorWindow::createMenus() {
-    /* menu:
-  HeeboEditor
-  - Open Mapset
-  - Save 
-  - Save as ...
-  - Preferences
-  - Exit*/
-
   m_mainMenu = new QMenu(tr("&Editor"), this);
-  // m_mainMenu->addSeparator();
+  m_mainMenu->addAction(m_newAction);
+  m_mainMenu->addAction(m_openAction);
+  m_mainMenu->addAction(m_saveAction);
+  m_mainMenu->addAction(m_saveAsAction);
+  m_mainMenu->addSeparator();
   m_mainMenu->addAction(m_exitAction);
   menuBar()->addMenu(m_mainMenu);
 
@@ -88,18 +107,133 @@ void EditorWindow::createMenus() {
   m_levelMenu->addAction(m_moveLeftAction);
   m_levelMenu->addAction(m_moveRightAction);
   menuBar()->addMenu(m_levelMenu);
+}
 
-  /*
-  Maps
-  - Insert new map
-  Help
-  - About
-  */  
+//------------------------------------------------------------------------------
+
+void EditorWindow::newMapset() {
+  loadMapset();
+}
+
+//------------------------------------------------------------------------------
+
+void EditorWindow::openMapset() {
+  QString fileName =
+    QFileDialog::getOpenFileName(this, tr("Open mapset"), QString(),
+                                 mapsetFileFilter);
+  loadMapset(fileName);
+}
+
+//------------------------------------------------------------------------------
+
+void EditorWindow::loadMapset(const QString& fileName) {
+  if (m_mapset != NULL) {
+    if (changes) {
+      int ret = saveModsQuery();
+    
+      if (ret == QMessageBox::Save)
+        saveMapset();
+      else if (ret == QMessageBox::Cancel)
+        return;
+    }
+
+    delete m_mapset;
+  }
+
+  if (fileName.isEmpty()) 
+    m_mapset = new GameMapSet(board_width, board_height);
+  else
+    m_mapset = new GameMapSet(fileName, 0, this);
+
+  // Remove old tabs and widgets
+  for (int i=m_tabWidget->count()-1; i>=0; i--) {
+    QWidget* w = m_tabWidget->widget(i);
+    m_tabWidget->removeTab(i);
+    delete w;
+  }
+
+  // Add new tabs and widgets for new levels
+  for (int i=0; i<m_mapset->numLevels(); i++) {
+    GameMap* m = m_mapset->map(i);
+    MapWidget* mw = new MapWidget(m, this);
+    connect(mw, SIGNAL(changes()), this, SLOT(onChanges()));
+    m_tabWidget->addTab(mw, mapLabel(i));
+  }
+
+  if (fileName.isEmpty())
+    newLevel();
+
+  setChanges(false);
+}
+
+//------------------------------------------------------------------------------
+
+void EditorWindow::onChanges() {
+  setChanges(true);
+}
+
+//------------------------------------------------------------------------------
+
+void EditorWindow::setChanges(bool b) {
+  changes = b;
+  updateTitle();
+}
+
+//------------------------------------------------------------------------------
+
+void EditorWindow::updateTitle() {
+  QString currentFile = m_mapset ? m_mapset->fileName() : "";
+  if (currentFile.isEmpty())
+    currentFile = "Untitled";
+
+  if (changes)
+    currentFile = "*"+currentFile;
+      
+  setWindowTitle(currentFile+" - "+titleName);
+}
+
+//------------------------------------------------------------------------------
+
+void EditorWindow::saveMapset() {
+  if (m_mapset->fileName().isEmpty())
+    saveAsMapset();
+  else
+    m_mapset->save();
+}
+
+//------------------------------------------------------------------------------
+
+void EditorWindow::saveAsMapset() {
+  QString fileName =
+    QFileDialog::getSaveFileName(this, tr("Save mapset"), QString(),
+                                 mapsetFileFilter);
+  m_mapset->save(fileName);
+}
+
+//------------------------------------------------------------------------------
+
+int EditorWindow::saveModsQuery() {
+  QMessageBox msgBox;
+  msgBox.setWindowTitle(titleName);
+  msgBox.setText("The mapset has been modified.");
+  msgBox.setInformativeText("Do you want to save your changes?");
+  msgBox.setStandardButtons(QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
+  msgBox.setDefaultButton(QMessageBox::Save);
+  return msgBox.exec();
 }
 
 //------------------------------------------------------------------------------
 
 void EditorWindow::exit() {
+  if (changes) {
+    int ret = saveModsQuery();
+    
+    if (ret == QMessageBox::Save)
+      saveMapset();
+    else if (ret == QMessageBox::Cancel)
+      return;
+  }
+
   qApp->exit();
 }
 
@@ -123,11 +257,14 @@ void EditorWindow::newLevel() {
 
   GameMap* m = m_mapset->newMap(index);
   MapWidget* mw = new MapWidget(m, this);
+  connect(mw, SIGNAL(changes()), this, SLOT(onChanges()));
   m_tabWidget->insertTab(index, mw, mapLabel(index));
 
   updateTabLabels(index+1);
 
   m_tabWidget->setCurrentIndex(index);
+
+  setChanges(true);
 }
 
 //------------------------------------------------------------------------------
@@ -139,6 +276,8 @@ void EditorWindow::removeLevel() {
   m_tabWidget->removeTab(index);
 
   updateTabLabels(index);
+
+  setChanges(true);
 }
 
 //------------------------------------------------------------------------------
@@ -164,6 +303,8 @@ void EditorWindow::swapMaps(int i, int j) {
   m_tabWidget->insertTab(j, mw_i, mapLabel(j));
 
   updateTabLabels(qMin(i, j));
+
+  setChanges(true);
 }
 
 //------------------------------------------------------------------------------
@@ -175,6 +316,8 @@ void EditorWindow::moveLeft() {
 
   swapMaps(index-1, index);  
   m_tabWidget->setCurrentIndex(index-1);
+
+  setChanges(true);
 }
 
 //------------------------------------------------------------------------------
@@ -186,6 +329,8 @@ void EditorWindow::moveRight() {
 
   swapMaps(index, index+1);
   m_tabWidget->setCurrentIndex(index+1);
+
+  setChanges(true);
 }
 
 //------------------------------------------------------------------------------
@@ -210,21 +355,3 @@ void EditorWindow::readSettings() {
   s.endGroup();
 }
 
-//------------------------------------------------------------------------------
-
-void EditorWindow::loadMapset(const QString& fileName) {
-  if (m_mapset != NULL) {
-    delete m_mapset;
-  }
-
-  m_mapset = new GameMapSet(fileName, 0, this);
-
-  qDebug() << "Loaded mapset" << fileName << "with" << m_mapset->numLevels()
-           << "levels";
-
-  for (int i=0; i<m_mapset->numLevels(); i++) {
-    GameMap* m = m_mapset->map(i);
-    MapWidget* mw = new MapWidget(m, this);
-    m_tabWidget->addTab(mw, mapLabel(i));
-  }
-}

@@ -27,6 +27,13 @@ inline uint qHash(const QPoint& p) {
 
 //------------------------------------------------------------------------------
 
+GameMapSet::GameMapSet(int width, int height, QObject* parent) :
+  QObject(parent), m_width(width), m_height(height), m_number(0), m_level(-1)
+{
+}
+
+//------------------------------------------------------------------------------
+
 GameMapSet::GameMapSet(const QString& fileName, int initialLevel,
                        QObject* parent) :
   QObject(parent),

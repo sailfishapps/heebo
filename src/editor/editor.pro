@@ -23,6 +23,7 @@ TARGET = editor
 DEPENDPATH += .
 INCLUDEPATH += . ../
 LIBS += -lm
+CONFIG += debug
 
 # Input
 HEADERS += editorwindow.h mapwidget.h

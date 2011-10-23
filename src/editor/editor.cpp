@@ -24,8 +24,12 @@
 
 int main(int argc, char* argv[]) {
   QApplication app(argc,argv);
-  
-  EditorWindow w;
+
+  QString fileName;
+  if (argc>1)
+    fileName = argv[1];
+
+  EditorWindow w(fileName);
   w.show();
 
   return app.exec();

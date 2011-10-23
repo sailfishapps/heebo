@@ -37,11 +37,13 @@ class GameMapSet : public QObject {
              READ onLastLevel);
   
 public:
+  explicit GameMapSet(int width, int height, QObject* parent=0);
   explicit GameMapSet(const QString& fileName, int initialLevel,
                       QObject* parent=0);
 
   void save(const QString& fileName="");
   
+  QString fileName() const { return m_fileName; }
   int level() const;
   int setLevel(int l);
   int numLevels() const { return m_number; }

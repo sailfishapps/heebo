@@ -31,23 +31,35 @@ class EditorWindow : public QMainWindow {
   Q_OBJECT
 
 public:
-  EditorWindow();
+  EditorWindow(const QString& fileName="");
   ~EditorWindow();
 
 private slots:
+  void newMapset();
+  void openMapset();
+  void saveMapset();
+  void saveAsMapset();
   void exit();
+  
   void newLevel();
   void removeLevel();
   void moveLeft();
   void moveRight();
+
+  void onChanges();
   
 private:
-  void loadMapset(const QString& fileName);
+  void loadMapset(const QString& fileName="");
   void updateTabLabels(int from=0);
   void swapMaps(int, int);
   QString mapLabel(int);
+  void setChanges(bool);
   
+  int saveModsQuery();
+  void updateTitle();
+
   GameMapSet* m_mapset;
+  bool changes;
 
   // UI stuff
   void readSettings();
@@ -57,6 +69,10 @@ private:
   void createMenus();
 
   QMenu* m_mainMenu;
+  QAction* m_newAction;
+  QAction* m_openAction;
+  QAction* m_saveAction;
+  QAction* m_saveAsAction;
   QAction* m_exitAction;
 
   QMenu* m_levelMenu;

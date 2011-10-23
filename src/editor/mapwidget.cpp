@@ -69,6 +69,8 @@ void MapWidget::mouseReleaseEvent(QMouseEvent* event) {
   }    
 
   drawBlock(mapPos);
+
+  emit changes();
 }
 
 //------------------------------------------------------------------------------

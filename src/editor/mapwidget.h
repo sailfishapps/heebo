@@ -28,6 +28,9 @@ class MapWidget : public QGraphicsView {
 public:
   explicit MapWidget(GameMap* map, QWidget* parent=0);
 
+signals:
+  void changes();
+
 protected:
   void mouseReleaseEvent(QMouseEvent*);
 
