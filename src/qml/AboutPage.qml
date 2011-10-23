@@ -72,7 +72,7 @@ FullPage {
             id: gplText
             text: Constants.heebo_copyright+"<br/><br/>"+Constants.GPL
             style: "small"
-
+            onLinkActivated: Qt.openUrlExternally(link)
             anchors.top: cred2Text.bottom
         }
     }
