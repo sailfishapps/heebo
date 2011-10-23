@@ -271,13 +271,12 @@ var victoryCheck = function () {
             okDialog.mode = 1;
             okDialog.show("That was the last level!\n"+
                           "CONGRATULATIONS!!!",
-                          "Wow, cool!!");
+                          "ZÖMG!!");
         } else {
             okDialog.mode = 0;
-            okDialog.show("ZÖMG! You cleared the level! "+
-                          "Want to have a go at the "+
-                          "next one?",
-                          "Yes, bring it on!");
+            okDialog.show("ZÖMG! You just cleared that level! "+
+                          "The next one won't be that easy!",
+                          "Yeah, right!");
         }
     }
 };
@@ -555,7 +554,7 @@ var checkMovesAndReport = function () {
         okDialog.mode = 2;
         okDialog.show("No more moves!\n"+
                       "I'll reshuffle the blocks.",
-                      "OK, thanks!");
+                      "kthxbai!" /*"OK, thanks!"*/);
     }
 };
 

@@ -65,9 +65,9 @@ Image {
         anchors {
             top: parent.top
             left: parent.left
-            leftMargin: 20
-            rightMargin: 20
-            topMargin: 20
+            leftMargin: 30
+            rightMargin: 30
+            topMargin: 30
             bottomMargin: 10
         }
     }
@@ -81,11 +81,11 @@ Image {
         }
 
         width: answerText.paintedWidth + buttonImage.paintedWidth+50
-        height: Math.max(answerText.paintedHeight, buttonImage.paintedHeight)+20
+        height: 84
         
         Text {
             id: answerText
-            text: "Yes, bring it on!"
+            text: "OK!"
             font.family: Constants.font_family
             font.pixelSize: Constants.fontsize_dialog
             color: Constants.color_uiaccent

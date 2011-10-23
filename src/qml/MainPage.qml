@@ -248,20 +248,14 @@ JewelPage {
                 buttonImage: "qrc:///images/icon_about.png"
                 pressedButtonImage: "qrc:///images/icon_about_pressed.png"
                 onClicked: { mainMenu.hide(); openFile("AboutPage.qml") }
+                /* onClicked: { */
+                /*     mainMenu.hide(); */
+                /*     okDialog.mode = 0; */
+                /*     okDialog.show("ZÖMG! You just cleared that level!"+ */
+                /*                   "The next one won't be that easy!", */
+                /*                   "Yeah, right!"); */
+                /* } */
             }
-            /* MenuButton { */
-            /*     text: "Next (debug)" */
-            /*     buttonImage: "qrc:///images/icon_help.png" */
-            /*     pressedButtonImage: "qrc:///images/icon_help_pressed.png" */
-            /*     onClicked: { */
-            /*         mainMenu.hide(); */
-            /*         okDialog.mode = 0; */
-            /*         okDialog.show("ZÖMG! You cleared the level! "+ */
-            /*                       "Want to have a go at the "+ */
-            /*                       "next one?", */
-            /*                       "Yes, bring it on!"); */
-            /*     } */
-            /* } */
         }
     }
 
