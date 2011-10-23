@@ -38,6 +38,15 @@
     <file alias="/images/main_menu_bg.png">images/main_menu_bg.png</file>
     <file alias="/images/dialog_small.png">images/dialog_small.png</file>
     <file alias="/images/heebo_logo.png">images/heebo_logo.png</file>
+    <file alias="/images/icon_about.png">images/icon_about.png</file>
+    <file alias="/images/icon_about_pressed.png">images/icon_about_pressed.png</file>
+    <file alias="/images/icon_help.png">images/icon_help.png</file>
+    <file alias="/images/icon_help_pressed.png">images/icon_help_pressed.png</file>
+    <file alias="/images/icon_newgame.png">images/icon_newgame.png</file>
+    <file alias="/images/icon_newgame_pressed.png">images/icon_newgame_pressed.png</file>
+    <file alias="/images/icon_next_white.png">images/icon_next_white.png</file>
+    <file alias="/images/icon_restart.png">images/icon_restart.png</file>
+    <file alias="/images/icon_restart_pressed.png">images/icon_restart_pressed.png</file>
     <!-- Maps -->
     <file>map.dat</file>
     <!-- JavaScript -->
@@ -49,8 +58,9 @@
     <file alias="qml/Block.qml">src/qml/Block.qml</file>
     <file alias="qml/JewelDialog.qml">src/qml/JewelDialog.qml</file>
     <file alias="qml/MainPage.qml">src/qml/MainPage.qml</file>
-    <file alias="qml/JMenuLayout.qml">src/qml/JMenuLayout.qml</file>
-    <file alias="qml/JMenuItem.qml">src/qml/JMenuItem.qml</file>
+    <file alias="qml/MenuButton.qml">src/qml/MenuButton.qml</file>
+    <!-- <file alias="qml/JMenuLayout.qml">src/qml/JMenuLayout.qml</file> -->
+    <!-- <file alias="qml/JMenuItem.qml">src/qml/JMenuItem.qml</file> -->
     <file alias="qml/FullPage.qml">src/qml/FullPage.qml</file>
     <file alias="qml/FullPageText.qml">src/qml/FullPageText.qml</file>
     <file alias="qml/AboutPage.qml">src/qml/AboutPage.qml</file>

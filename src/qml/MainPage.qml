@@ -217,36 +217,51 @@ JewelPage {
             anchors.baseline: parent.top
             anchors.baselineOffset: -32
         }
-        
-        JMenuLayout {
-            id: menuLayout
-            JMenuItem {
-                text: "Restart Level"
-                onClicked: Jewels.startNewGame()
+
+        Grid {
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.verticalCenter: parent.verticalCenter
+            spacing: 10
+            columns: 2
+
+            MenuButton {
+                text: "New game"
+                buttonImage: "qrc:///images/icon_newgame.png"
+                pressedButtonImage: "qrc:///images/icon_newgame_pressed.png"
+                onClicked: { mainMenu.hide(); Jewels.firstLevel() }
             }
-            JMenuItem {
-                text: "New Game"
-                onClicked: Jewels.firstLevel()
+            MenuButton {
+                text: "Restart level"
+                buttonImage: "qrc:///images/icon_restart.png"
+                pressedButtonImage: "qrc:///images/icon_restart_pressed.png"
+                onClicked: { mainMenu.hide(); Jewels.startNewGame() }
             }
-            JMenuItem {
+
+            MenuButton {
                 text: "Help"
+                buttonImage: "qrc:///images/icon_help.png"
+                pressedButtonImage: "qrc:///images/icon_help_pressed.png"
                 onClicked: { mainMenu.hide(); openFile("HelpPage.qml") }
             }
-            JMenuItem {
+            MenuButton {
                 text: "About"
+                buttonImage: "qrc:///images/icon_about.png"
+                pressedButtonImage: "qrc:///images/icon_about_pressed.png"
                 onClicked: { mainMenu.hide(); openFile("AboutPage.qml") }
             }
-            JMenuItem {
-                text: "Next (debug)"
-                onClicked: {
-                    mainMenu.hide();
-                    okDialog.mode = 0;
-                    okDialog.show("ZÖMG! You cleared the level! "+
-                                  "Want to have a go at the "+
-                                  "next one?",
-                                  "Yes, bring it on!");
-                }
-            }
+            /* MenuButton { */
+            /*     text: "Next (debug)" */
+            /*     buttonImage: "qrc:///images/icon_help.png" */
+            /*     pressedButtonImage: "qrc:///images/icon_help_pressed.png" */
+            /*     onClicked: { */
+            /*         mainMenu.hide(); */
+            /*         okDialog.mode = 0; */
+            /*         okDialog.show("ZÖMG! You cleared the level! "+ */
+            /*                       "Want to have a go at the "+ */
+            /*                       "next one?", */
+            /*                       "Yes, bring it on!"); */
+            /*     } */
+            /* } */
         }
     }
 
