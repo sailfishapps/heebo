@@ -31,7 +31,7 @@ JewelPage {
 
         Image {
             id: backButton
-            source: "qrc:///images/icon_next_black.png"
+            source: "qrc:///images/icon_back_white.png"
             /* width: 64; height: 64 */
 
             anchors {
@@ -43,8 +43,8 @@ JewelPage {
             MouseArea {
                 anchors.fill: parent
                 onClicked: pageStack.pop();
-                onPressed: backButton.source="qrc:///images/icon_next_pressed.png"
-                onReleased: backButton.source="qrc:///images/icon_next_black.png"
+                onPressed: backButton.source="qrc:///images/icon_back_pressed.png"
+                onReleased: backButton.source="qrc:///images/icon_back_white.png"
             }
 
         }

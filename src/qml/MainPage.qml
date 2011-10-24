@@ -42,12 +42,12 @@ JewelPage {
         okDialog.closed.connect(tintRectangle.hide);
         okDialog.opened.connect(tintRectangle.show);
 
+        /* These are for testing dialogs, menu easily. */
         /* okDialog.mode = 42; */
-        /* okDialog.show("ZÖMG!", "ÖKÖÖ"); */
-        /* okDialog.show("ZÖMG! You cleared the level! "+ */
-        /*               "Want to have a go at the "+ */
-        /*               "next one?", */
-        /*               "Yes, bring it on!"); */
+        /* okDialog.show("ZÖMG! You just cleared that level! "+ */
+        /*               "The next one won't be that easy!", */
+        /*               "Yeah, right!"); */
+
         /* mainMenu.show() */
     }
 

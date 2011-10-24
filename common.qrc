@@ -9,7 +9,6 @@
     <file alias="/images/square.png">images/square.png</file>
     <file alias="/images/triangle_down.png">images/triangle_down.png</file>
     <file alias="/images/triangle_up.png">images/triangle_up.png</file>
-    <file alias="/images/star.png">images/redStar.png</file>
     <file alias="/images/block_gold.png">images/block_gold.png</file>
     <file alias="/images/block_wall_1.png">images/block_wall_1.png</file>
     <file alias="/images/wb_2.png">images/block_wall_bottom.png</file>
@@ -30,11 +29,19 @@
     <file alias="/images/square-blink.png">images/square_eyeshut.png</file>
     <file alias="/images/triangle_down-blink.png">images/triangle_down_eyeshut.png</file>
     <file alias="/images/triangle_up-blink.png">images/triangle_up_eyeshut.png</file>
+    <!-- particles -->
+    <file alias="/images/particle_circle.png">images/particle_circle.png</file>
+    <file alias="/images/particle_polygon.png">images/particle_polygon.png</file>
+    <file alias="/images/particle_square.png">images/particle_square.png</file>
+    <file alias="/images/particle_triangle_down.png">images/particle_triangle_down.png</file>
+    <file alias="/images/particle_triangle_up.png">images/particle_triangle_up.png</file>
     <!-- UI images -->
     <file alias="/images/icon_menu.png">images/icon_menu.png</file>
     <file alias="/images/icon_menu_pressed.png">images/icon_menu_pressed.png</file>
     <file alias="/images/icon_next_black.png">images/icon_next_black.png</file>
     <file alias="/images/icon_next_pressed.png">images/icon_next_pressed.png</file>
+    <file alias="/images/icon_back_white.png">images/icon_back_white.png</file>
+    <file alias="/images/icon_back_pressed.png">images/icon_back_pressed.png</file>
     <file alias="/images/main_menu_bg.png">images/main_menu_bg.png</file>
     <file alias="/images/dialog_small.png">images/dialog_small.png</file>
     <file alias="/images/heebo_logo.png">images/heebo_logo.png</file>

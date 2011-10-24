@@ -39,6 +39,13 @@ Item {
     property variant xAnim: xAnimation;
     property variant yAnim: yAnimation;
 
+    property string typeName: (type == 1 ? "circle" :
+                                  type == 2 ? "polygon" :
+                                  type == 3 ? "square" :
+                                  type == 4 ? "triangle_down" :
+                                  type == 5 ? "triangle_up" :
+                                  "empty")
+
     Image {
         id: img
         anchors {
@@ -48,14 +55,9 @@ Item {
         
         width: jewel.width; height: jewel.width
 
-        source: "qrc:///images/"+(type == 1 ? "circle" :
-                                  type == 2 ? "polygon" :
-                                  type == 3 ? "square" :
-                                  type == 4 ? "triangle_down" :
-                                  type == 5 ? "triangle_up" :
-                                  "empty")
-                                +(mainPage.isRunning && type?"-blink":"")
-                                +".png"
+        source: "qrc:///images/" + typeName
+                                 + (mainPage.isRunning && type?"-blink":"")
+                                 + ".png"
         opacity: 1
 
         Behavior on opacity {
@@ -73,7 +75,7 @@ Item {
         lifeSpan: 700; lifeSpanDeviation: 600
         angle: 0; angleDeviation: 360;
         velocity: 100; velocityDeviation: 30
-        source: "qrc:///images/star.png"
+        source: type == 0 ? "" : "qrc:///images/particle_"+typeName+".png"
     }
 
     function moveToBlock(pt) {
