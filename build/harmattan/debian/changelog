@@ -1,3 +1,9 @@
+heebo (0.1.1) unstable; urgency=low
+
+  * New version with final graphics.
+
+ -- Mats Sjöberg <mats@sjoberg.fi>  Mon, 24 Oct 2011 20:05:37 +0300
+
 heebo (0.1.0) unstable; urgency=low
 
   * First version of the Heebo game.

@@ -25,20 +25,24 @@
 // About
 //-----------------------------------------------------------------------------
 
-var heebo_version = "0.1.0";
+var heebo_version = "0.1.1";
 var heebo_description =
     "Simple and addictive \"match 3\" game with quirky characters.";
 var heebo_copyright
     = "Copyright 2011 &copy; Mats Sjöberg, Niklas Gustafsson";
 
-var GPL =
-    "Heebo is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.<br/><br/>"+
-    "Heebo is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.<br/><br/>"+
-    "You should have received a copy of the GNU General Public License along with Heebo.  If not, see <a href=\"http://www.gnu.org/licenses/\">http://www.gnu.org/licenses/</a>.";
+var code_license =
+    "All the source code and game level maps for Heebo are licensed under GPLv3.<br/><br/>"+
+    "This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.<br/><br/>"+
+    "This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.<br/><br/>"+
+    "You should have received a copy of the GNU General Public License along with this program.  If not, see <a href=\"http://www.gnu.org/licenses/\">http://www.gnu.org/licenses/</a>.";
 
-var heebo_credit_coding = "<i>Häxxoring</i><br\><b>Mats Sj&ouml;berg</b><br\>mats@sjoberg.fi";
+var graphics_license = "All graphics in Heebo is licensed under Nääk doesn't know yet, jeebus.";
 
-var heebo_credit_graphics = "<i>Gräffix</i><br\><b>Niklas Gustafsson</b><br\>nikui@nikui.net";
+var heebo_credit_coding = "<i>Cöde</i><br\><b>Mats Sj&ouml;berg</b><br\>mats@sjoberg.fi<br/>sazius on identi.ca";
+
+
+var heebo_credit_graphics = "<i>Gräphix</i><br\><b>Niklas Gustafsson</b><br\>nikui@nikui.net";
 
 //-----------------------------------------------------------------------------
 // Help
