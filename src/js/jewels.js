@@ -34,6 +34,10 @@ var moving2;
 // True when movement/switching of blocks is going on
 var playerMovement = false;
 
+//
+var finalAnim = 0;
+var finalDeleted = 0;
+
 //-----------------------------------------------------------------------------
 // Utility functions, object constructors
 //-----------------------------------------------------------------------------
@@ -178,6 +182,7 @@ var startNewGame = function () {
     currentLevelText.text = mapset.level+1;
     lastLevelText.text = mapset.numLevels;
     mainPage.isRunning = false;
+    finalAnim = 0;
 
     playerMovement = false;
     initBoard();
@@ -268,10 +273,20 @@ var victoryCheck = function () {
 
     if (victory && okDialog.isClosed()) {
         if (mapset.onLastLevel) {
-            okDialog.mode = 1;
-            okDialog.show("That was the last level!\n"+
-                          "CONGRATULATIONS!!!",
-                          "ZÖMG!!");
+            finalAnim = 1;
+            finalDeleted = 0;
+            for (j=0; j<board_height; j++) {
+                for (i=0; i<board_width; i++) {
+                    if (!bg_grid[j][i].blocking && board[j] && board[j][i] &&
+                        board[j][i].dying === false) {
+                        var obj = board[j][i];
+                        obj.fdPause = Math.random()*5000;
+                        obj.dying = true;
+                        board[j][i] = undefined;
+                        finalDeleted++;
+                    }
+                }
+            }
         } else {
             okDialog.mode = 0;
             okDialog.show("ZÖMG! You just cleared that level! "+
@@ -291,7 +306,7 @@ var isRunning = function () {
             var obj = board[j][i];
             if (obj === undefined)
                 continue;
-            if (obj.xAnim.running || obj.yAnim.running)
+            if (obj.xAnim.running || obj.yAnim.running || obj.dAnim.running)
                 running = true;
         }
     }
@@ -550,6 +565,7 @@ var checkMoves = function () {
 
 var checkMovesAndReport = function () {
     var movesLeft = checkMoves();
+    console.log("checkMovesAndReport");
     if (!movesLeft) {
         okDialog.mode = 2;
         okDialog.show("No more moves!\n"+
@@ -588,6 +604,17 @@ var spawnNewJewels = function () {
 // Called when "stuff has changed", i.e. movement stopped, jewels
 // destroyed, ...
 var onChanges = function () {
+    if (finalAnim) {
+        finalAnim++;
+        if (finalAnim >= finalDeleted) {
+            okDialog.mode = 1;
+            okDialog.show("That was the last level!\n"+
+                          "CONGRATULATIONS!!!",
+                          "ZÖMG!!");
+        }
+        return;
+    }
+
     if (playerMovement) {
         var changes = checkSwitch(moving1.bpt, moving2.bpt);
         
@@ -617,8 +644,9 @@ var onChanges = function () {
 
     victoryCheck();
 
-    if (!isRunning())
+    if (!finalAnim && !isRunning()) {
         checkMovesAndReport();
+    }
 };
 
 //-----------------------------------------------------------------------------
@@ -645,6 +673,7 @@ var dialogClosed = function (mode) {
         nextLevel();
         break;
     case 1:
+        startNewGame();
         mainMenu.toggle();
         break;
     case 2:
@@ -679,7 +708,7 @@ var mousePressed = function (x, y) {
 // Called when user moves mouse or swipes 
 var mouseMoved = function (x, y) {
     if (moving1 === undefined || moving1.obj === undefined ||
-        okDialog.visible || mainMenu.visible || isRunning())
+        okDialog.visible || mainMenu.visible || isRunning() || finalAnim)
     {
         if (!playerMovement)
             moving1 = undefined;

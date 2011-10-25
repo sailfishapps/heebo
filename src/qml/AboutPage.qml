@@ -33,7 +33,7 @@ FullPage {
         contentWidth: parent.width
         contentHeight: logoImage.height + versionText.paintedHeight +
         cred1Text.paintedHeight + cred2Text.paintedHeight +
-        gplText.paintedHeight + 30*6
+        copyrightText.paintedHeight + gplText.paintedHeight + 30*8
         
         Image {
             id: logoImage
@@ -68,13 +68,19 @@ FullPage {
             anchors.top: cred1Text.bottom
             horizontalAlignment: Text.AlignHCenter
         }
+
+        FullPageText {
+            id: copyrightText
+            text: Constants.heebo_copyright
+            anchors.top: cred2Text.bottom
+            anchors.topMargin: 50
+        }
+
         FullPageText {
             id: gplText
-            text: Constants.heebo_copyright+"<br/><br/>"+Constants.code_license
-                  +"<br/><br/>"+Constants.graphics_license
+            text: Constants.code_license+"<br/><br/>"+Constants.graphics_license
             style: "small"
-            onLinkActivated: Qt.openUrlExternally(link)
-            anchors.top: cred2Text.bottom
+            anchors.top: copyrightText.bottom
         }
     }
     ScrollBar {

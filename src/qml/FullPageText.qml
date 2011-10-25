@@ -24,14 +24,19 @@ import "qrc:///js/constants.js" as Constants
 Text {
     property string style: "normal"
     
-    font.pixelSize: style === "title"  ? 26 :
-                    style === "small"  ? 18 : 24
-    font.bold: style === "title"                    
+    font.pixelSize: style === "header" ? 48 :
+                    style === "title"  ? 26 :
+                    style === "small"  ? 18 :
+                    style === "emphasis" ? 26 :
+                    24
+    font.bold: style === "title" || style === "header" || style == "emphasis"
     font.family: Constants.font_family
     color: Constants.color_dark
 
     textFormat: Text.RichText
     wrapMode: Text.Wrap
+
+    onLinkActivated: Qt.openUrlExternally(link)
     
     anchors {
         topMargin: 30

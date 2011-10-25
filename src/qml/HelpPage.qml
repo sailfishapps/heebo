@@ -32,27 +32,27 @@ FullPage {
         clip: true
         flickableDirection: Flickable.VerticalFlick
         contentWidth: parent.width
-        contentHeight: logoImage.height + titleText.paintedHeight +
+        contentHeight: /*logoImage.height + */titleText.paintedHeight +
                        help_text_1.paintedHeight + help_text_2.paintedHeight +
                        help_text_3.paintedHeight + help_text_4.paintedHeight +
                        help_text_5.paintedHeight + 30*8
         
-        Image {
-            id: logoImage
-            source: "qrc:///images/heebo_logo.png";
-            anchors {
-                top: parent.top
-                topMargin: 30
-                horizontalCenter: parent.horizontalCenter
-            }
-        }
+        /* Image { */
+        /*     id: logoImage */
+        /*     source: "qrc:///images/heebo_logo.png"; */
+        /*     anchors { */
+        /*         top: parent.top */
+        /*         topMargin: 30 */
+        /*         horizontalCenter: parent.horizontalCenter */
+        /*     } */
+        /* } */
 
         FullPageText {
             id: titleText
             text: "HELP"
-            style: "title"
+            style: "header"
 
-            anchors.top: logoImage.bottom
+            anchors.top: parent.top /* logoImage.bottom*/
         }
 
         FullPageText {
@@ -82,7 +82,7 @@ FullPage {
         FullPageText {
             id: help_text_5
             text: Constants.heebo_help_5
-            color: Constants.color_uiaccent
+            style: "emphasis"
             anchors.top: help_text_4.bottom
         }
     }

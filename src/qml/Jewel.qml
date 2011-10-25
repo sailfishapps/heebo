@@ -36,8 +36,11 @@ Item {
     property bool to_remove: false;
     property bool dying: false;
 
+    property int fdPause: 0
+
     property variant xAnim: xAnimation;
     property variant yAnim: yAnimation;
+    property variant dAnim: dyingAnimation;
 
     property string typeName: (type == 1 ? "circle" :
                                   type == 2 ? "polygon" :
@@ -123,14 +126,29 @@ Item {
         },
         State {
             name: "DyingState"
-            when: dying == true //&& !yAnimation.running && !xAnimation.running
+            when: dying == true
 
-            StateChangeScript { script: particles.burst(50); }
-            PropertyChanges { target: img; opacity: 0 }
-            StateChangeScript {
-                script: { jewel.destroy(1000); jewelKilled(); }
+            /* StateChangeScript { script: particles.burst(50); } */
+            /* PropertyChanges { target: img; opacity: 0 } */
+            /* StateChangeScript { */
+            /*     script: { jewel.destroy(1000); jewelKilled(); } */
+            /* } */
+        }
+    ]
+
+    transitions: [
+        Transition {
+            from: "AliveState"
+            to: "DyingState"
+            SequentialAnimation {
+                id: dyingAnimation
+                PauseAnimation { duration: fdPause }
+                ScriptAction { script: particles.burst(50); }
+                PropertyAction { target: img; property: "opacity"; value: 0 }
+                ScriptAction {
+                    script: { jewel.destroy(1000); jewelKilled(); }
+                }
             }
         }
     ]
-        
 }
