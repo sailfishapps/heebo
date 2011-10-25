@@ -271,10 +271,11 @@ var victoryCheck = function () {
         }
     }
 
-    if (victory && okDialog.isClosed()) {
+    if (victory && okDialog.isClosed() &&!finalAnim) {
         if (mapset.onLastLevel) {
             finalAnim = 1;
-            finalDeleted = 0;
+            finalDeleted = 1000;
+            var counter = 0;
             for (j=0; j<board_height; j++) {
                 for (i=0; i<board_width; i++) {
                     if (!bg_grid[j][i].blocking && board[j] && board[j][i] &&
@@ -283,10 +284,11 @@ var victoryCheck = function () {
                         obj.fdPause = Math.random()*5000;
                         obj.dying = true;
                         board[j][i] = undefined;
-                        finalDeleted++;
+                        counter++;
                     }
                 }
             }
+            finalDeleted = counter;
         } else {
             okDialog.mode = 0;
             okDialog.show("ZÖMG! You just cleared that level! "+
@@ -565,7 +567,6 @@ var checkMoves = function () {
 
 var checkMovesAndReport = function () {
     var movesLeft = checkMoves();
-    console.log("checkMovesAndReport");
     if (!movesLeft) {
         okDialog.mode = 2;
         okDialog.show("No more moves!\n"+
@@ -606,7 +607,7 @@ var spawnNewJewels = function () {
 var onChanges = function () {
     if (finalAnim) {
         finalAnim++;
-        if (finalAnim >= finalDeleted) {
+        if (finalAnim >= finalDeleted && okDialog.isClosed()) {
             okDialog.mode = 1;
             okDialog.show("That was the last level!\n"+
                           "CONGRATULATIONS!!!",
