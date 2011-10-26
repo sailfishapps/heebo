@@ -244,6 +244,8 @@ JewelPage {
                 buttonImage: "qrc:///images/icon_help.png"
                 pressedButtonImage: "qrc:///images/icon_help_pressed.png"
                 onClicked: { mainMenu.hide(); openFile("HelpPage.qml") }
+                /* For testing levels... */
+                /* onClicked: { mainMenu.hide(); Jewels.nextLevel() } */
             }
             MenuButton {
                 text: "About"
