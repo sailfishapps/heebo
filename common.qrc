@@ -19,6 +19,9 @@
     <file alias="/images/wb_3.png">images/wb_3.png</file>
     <file alias="/images/wb_7.png">images/wb_7.png</file>
     <file alias="/images/wb_9.png">images/wb_9.png</file>
+    <file alias="/images/wb_A.png">images/wb_A.png</file>
+    <file alias="/images/wb_U.png">images/wb_U.png</file>
+    <file alias="/images/wb_O.png">images/wb_O.png</file>
     <file alias="/images/wb_deadend_left.png">images/wb_deadend_left.png</file>
     <file alias="/images/wb_deadend_right.png">images/wb_deadend_right.png</file>
     <file alias="/images/wb_leftright.png">images/wb_leftright.png</file>
@@ -66,8 +69,6 @@
     <file alias="qml/JewelDialog.qml">src/qml/JewelDialog.qml</file>
     <file alias="qml/MainPage.qml">src/qml/MainPage.qml</file>
     <file alias="qml/MenuButton.qml">src/qml/MenuButton.qml</file>
-    <!-- <file alias="qml/JMenuLayout.qml">src/qml/JMenuLayout.qml</file> -->
-    <!-- <file alias="qml/JMenuItem.qml">src/qml/JMenuItem.qml</file> -->
     <file alias="qml/FullPage.qml">src/qml/FullPage.qml</file>
     <file alias="qml/FullPageText.qml">src/qml/FullPageText.qml</file>
     <file alias="qml/AboutPage.qml">src/qml/AboutPage.qml</file>

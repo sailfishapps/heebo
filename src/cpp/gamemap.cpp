@@ -103,7 +103,7 @@ void GameMap::load(QTextStream& in) {
     QList<QChar> list;
     for (int i=0; i<m_width; i++) {
       QChar ch = line[i];
-      if (!QString("012346789W|-<>").contains(ch)) {
+      if (!QString("012346789W|-<>AUO").contains(ch)) {
         qCritical() << "Character" << ch << "on line" << n
                     << "is not an allowed map character.";
         return;

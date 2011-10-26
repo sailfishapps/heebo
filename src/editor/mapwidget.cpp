@@ -86,7 +86,13 @@ void MapWidget::updateBorder(int x, int y) {
   bool below = m_map->at(y+1, x) == 'W';
   
   QChar ch = '0';
-  if (left && above && below)
+  if (left && right && above && below) // it's all around us!!
+    ch = 'O';
+  else if (left && right && above)
+    ch = 'A';
+  else if (left && right && below)
+    ch = 'U';
+  else if (left && above && below)
     ch = '<';
   else if (right && above && below)
     ch = '>';
