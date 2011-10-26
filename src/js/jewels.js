@@ -670,14 +670,16 @@ var reshuffleBlocks = function () {
 
 var dialogClosed = function (mode) {
     switch (mode) {
-    case 0:
+    case 0: // go to next level
+        tintRectangle.hide();
         nextLevel();
         break;
-    case 1:
+    case 1: // after last level
         startNewGame();
         mainMenu.toggle();
         break;
-    case 2:
+    case 2: // after no-more-moves notification
+        tintRectangle.hide();
         reshuffleBlocks();
         break;
     default:

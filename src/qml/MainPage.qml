@@ -39,7 +39,7 @@ JewelPage {
         animDone.connect(Jewels.onChanges);
         jewelKilled.connect(Jewels.onChanges);
         okDialog.closed.connect(Jewels.dialogClosed);
-        okDialog.closed.connect(tintRectangle.hide);
+        /* okDialog.closed.connect(tintRectangle.hide); */
         okDialog.opened.connect(tintRectangle.show);
 
         /* These are for testing dialogs, menu easily. */
@@ -134,12 +134,10 @@ JewelPage {
             }
 
             Behavior on anchors.verticalCenterOffset {
-                /* SmoothedAnimation { velocity: 150 } */
                 SpringAnimation {
                     epsilon: 0.25
                     damping: 0.1
                     spring: 3
-                    /* velocity: 150 */
                 }
             }
 
@@ -157,9 +155,9 @@ JewelPage {
 
         function show() {
             var colors = ["#3399FF", "#11FF00", "#7300E6", "#FF3C26",
-                          "#B300B3", "#FFD500"];
+                          "#B300B3" /*, "#FFD500"*/];
 
-            tintRectangle.color = colors[Jewels.random(0,5)];
+            tintRectangle.color = colors[Jewels.random(0,4)];
             tintRectangle.opacity = 0.65;
         }
 
@@ -252,13 +250,6 @@ JewelPage {
                 buttonImage: "qrc:///images/icon_about.png"
                 pressedButtonImage: "qrc:///images/icon_about_pressed.png"
                 onClicked: { mainMenu.hide(); openFile("AboutPage.qml") }
-                /* onClicked: { */
-                /*     mainMenu.hide(); */
-                /*     okDialog.mode = 0; */
-                /*     okDialog.show("ZÖMG! You just cleared that level!"+ */
-                /*                   "The next one won't be that easy!", */
-                /*                   "Yeah, right!"); */
-                /* } */
             }
         }
     }
