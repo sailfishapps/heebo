@@ -1,3 +1,9 @@
+heebo (0.1.2) unstable; urgency=low
+
+  * Version with working end animation, 25 levels.
+
+ -- Mats Sjöberg <mats@sjoberg.fi>  Wed, 26 Oct 2011 23:21:49 +0300
+
 heebo (0.1.1) unstable; urgency=low
 
   * New version with final graphics.

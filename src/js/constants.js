@@ -55,7 +55,7 @@ var color_main = "#F2F2F2";
 // About
 //-----------------------------------------------------------------------------
 
-var heebo_version = "0.1.1";
+var heebo_version = "0.1.2";
 var heebo_description =
     "Simple and addictive \"match 3\" game with quirky characters.";
 var heebo_copyright
