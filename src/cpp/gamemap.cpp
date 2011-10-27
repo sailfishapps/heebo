@@ -37,7 +37,7 @@ bool GameMap::OK(int r, int c) const {
 
 QChar GameMap::at(int r, int c) const {
   if (!OK(r, c)) {
-    qDebug() << "GameMap::at(" << r << "," << c << "): coordinate not valid.";
+    // qDebug() << "GameMap::at(" << r << "," << c << "): coordinate not valid.";
     return ' ';
   }
   return m_map[r][c];
@@ -146,5 +146,3 @@ GameMap* GameMap::emptyMap(int w, int h) {
 
   return gm;
 }
-
-  

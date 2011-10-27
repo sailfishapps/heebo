@@ -63,7 +63,6 @@
     <file alias="js/jewels.js">src/js/jewels.js</file>
     <file alias="js/constants.js">src/js/constants.js</file>
     <!-- QML -->
-    <file alias="qml/JewelButton.qml">src/qml/JewelButton.qml</file>
     <file alias="qml/Jewel.qml">src/qml/Jewel.qml</file>
     <file alias="qml/Block.qml">src/qml/Block.qml</file>
     <file alias="qml/JewelDialog.qml">src/qml/JewelDialog.qml</file>

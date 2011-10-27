@@ -41,16 +41,7 @@ JewelPage {
         animDone.connect(Jewels.onChanges);
         jewelKilled.connect(Jewels.onChanges);
         okDialog.closed.connect(Jewels.dialogClosed);
-        /* okDialog.closed.connect(tintRectangle.hide); */
         okDialog.opened.connect(tintRectangle.show);
-
-        /* These are for testing dialogs, menu easily. */
-        /* okDialog.mode = 42; */
-        /* okDialog.show("ZÖMG! You just cleared that level! "+ */
-        /*               "The next one won't be that easy!", */
-        /*               "Yeah, right!"); */
-
-        /* mainMenu.show() */
     }
 
     function openFile(file) {

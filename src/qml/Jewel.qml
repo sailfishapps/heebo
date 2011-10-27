@@ -127,12 +127,6 @@ Item {
         State {
             name: "DyingState"
             when: dying == true
-
-            /* StateChangeScript { script: particles.burst(50); } */
-            /* PropertyChanges { target: img; opacity: 0 } */
-            /* StateChangeScript { */
-            /*     script: { jewel.destroy(1000); jewelKilled(); } */
-            /* } */
         }
     ]
 

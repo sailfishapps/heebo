@@ -503,19 +503,16 @@ var checkSingleStep = function(obj, pt, dx, dy) {
     var pt2, obj2, changes;
 
     if (obj === undefined || bg_grid.isBlocking(pt)) {
-        // console.log("We should never get here.");
         return false;
     }
     
     pt2 = point(pt).plus({x: dx, y: dy});
     if (!pt2.insideGrid() || bg_grid.isBlocking(pt2)) {
-        // console.log(pt.str()+" -> "+pt2.str()+" X (outside or blocking)");
         return false;
     }
 
     obj2 = gridObject(board, pt2);
     if (obj2 === undefined) {
-        // console.log(pt.str()+" -> "+pt2.str()+" OK (nothing there)");
         return true;
     }
     
@@ -526,12 +523,6 @@ var checkSingleStep = function(obj, pt, dx, dy) {
 
     board.set(pt, obj);
     board.set(pt2, obj2);
-
-    // if (changes>0) {
-    //     console.log(pt.str()+" -> "+pt2.str()+" OK");
-    // } else {
-    //     console.log(pt.str()+" -> "+pt2.str()+" X (no changes)");
-    // }    
 
     return changes>0;
 };
@@ -608,9 +599,7 @@ var onChanges = function () {
         finalAnim++;
         if (finalAnim >= finalDeleted && okDialog.isClosed()) {
             okDialog.mode = 1;
-            okDialog.show("That was the last level!\n"+
-                          "CONGRATULATIONS!!!",
-                          "ZÖMG!!");
+            okDialog.show(last_level_msg, last_level_answer);
         }
         return;
     }

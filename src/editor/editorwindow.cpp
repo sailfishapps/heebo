@@ -221,7 +221,8 @@ int EditorWindow::saveModsQuery() {
   msgBox.setWindowTitle(titleName);
   msgBox.setText("The mapset has been modified.");
   msgBox.setInformativeText("Do you want to save your changes?");
-  msgBox.setStandardButtons(QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
+  msgBox.setStandardButtons(QMessageBox::Save | QMessageBox::Discard |
+                            QMessageBox::Cancel);
   msgBox.setDefaultButton(QMessageBox::Save);
   return msgBox.exec();
 }

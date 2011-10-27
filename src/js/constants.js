@@ -51,7 +51,7 @@ var color_dark = "#333333";
 var color_main = "#F2F2F2";
 
 //-----------------------------------------------------------------------------
-// Inbetween level texts
+// Dialog messages
 //-----------------------------------------------------------------------------
 
 var level_text_num = 9;
@@ -93,6 +93,11 @@ level_answer[7] = "Bring it on, baby!";
 level_text[8]   = "NOM! That level was just for starters! "+
                   "The next one will be the real lunch!";
 level_answer[8] = "I’m still hungry!";
+
+
+var last_level_msg    = "That was the last level!\n"+
+                        "CONGRATULATIONS!!!";
+var last_level_answer = "ZÖMG!!";
 
 //-----------------------------------------------------------------------------
 // About
