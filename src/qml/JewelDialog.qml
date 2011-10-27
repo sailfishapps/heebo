@@ -59,7 +59,7 @@ Image {
         font.bold: true
         color: Constants.color_dark
 
-        width: container.paintedWidth-40
+        width: container.paintedWidth-60
         wrapMode: Text.Wrap
         
         anchors {

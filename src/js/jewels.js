@@ -291,9 +291,8 @@ var victoryCheck = function () {
             finalDeleted = counter;
         } else {
             okDialog.mode = 0;
-            okDialog.show("ZÖMG! You just cleared that level! "+
-                          "The next one won't be that easy!",
-                          "Yeah, right!");
+            var dt = random(0,level_text_num-1);
+            okDialog.show(level_text[dt], level_answer[dt]);
         }
     }
 };
@@ -571,7 +570,7 @@ var checkMovesAndReport = function () {
         okDialog.mode = 2;
         okDialog.show("No more moves!\n"+
                       "I'll reshuffle the blocks.",
-                      "kthxbai!" /*"OK, thanks!"*/);
+                      "kthxbai!");
     }
 };
 

@@ -28,6 +28,8 @@ JewelPage {
     property real buttonOffset: 0.0
 
     property bool isRunning: false
+
+    property int dt: 3
     
     signal animDone()
     signal jewelKilled();
@@ -63,7 +65,7 @@ JewelPage {
     JewelDialog {
         id: okDialog
         anchors.centerIn: background
-        z: 50
+        z: 55
     }
 
     Item {
@@ -246,6 +248,15 @@ JewelPage {
                 onClicked: { mainMenu.hide(); openFile("HelpPage.qml") }
                 /* For testing levels... */
                 /* onClicked: { mainMenu.hide(); Jewels.nextLevel() } */
+                /* For testing dialogs */
+                /* onClicked: { */
+                /*     okDialog.mode = 42; */
+                /*     okDialog.show(Constants.level_text[dt], */
+                /*                   Constants.level_answer[dt]); */
+                /*     dt++; */
+                /*     if (dt == Constants.level_text_num) */
+                /*       dt = 0; */
+                /* } */
             }
             MenuButton {
                 text: "About"

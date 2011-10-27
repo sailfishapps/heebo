@@ -50,6 +50,49 @@ var color_uiaccent = "#D800D8";
 var color_dark = "#333333";
 var color_main = "#F2F2F2";
 
+//-----------------------------------------------------------------------------
+// Inbetween level texts
+//-----------------------------------------------------------------------------
+
+var level_text_num = 9;
+var level_text = [];
+var level_answer = [];
+
+level_text[0]   = "ZÖMG! You just cleared that level! "+
+                  "The next one won't be that easy!";
+level_answer[0] = "Yeah, right!";
+
+level_text[1]   = "OH NOES! That level was too eeeasy! "+
+                  "Let’s crank it up a notch!";
+level_answer[1] = "Next one, plz!";
+
+level_text[2]   = "WHOOPS! That one almost cleared itself! "+
+                  "Don’t worry, the next one won't be that easy!";
+level_answer[2] = "Neeext!";
+
+level_text[3]   = "That level was no match for your superior intellect! "+
+                  "Next one will be more formidable!";
+level_answer[3] = "BAZZINGA!";
+
+level_text[4]   = "WHOA! You just PWNED that level! "+
+                  "Don’t get cocky, 'cos the next one will fight back!";
+level_answer[4] = "Let’s go get sum’!";
+
+level_text[5]   = "HURRAH! You cracked that nut alright! "+
+                  "Next one will be a lot thougher!";
+level_answer[5] = "Really? Show me!";
+
+level_text[6]   = "SWEET! That was some bad-ass level-bustin’ there! "+
+                  "Savour it, cuz’ the next one will be hard!";
+level_answer[6] = "Bring it on, baby!";
+
+level_text[7]   = "LÖL! That level was no match for your powers! "+
+                  "But the next one will make you WEEP!";
+level_answer[7] = "Bring it on, baby!";
+
+level_text[8]   = "NOM! That level was just for starters! "+
+                  "The next one will be the real lunch!";
+level_answer[8] = "I’m still hungry!";
 
 //-----------------------------------------------------------------------------
 // About
