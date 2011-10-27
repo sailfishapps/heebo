@@ -78,15 +78,16 @@ var heebo_credit_graphics = "<i>Gräphix</i><br\><b>Niklas Gustafsson</b><br\>ni
 // Help
 //-----------------------------------------------------------------------------
 
-var heebo_help_1 = "<i>Try to get three or more blocks of the same colour in a line.</i> In order to do that you can switch two blocks by a flicking movement of the finger. The trouble is that you can only switch blocks when either one of them will line up with three or more in a line. Just try it, and you'll get the drift!";
+var heebo_help_topic_1 = "Match them blocks!";
+var heebo_help_1 = "Get three or more blocks of the same colour in a line. Blocks can be swapped by flicking over them. You can only swap blocks when either one of them will line up with three or more in a line. You can also move a block into an empty tile.";
 
-var heebo_help_2 = "When you get three or more blocks of the same colour in a line they will explode and turn the floor under them into gold plates.  <i>To win the level you'll need to turn all floor plates into gold!</i>";
+var heebo_help_topic_2 = "Turn all gold!";
+var heebo_help_2 = "When three or more blocks of the same colour line up they will explode and turn the background into gold plates! To win a level you must turn all background tiles golden.";
 
-var heebo_help_3 = "New blocks will fall down from the first row, unless there are walls in the way.  Sometimes when there are walls in the way, you might have to stack up blocks to reach those highest floor tiles!";
+var heebo_help_topic_3 = "Bonus sweetie";
+var heebo_help_3 = "If you explode more than three blocks in a line, a bonus background tile with a same colour block on it will be turned into gold. This is handy to get to those last hard-to-reach tiles!";
 
-var heebo_help_4 = "If you get more than three in a line, as a bonus more floor plates will be turned into gold.  For example if you get four in a line, one additional floor plate where a block of the same colour resides will be turned into gold.  For five in a line it's two additional blocks, and so on. <i>This is really handy when you've got that one last block to clear and you just can't reach it!</i>";
-
-var heebo_help_5 = "Now go flip some blocks!!";
+var heebo_help_4 = "Now go flip some blocks!!";
 
 //-----------------------------------------------------------------------------
 // Utility functions

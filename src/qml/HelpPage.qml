@@ -32,58 +32,64 @@ FullPage {
         clip: true
         flickableDirection: Flickable.VerticalFlick
         contentWidth: parent.width
-        contentHeight: /*logoImage.height + */titleText.paintedHeight +
-                       help_text_1.paintedHeight + help_text_2.paintedHeight +
-                       help_text_3.paintedHeight + help_text_4.paintedHeight +
-                       help_text_5.paintedHeight + 30*8
+        contentHeight: titleText.paintedHeight +
+                       help_topic_1.paintedHeight + help_text_1.paintedHeight +
+                       help_topic_2.paintedHeight + help_text_2.paintedHeight +
+                       help_topic_3.paintedHeight + help_text_3.paintedHeight +
+                       help_text_4.paintedHeight + 30*9
         
-        /* Image { */
-        /*     id: logoImage */
-        /*     source: "qrc:///images/heebo_logo.png"; */
-        /*     anchors { */
-        /*         top: parent.top */
-        /*         topMargin: 30 */
-        /*         horizontalCenter: parent.horizontalCenter */
-        /*     } */
-        /* } */
-
         FullPageText {
             id: titleText
             text: "HELP"
             style: "header"
 
-            anchors.top: parent.top /* logoImage.bottom*/
+            anchors.top: parent.top
+        }
+
+        FullPageText {
+            id: help_topic_1
+            text: Constants.heebo_help_topic_1
+            style: "title"
+            anchors.top: titleText.bottom
         }
 
         FullPageText {
             id: help_text_1
             text: Constants.heebo_help_1
-            anchors.top: titleText.bottom
+            anchors.top: help_topic_1.bottom
+        }
+
+        FullPageText {
+            id: help_topic_2
+            text: Constants.heebo_help_topic_2
+            style: "title"
+            anchors.top: help_text_1.bottom
         }
 
         FullPageText {
             id: help_text_2
             text: Constants.heebo_help_2
-            anchors.top: help_text_1.bottom
+            anchors.top: help_topic_2.bottom
+        }
+
+        FullPageText {
+            id: help_topic_3
+            text: Constants.heebo_help_topic_3
+            style: "title"
+            anchors.top: help_text_2.bottom
         }
 
         FullPageText {
             id: help_text_3
             text: Constants.heebo_help_3
-            anchors.top: help_text_2.bottom
+            anchors.top: help_topic_3.bottom
         }
 
         FullPageText {
             id: help_text_4
             text: Constants.heebo_help_4
-            anchors.top: help_text_3.bottom
-        }
-
-        FullPageText {
-            id: help_text_5
-            text: Constants.heebo_help_5
             style: "emphasis"
-            anchors.top: help_text_4.bottom
+            anchors.top: help_text_3.bottom
         }
     }
     ScrollBar {
