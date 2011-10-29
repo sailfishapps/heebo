@@ -29,7 +29,7 @@ JewelPage {
 
     property bool isRunning: false
 
-    property int dt: 3
+    property int dt: 0
     
     signal animDone()
     signal jewelKilled();
@@ -181,7 +181,9 @@ JewelPage {
         signal closed
 
         function toggle() {
-            visible ? hide() : show();
+            if (okDialog.isClosed()) {
+              visible ? hide() : show();
+            }
         }
     
         function show() {
@@ -239,21 +241,24 @@ JewelPage {
                 onClicked: { mainMenu.hide(); openFile("HelpPage.qml") }
                 /* For testing levels... */
                 /* onClicked: { mainMenu.hide(); Jewels.nextLevel() } */
-                /* For testing dialogs */
-                /* onClicked: { */
-                /*     okDialog.mode = 42; */
-                /*     okDialog.show(Constants.level_text[dt], */
-                /*                   Constants.level_answer[dt]); */
-                /*     dt++; */
-                /*     if (dt == Constants.level_text_num) */
-                /*       dt = 0; */
-                /* } */
             }
             MenuButton {
                 text: "About"
                 buttonImage: "qrc:///images/icon_about.png"
                 pressedButtonImage: "qrc:///images/icon_about_pressed.png"
                 onClicked: { mainMenu.hide(); openFile("AboutPage.qml") }
+                /* For testing dialogs */
+                /* onClicked: { */
+                /*     mainMenu.hide(); */
+                /*     okDialog.mode = 42; */
+                /*     /\* okDialog.show(Constants.level_text[dt], *\/ */
+                /*     /\*               Constants.level_answer[dt]); *\/ */
+                /*     okDialog.show(Constants.last_level_msg, */
+                /*                   Constants.last_level_answer); */
+                /*     dt++; */
+                /*     if (dt == Constants.level_text_num) */
+                /*       dt = 0; */
+                /* } */
             }
         }
     }

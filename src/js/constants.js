@@ -54,7 +54,7 @@ var color_main = "#F2F2F2";
 // Dialog messages
 //-----------------------------------------------------------------------------
 
-var level_text_num = 9;
+var level_text_num = 7;
 var level_text = [];
 var level_answer = [];
 
@@ -78,25 +78,18 @@ level_text[4]   = "WHOA! You just PWNED that level! "+
                   "Don’t get cocky, 'cos the next one will fight back!";
 level_answer[4] = "Let’s go get sum’!";
 
-level_text[5]   = "HURRAH! You cracked that nut alright! "+
-                  "Next one will be a lot thougher!";
-level_answer[5] = "Really? Show me!";
-
-level_text[6]   = "SWEET! That was some bad-ass level-bustin’ there! "+
-                  "Savour it, cuz’ the next one will be hard!";
-level_answer[6] = "Bring it on, baby!";
-
-level_text[7]   = "LÖL! That level was no match for your powers! "+
+level_text[5]   = "LÖL! That level was no match for your powers! "+
                   "But the next one will make you WEEP!";
-level_answer[7] = "Bring it on, baby!";
+level_answer[5] = "Bring it on, baby!";
 
-level_text[8]   = "NOM! That level was just for starters! "+
+level_text[6]   = "NOM! That level was just for starters! "+
                   "The next one will be the real lunch!";
-level_answer[8] = "I’m still hungry!";
+level_answer[6] = "I’m still hungry!";
 
 
 var last_level_msg    = "That was the last level!\n"+
-                        "CONGRATULATIONS!!!";
+                        "You PWNED the game!\n"+
+                        "CONGRATULASHUNS!!1";
 var last_level_answer = "ZÖMG!!";
 
 //-----------------------------------------------------------------------------
