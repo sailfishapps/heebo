@@ -96,19 +96,19 @@ var last_level_answer = "ZÖMG!!";
 // About
 //-----------------------------------------------------------------------------
 
-var heebo_version = "0.1.2";
+var heebo_version = "1.0";
 var heebo_description =
     "Simple and addictive \"match 3\" game with quirky characters.";
 var heebo_copyright
     = "Copyright 2011 &copy; Mats Sjöberg, Niklas Gustafsson<br/><br/>"+
-"All the source code and game level maps for Heebo are licensed under GPLv3.<br/><br/>The source code can be downloaded from <a style=\"color: "+color_uiaccent+"\" href=\"http://gitorious.org/heebo\">http://gitorious.org/heebo</a><br/><br/>";
+"All the source code and game level maps for Heebo are licensed under GPLv3. All graphics are licensed under CC-BY-SA.<br/><br/>The source code can be downloaded from <a style=\"color: "+color_uiaccent+"\" href=\"http://gitorious.org/heebo\">http://gitorious.org/heebo</a><br/><br/>";
 
 var code_license =
     "This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.<br/><br/>"+
     "This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.<br/><br/>"+
     "You should have received a copy of the GNU General Public License along with this program.  If not, see <a style=\"color: "+color_uiaccent+"\" href=\"http://www.gnu.org/licenses/\">http://www.gnu.org/licenses/</a>.";
 
-var graphics_license = "All graphics in Heebo is licensed under Nääk doesn't know yet, jeebus.";
+var graphics_license = "All graphics in Heebo are licensed under the <a href=\"http://creativecommons.org/licenses/by-sa/3.0/\">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>.";
 
 var heebo_credit_coding = "<i>Cöde</i><br\><b>Mats Sj&ouml;berg</b><br\>mats@sjoberg.fi<br/><a style=\"color: "+color_uiaccent+"\" href=\"http://www.sjoberg.fi/mats/\">www.sjoberg.fi/mats</a>";
 
