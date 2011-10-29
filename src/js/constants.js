@@ -98,7 +98,7 @@ var last_level_answer = "ZÖMG!!";
 
 var heebo_version = "1.0";
 var heebo_description =
-    "Simple and addictive \"match 3\" game with quirky characters.";
+    "Simple and addictive Match 3 game with quirky characters.";
 var heebo_copyright
     = "Copyright 2011 &copy; Mats Sjöberg, Niklas Gustafsson<br/><br/>"+
 "All the source code and game level maps for Heebo are licensed under GPLv3. All graphics are licensed under CC-BY-SA.<br/><br/>The source code can be downloaded from <a style=\"color: "+color_uiaccent+"\" href=\"http://gitorious.org/heebo\">http://gitorious.org/heebo</a><br/><br/>";
@@ -108,7 +108,7 @@ var code_license =
     "This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.<br/><br/>"+
     "You should have received a copy of the GNU General Public License along with this program.  If not, see <a style=\"color: "+color_uiaccent+"\" href=\"http://www.gnu.org/licenses/\">http://www.gnu.org/licenses/</a>.";
 
-var graphics_license = "All graphics in Heebo are licensed under the <a href=\"http://creativecommons.org/licenses/by-sa/3.0/\">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>.";
+var graphics_license = "All graphics in Heebo are licensed under the <a style=\"color: "+color_uiaccent+"\" href=\"http://creativecommons.org/licenses/by-sa/3.0/\">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>.";
 
 var heebo_credit_coding = "<i>Cöde</i><br\><b>Mats Sj&ouml;berg</b><br\>mats@sjoberg.fi<br/><a style=\"color: "+color_uiaccent+"\" href=\"http://www.sjoberg.fi/mats/\">www.sjoberg.fi/mats</a>";
 
