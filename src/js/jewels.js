@@ -156,6 +156,7 @@ var newBlock = function (j, i, type) {
     obj.x = i*block_width;
     obj.y = j*block_height;
 
+    obj.locked = false;
     obj.type = type;
     obj.spawned = true;
     board[j][i] = obj;
@@ -227,6 +228,10 @@ var startNewGame = function () {
             } while (type === skip1 || type === skip2);
 
             newBlock(j, i, type);
+            if (bg_grid[j][i].wall_border === 'lock') {
+                board[j][i].locked = true;
+                bg_grid[j][i].wall_border = '0';
+            }
         }
     }
     
@@ -370,6 +375,8 @@ var fallDown = function () {
                 fallDist = 0;
             } else if (board[j][i] === undefined) {
                 fallDist++;
+            } else if (board[j][i].locked) {
+                fallDist = 0;
             } else {
                 if (fallDist > 0) {
                     var obj = board[j][i];
@@ -514,6 +521,10 @@ var checkSingleStep = function(obj, pt, dx, dy) {
     obj2 = gridObject(board, pt2);
     if (obj2 === undefined) {
         return true;
+    }
+
+    if (obj.locked || obj2.locked) {
+        return false;
     }
     
     board.set(pt, obj2);
@@ -699,7 +710,8 @@ var mousePressed = function (x, y) {
 // Called when user moves mouse or swipes 
 var mouseMoved = function (x, y) {
     if (moving1 === undefined || moving1.obj === undefined ||
-        okDialog.visible || mainMenu.visible || isRunning() || finalAnim)
+        okDialog.visible || mainMenu.visible || isRunning() || finalAnim ||
+       moving1.obj.locked)
     {
         if (!playerMovement)
             moving1 = undefined;
@@ -725,7 +737,8 @@ var mouseMoved = function (x, y) {
     moving2.bpt = point(moving1.bpt).plus(dd);
     moving2.obj = gridObject(board, moving2.bpt);
 
-    if (!moving2.bpt.insideGrid() || bg_grid.isBlocking(moving2.bpt))
+    if (!moving2.bpt.insideGrid() || bg_grid.isBlocking(moving2.bpt) ||
+        (moving2.obj && moving2.obj.locked))
         return;
 
     playerMovement = true;

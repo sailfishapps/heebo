@@ -26,6 +26,7 @@
     <file alias="/images/wb_deadend_right.png">images/wb_deadend_right.png</file>
     <file alias="/images/wb_leftright.png">images/wb_leftright.png</file>
     <file alias="/images/wb_updown.png">images/wb_updown.png</file>
+    <file alias="/images/lock.png">images/lock.png</file>
     <!-- blinking blocks -->
     <file alias="/images/circle-blink.png">images/circle_eyeshut.png</file>
     <file alias="/images/polygon-blink.png">images/polygon_eyeshut.png</file>

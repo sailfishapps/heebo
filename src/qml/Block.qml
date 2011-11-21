@@ -40,7 +40,7 @@ Image {
         anchors.fill: parent
         opacity: parent.wall_border !== ""
         source: "qrc:///images/"+
-                (parent.wall_border==="0" ?
+                (parent.wall_border==="0" || parent.wall_border==="lock" ?
                  "empty" : "wb_"+parent.wall_border)+".png"
         z: 1
     }

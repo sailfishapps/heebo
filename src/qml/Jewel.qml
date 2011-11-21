@@ -35,6 +35,7 @@ Item {
     property bool selected: false;
     property bool to_remove: false;
     property bool dying: false;
+    property bool locked: false;
 
     property int fdPause: 0
 
@@ -66,6 +67,19 @@ Item {
         Behavior on opacity {
             NumberAnimation { properties:"opacity"; duration: 200 }
         }
+    }
+
+    Image {
+        anchors {
+            horizontalCenter: parent.horizontalCenter
+            verticalCenter: parent.verticalCenter
+        }
+        
+        width: jewel.width; height: jewel.width
+
+        source: "qrc:///images/lock.png"
+        opacity: parent.locked && !parent.dying
+        z: 1
     }
 
     Particles {
