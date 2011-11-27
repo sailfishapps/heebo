@@ -35,6 +35,12 @@ bool GameMap::OK(int r, int c) const {
 
 //------------------------------------------------------------------------------
 
+bool GameMap::OK(const QPoint& p) const {
+  return OK(p.y(), p.x());
+}
+
+//------------------------------------------------------------------------------
+
 QChar GameMap::at(int r, int c) const {
   if (!OK(r, c)) {
     // qDebug() << "GameMap::at(" << r << "," << c << "): coordinate not valid.";
@@ -87,13 +93,73 @@ void GameMap::set(const QPoint& p, QChar ch) {
 
 //------------------------------------------------------------------------------
 
+QString GameMap::propertyName(const QPoint& p) const {
+  if (!OK(p))
+    return QString();
+    
+  QHash<QPoint, QString>::const_iterator i = m_prop.find(p);
+
+  return i == m_prop.end() ? QString() : i.value();
+}
+
+//------------------------------------------------------------------------------
+
+QString GameMap::propertyName(int r, int c) const {
+  return propertyName(QPoint(c, r));
+}
+
+//------------------------------------------------------------------------------
+
+void GameMap::setProperty(const QPoint& p, const QString& s) {
+  if (!OK(p)) {
+    qDebug() << "GameMap::setProperty(" << p.y() << "," << p.x()
+             << "): coordinate not valid.";
+    return;
+  }
+  
+  m_prop.remove(p);
+  if (!s.isEmpty())
+    m_prop[p] = s;
+}
+
+//------------------------------------------------------------------------------
+
+void GameMap::clearProperty(const QPoint& p) {
+  setProperty(p, "");
+}
+
+//------------------------------------------------------------------------------
+
 void GameMap::load(QTextStream& in) {
   int n = 0;
   while (n < m_height && !in.atEnd()) {
     QString line = in.readLine();
 
-    if (line[0] == '#')
+    if (line[0] == '#') {
+      QStringList sl = line.mid(2).split(QRegExp("\\s+"));
+      if (sl[0] == "property:") {
+        if (sl.length() != 3) {
+          qCritical() << "Bad property line: " << line;
+          return;
+        }
+        int commaPos = sl[1].indexOf(",");
+        if (commaPos == -1) {
+          qCritical() << "Bad property line: " << line;
+          return;
+        }
+        bool okr, okc;
+        int r = sl[1].left(commaPos).toInt(&okr);
+        int c = sl[1].mid(commaPos+1).toInt(&okc);
+
+        if (!okr || !okc) {
+          qCritical() << "Bad property line: " << line;
+          return;
+        }
+        setProperty(QPoint(c, r), sl[2]);
+      }
+        
       continue;
+    }
 
     n++; // count uncommented lines
 
@@ -105,7 +171,7 @@ void GameMap::load(QTextStream& in) {
     QList<QChar> list;
     for (int i=0; i<m_width; i++) {
       QChar ch = line[i];
-      if (!QString("012346789W|-<>AUOL").contains(ch)) {
+      if (!QString("012346789W|-<>AUO").contains(ch)) {
         qCritical() << "Character" << ch << "on line" << n
                     << "is not an allowed map character.";
         return;
@@ -119,6 +185,13 @@ void GameMap::load(QTextStream& in) {
 //------------------------------------------------------------------------------
 
 void GameMap::save(QTextStream& out) const {
+  QHash<QPoint, QString>::const_iterator i = m_prop.constBegin();
+  while (i != m_prop.constEnd()) {
+    const QPoint& p = i.key();
+    out << "# property: " << p.y() << "," << p.x() << " " << i.value() << "\n";
+    ++i;
+  }
+
   for (int j=0; j<height(); j++) {
     for (int i=0; i<width(); i++)
       out << at(j, i);

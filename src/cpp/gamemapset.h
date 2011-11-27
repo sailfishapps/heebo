@@ -57,6 +57,7 @@ public:
 
 public slots:
   QString at(int r, int c) const;
+  QString prop(int r, int c) const;
 
 signals:
   void levelChanged();

@@ -21,12 +21,6 @@
 
 //------------------------------------------------------------------------------
 
-inline uint qHash(const QPoint& p) {
-  return qHash(p.x())^qHash(p.y());
-}
-
-//------------------------------------------------------------------------------
-
 GameMapSet::GameMapSet(int width, int height, QObject* parent) :
   QObject(parent), m_width(width), m_height(height), m_number(0), m_level(-1)
 {
@@ -70,6 +64,12 @@ int GameMapSet::setLevel(int l) {
 
 QString GameMapSet::at(int r, int c) const {
   return m_maps[m_level]->atName(r,c);
+}
+
+//------------------------------------------------------------------------------
+
+QString GameMapSet::prop(int r, int c) const {
+  return m_maps[m_level]->propertyName(r,c);
 }
 
 //------------------------------------------------------------------------------

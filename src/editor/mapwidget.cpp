@@ -46,27 +46,41 @@ void MapWidget::mouseReleaseEvent(QMouseEvent* event) {
   if (!m_scene->sceneRect().contains(clickPos))
     return;
 
+  bool rightClick = event->button() == Qt::RightButton;
+
   QPoint mapPos(floor(clickPos.x() / block_width),
                 floor(clickPos.y() / block_height));
 
   QChar from = m_map->at(mapPos);
   QChar to;
-  if (from == 'W')
-    to = '0';
-  else
-    to = 'W';
 
-  m_map->set(mapPos, to);
+  if (rightClick)  {
+    if (from == 'W')
+      return;
+    if (m_map->propertyName(mapPos) == "locked")
+      m_map->clearProperty(mapPos);
+    else
+      m_map->setProperty(mapPos, "locked");
+  } else {
+    if (from == 'W') {
+      to = '0';
+    } else {
+      to = 'W';
+      m_map->clearProperty(mapPos);
+    }
 
-  for (int dx=-1; dx<= 1; dx++) {
-    for (int dy=-1; dy<= 1; dy++) {
-      QPoint pt = mapPos + QPoint(dx, dy);
-      if (m_mapRect.contains(pt)) {
-        updateBorder(pt.x(), pt.y());
-        drawBlock(pt);
+    m_map->set(mapPos, to);
+
+    for (int dx=-1; dx<= 1; dx++) {
+      for (int dy=-1; dy<= 1; dy++) {
+        QPoint pt = mapPos + QPoint(dx, dy);
+        if (m_mapRect.contains(pt)) {
+          updateBorder(pt.x(), pt.y());
+          drawBlock(pt);
+        }
       }
     }
-  }    
+  }
 
   drawBlock(mapPos);
 
@@ -156,6 +170,17 @@ void MapWidget::drawBlock(int i, int j) {
                                 Qt::SmoothTransformation));
     pm->setOffset(i*block_width, j*block_height);
     pm->setZValue(5);
+  }
+
+  QString prop = m_map->propertyName(j, i);
+  if (prop == "locked") {
+    QGraphicsPixmapItem* pm =
+      m_scene->addPixmap(QPixmap(":/images/lock.png").
+                         scaled(block_width, block_height,
+                                Qt::IgnoreAspectRatio,
+                                Qt::SmoothTransformation));
+    pm->setOffset(i*block_width, j*block_height);
+    pm->setZValue(10);
   }
 }
 

@@ -20,5 +20,6 @@
     <file alias="/images/wb_deadend_right.png">../../images/wb_deadend_right.png</file>
     <file alias="/images/wb_leftright.png">../../images/wb_leftright.png</file>
     <file alias="/images/wb_updown.png">../../images/wb_updown.png</file>
+    <file alias="/images/lock.png">../../images/lock.png</file>
   </qresource>
 </RCC>

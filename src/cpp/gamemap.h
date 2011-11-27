@@ -33,6 +33,11 @@ public:
   QChar at(const QPoint& p) const;
   QString atName(int r, int c) const;
 
+  QString propertyName(int r, int c) const;
+  QString propertyName(const QPoint& p) const;
+  void clearProperty(const QPoint& p);
+  void setProperty(const QPoint& p, const QString& s);
+
   void set(int r, int c, QChar ch);
   void set(const QPoint& p, QChar ch);
 
@@ -45,9 +50,15 @@ private:
   GameMap(int, int);
   void load(QTextStream&);
   bool OK(int r, int c) const;
+  bool OK(const QPoint& p) const;
 
   QList< QList<QChar> > m_map;
+  QHash<QPoint, QString> m_prop;
   int m_width, m_height;
 };
+
+inline uint qHash(const QPoint& p) {
+  return qHash(p.x())^qHash(p.y());
+}
 
 #endif /* _GAMEMAP_H_ */

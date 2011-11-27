@@ -228,7 +228,7 @@ var startNewGame = function () {
             } while (type === skip1 || type === skip2);
 
             newBlock(j, i, type);
-            if (bg_grid[j][i].wall_border === 'lock') {
+            if (mapset.prop(j,i) === 'locked') {
                 board[j][i].locked = true;
                 bg_grid[j][i].wall_border = '0';
             }
