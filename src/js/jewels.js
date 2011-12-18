@@ -702,6 +702,7 @@ var mousePressed = function (x, y) {
     moving1.bpt = point({x: Math.floor(x/block_width),
                         y:Math.floor(y/block_height)});
     moving1.obj = gridObject(board, moving1.bpt);
+    moving1.started = false;
 };
 
 //-----------------------------------------------------------------------------
@@ -710,7 +711,7 @@ var mousePressed = function (x, y) {
 var mouseMoved = function (x, y) {
     if (moving1 === undefined || moving1.obj === undefined ||
         okDialog.visible || mainMenu.visible || isRunning() || finalAnim ||
-       moving1.obj.locked)
+       moving1.obj.locked || moving1.started !== false)
     {
         if (!playerMovement)
             moving1 = undefined;
@@ -725,6 +726,8 @@ var mouseMoved = function (x, y) {
     var dist = dd.x.abs()-dd.y.abs();
     if (dist.abs() < move_limit)
         return;
+
+    moving1.started = true;
 
     if (dd.x.abs() > dd.y.abs()) {
         dd = point({x:dd.x.sign(), y:0});
