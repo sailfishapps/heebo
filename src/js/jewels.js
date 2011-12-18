@@ -230,7 +230,6 @@ var startNewGame = function () {
             newBlock(j, i, type);
             if (mapset.prop(j,i) === 'locked') {
                 board[j][i].locked = true;
-                bg_grid[j][i].wall_border = '0';
             }
         }
     }
