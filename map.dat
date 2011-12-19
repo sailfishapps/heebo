@@ -318,20 +318,6 @@ W6004W
 # map30
 # property: 2,2 locked
 # property: 2,3 locked
-# property: 2,1 locked
-# property: 2,4 locked
-000000
-000000
-000000
-000000
-800008
-W6004W
-W9007W
-WW64WW
-220022
-# map31
-# property: 2,2 locked
-# property: 2,3 locked
 # property: 6,2 locked
 # property: 6,3 locked
 # property: 4,2 locked
@@ -345,19 +331,21 @@ WW64WW
 00--00
 04WW60
 002200
-# map32
-# property: 5,4 locked
-# property: 5,1 locked
+# map31
+# property: 4,4 locked
+# property: 3,1 locked
+# property: 4,1 locked
+# property: 3,4 locked
+000000
 008800
 04WW60
 002200
-008800
-04WW60
-84WW68
-W6224W
+800008
+W6004W
 W6004W
 200002
-# map33
+000000
+# map32
 # property: 4,4 locked
 # property: 2,2 locked
 # property: 2,3 locked
@@ -375,21 +363,23 @@ W6004W
 020020
 000000
 000000
-# map34
+# map33
 # property: 3,3 locked
 # property: 3,2 locked
-# property: 4,2 locked
-# property: 4,3 locked
-000000
-080080
-4W64W6
-020020
-080080
-4W64W6
-020020
+# property: 3,1 locked
+# property: 3,0 locked
+# property: 3,5 locked
+# property: 3,4 locked
 000000
 000000
-# map35
+000000
+000000
+000000
+000000
+808080
+W|W|W6
+W|W|W6
+# map34
 # property: 7,5 locked
 # property: 7,3 locked
 # property: 7,1 locked
@@ -402,7 +392,7 @@ W6004W
 808080
 WUWUW9
 WWWWWW
-# map36
+# map35
 # property: 6,4 locked
 # property: 6,1 locked
 000000
@@ -414,6 +404,22 @@ WWWWWW
 W|WW|W
 202202
 000000
+# map36
+# property: 0,0 locked
+# property: 4,5 locked
+# property: 4,0 locked
+# property: 0,5 locked
+# property: 8,0 locked
+# property: 8,5 locked
+800008
+W9007W
+WW64WW
+W3001W
+-0000-
+W9007W
+WW64WW
+W3001W
+200002
 # map37
 # property: 7,3 locked
 # property: 6,3 locked
@@ -427,15 +433,17 @@ W|WW|W
 04W980
 04WWW6
 # map38
-000000
-000000
+# property: 5,5 locked
+# property: 4,5 locked
 000000
 000000
 008800
 07WW90
-4W31W6
-4W97W6
+4WWOW6
+4WOWW6
 01WW30
+002200
+000000
 # map39
 # property: 6,2 locked
 # property: 7,2 locked
