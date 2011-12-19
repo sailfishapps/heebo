@@ -261,6 +261,14 @@ var nextLevel = function () {
 };
 
 //-----------------------------------------------------------------------------
+
+// Back to previous level
+var prevLevel = function () {
+    mapset.level--;
+    startNewGame();
+};
+
+//-----------------------------------------------------------------------------
 // Main game logic functions, i.e. moving blocks, checking conditions,
 // reacting to events.
 // -----------------------------------------------------------------------------
