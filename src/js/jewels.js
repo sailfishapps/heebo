@@ -73,7 +73,7 @@ var point = function (spec) {
     };
     
     that.str = function () {
-        return that.x+", "+that.y;
+        return (that.x+1)+", "+(that.y+1);
     };
 
     // FIXME: this is confusing, changes object itself
@@ -516,7 +516,7 @@ var checkSwitch = function (pt1, pt2) {
 var checkSingleStep = function(obj, pt, dx, dy) {
     var pt2, obj2, changes;
 
-    if (obj === undefined || bg_grid.isBlocking(pt)) {
+    if (obj === undefined || bg_grid.isBlocking(pt) || obj.locked) {
         return false;
     }
     
@@ -527,13 +527,14 @@ var checkSingleStep = function(obj, pt, dx, dy) {
 
     obj2 = gridObject(board, pt2);
     if (obj2 === undefined) {
-        return true;
+        return !(dx === 0 && dy === -1);
+        // return true;
     }
 
-    if (obj.locked || obj2.locked) {
+    if (obj2.locked) {
         return false;
     }
-    
+
     board.set(pt, obj2);
     board.set(pt2, obj);
 
@@ -561,10 +562,22 @@ var checkMoves = function () {
             if (obj === undefined || bg_grid.isBlocking(pt))
                 continue;
             
-            if (checkSingleStep(obj, pt, -1,  0)) return true;
-            if (checkSingleStep(obj, pt,  1,  0)) return true;
-            if (checkSingleStep(obj, pt,  0, -1)) return true;
-            if (checkSingleStep(obj, pt,  0,  1)) return true;
+            if (checkSingleStep(obj, pt, -1,  0)) {
+                // console.log("CANMOVE: "+pt.str()+" left");
+                return true;
+            }
+            if (checkSingleStep(obj, pt,  1,  0)) { 
+                // console.log("CANMOVE: "+pt.str()+" right");
+                return true;
+            }
+            if (checkSingleStep(obj, pt,  0, -1)) {
+                // console.log("CANMOVE: "+pt.str()+" up");
+                return true;
+            }
+            if (checkSingleStep(obj, pt,  0,  1)) {
+                // console.log("CANMOVE: "+pt.str()+" down");
+                return true;
+            }
         }
     }
     
