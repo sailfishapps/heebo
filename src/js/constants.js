@@ -96,7 +96,7 @@ var last_level_answer = "ZÖMG!!";
 // About
 //-----------------------------------------------------------------------------
 
-var heebo_version = "1.0";
+var heebo_version = "1.1";
 var heebo_description =
     "Simple and addictive Match 3 game with quirky characters.";
 var heebo_copyright
@@ -128,7 +128,10 @@ var heebo_help_2 = "When three or more blocks of the same colour line up they wi
 var heebo_help_topic_3 = "Bonus sweetie";
 var heebo_help_3 = "If you explode more than three blocks in a line, a bonus background tile with a same colour block on it will be turned into gold. This is handy to get to those last hard-to-reach tiles!";
 
-var heebo_help_4 = "Now go flip some blocks!!";
+var heebo_help_topic_4 = "Locked blocks";
+var heebo_help_4 = "In the later levels some blocks are locked and can't be moved.  Free them by matching them up with two or more other blocks of the same colour!";
+
+var heebo_help_5 = "Now go flip some blocks!!";
 
 //-----------------------------------------------------------------------------
 // Utility functions

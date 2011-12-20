@@ -36,7 +36,8 @@ FullPage {
                        help_topic_1.paintedHeight + help_text_1.paintedHeight +
                        help_topic_2.paintedHeight + help_text_2.paintedHeight +
                        help_topic_3.paintedHeight + help_text_3.paintedHeight +
-                       help_text_4.paintedHeight + 30*9
+                       help_topic_4.paintedHeight + help_text_4.paintedHeight +
+                       help_text_5.paintedHeight + 30*11
         
         FullPageText {
             id: titleText
@@ -86,10 +87,23 @@ FullPage {
         }
 
         FullPageText {
+            id: help_topic_4
+            text: Constants.heebo_help_topic_4
+            style: "title"
+            anchors.top: help_text_3.bottom
+        }
+
+        FullPageText {
             id: help_text_4
             text: Constants.heebo_help_4
+            anchors.top: help_topic_4.bottom
+        }
+
+        FullPageText {
+            id: help_text_5
+            text: Constants.heebo_help_5
             style: "emphasis"
-            anchors.top: help_text_3.bottom
+            anchors.top: help_text_4.bottom
         }
     }
     ScrollBar {
