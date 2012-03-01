@@ -1,5 +1,5 @@
 /*
-  Copyright 2011 Mats Sjöberg
+  Copyright 2012 Mats Sjöberg
   
   This file is part of the Heebo programme.
   
@@ -57,7 +57,10 @@ void MapWidget::mouseReleaseEvent(QMouseEvent* event) {
   if (rightClick)  {
     if (from == 'W')
       return;
-    if (m_map->propertyName(mapPos) == "locked")
+    QString curProp = m_map->propertyName(mapPos);
+    if (curProp == "locked")
+      m_map->setProperty(mapPos, "locked2");
+    else if (curProp == "locked2")
       m_map->clearProperty(mapPos);
     else
       m_map->setProperty(mapPos, "locked");
@@ -173,9 +176,10 @@ void MapWidget::drawBlock(int i, int j) {
   }
 
   QString prop = m_map->propertyName(j, i);
-  if (prop == "locked") {
+  if (prop == "locked" || prop == "locked2") {
+    QString fileName = (prop == "locked") ? "lock" : "lock2";
     QGraphicsPixmapItem* pm =
-      m_scene->addPixmap(QPixmap(":/images/lock.png").
+      m_scene->addPixmap(QPixmap(":/images/"+fileName+".png").
                          scaled(block_width, block_height,
                                 Qt::IgnoreAspectRatio,
                                 Qt::SmoothTransformation));

@@ -1,5 +1,5 @@
 /*
-  Copyright 2011 Mats Sjöberg
+  Copyright 2012 Mats Sjöberg
   
   This file is part of the Heebo programme.
   
@@ -96,11 +96,11 @@ var last_level_answer = "ZÖMG!!";
 // About
 //-----------------------------------------------------------------------------
 
-var heebo_version = "1.1";
+var heebo_version = "1.2";
 var heebo_description =
     "Simple and addictive Match 3 game with quirky characters.";
 var heebo_copyright
-    = "Copyright 2011 &copy; Mats Sjöberg, Niklas Gustafsson<br/><br/>"+
+    = "Copyright 2012 &copy; Mats Sjöberg, Niklas Gustafsson<br/><br/>"+
 "All the source code and game level maps for Heebo are licensed under GPLv3. All graphics are licensed under CC-BY-SA.<br/><br/>The source code can be downloaded from <a style=\"color: "+color_uiaccent+"\" href=\"http://gitorious.org/heebo\">http://gitorious.org/heebo</a><br/><br/>";
 
 var code_license =

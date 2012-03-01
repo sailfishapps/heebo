@@ -1,5 +1,5 @@
 /*
-  Copyright 2011 Mats Sjöberg
+  Copyright 2012 Mats Sjöberg
   
   This file is part of the Heebo programme.
   
@@ -35,7 +35,7 @@ Item {
     property bool selected: false;
     property bool to_remove: false;
     property bool dying: false;
-    property bool locked: false;
+    property int locked: 0;
 
     property int fdPause: 0
 
@@ -77,7 +77,7 @@ Item {
         
         width: jewel.width; height: jewel.width
 
-        source: "qrc:///images/lock.png"
+        source: "qrc:///images/lock" + (parent.locked==2 ? "2" : "") + ".png"
         opacity: parent.locked && !parent.dying
         z: 1
     }

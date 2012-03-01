@@ -1,6 +1,6 @@
 Copyright:
 
-    <Copyright (C) 2011 Mats Sjöberg>
+    <Copyright (C) 2012 Mats Sjöberg>
 
 License:
 
@@ -20,5 +20,5 @@ License:
 On Debian systems, the complete text of the GNU General
 Public License can be found in `/usr/share/common-licenses/GPL'.
 
-The Debian packaging is (C) 2011, Mats Sjöberg <mats@sjoberg.fi> and
+The Debian packaging is (C) 2012, Mats Sjöberg <mats@sjoberg.fi> and
 is licensed under the GPL, see above.

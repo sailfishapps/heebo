@@ -1,5 +1,5 @@
 /*
-  Copyright 2011 Mats Sjöberg
+  Copyright 2012 Mats Sjöberg
   
   This file is part of the Heebo programme.
   
@@ -156,7 +156,7 @@ var newBlock = function (j, i, type) {
     obj.x = i*block_width;
     obj.y = j*block_height;
 
-    obj.locked = false;
+    obj.locked = 0;
     obj.type = type;
     obj.spawned = true;
     board[j][i] = obj;
@@ -229,7 +229,10 @@ var startNewGame = function () {
 
             newBlock(j, i, type);
             if (mapset.prop(j,i) === 'locked') {
-                board[j][i].locked = true;
+                board[j][i].locked = 1;
+            }
+            if (mapset.prop(j,i) === 'locked2') {
+                board[j][i].locked = 2;
             }
         }
     }
@@ -428,12 +431,16 @@ var checkSubsequentLine = function(j, rows, mark) {
                     }
                     
                     for (var k=k_begin; k<k_end; k++) {
+                        var r=k, c=j;
                         if (rows) {
-                            board[j][k].to_remove = true;
-                            bg_grid[j][k].cleared = true;
-                        } else {
-                            board[k][j].to_remove = true;
-                            bg_grid[k][j].cleared = true;
+                            r=j; c=k;
+                        }
+                        if (board[r][c].locked) {
+                            board[r][c].locked--;
+                        }
+                        if (!board[r][c].locked) {
+                            board[r][c].to_remove = true;
+                            bg_grid[r][c].cleared = true;
                         }
                     }
                     

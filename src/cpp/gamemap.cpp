@@ -1,5 +1,5 @@
 /*
-  Copyright 2011 Mats Sjöberg
+  Copyright 2012 Mats Sjöberg
   
   This file is part of the Heebo programme.
   
@@ -70,6 +70,8 @@ QString GameMap::atName(int r, int c) const {
     return "deadend_right";
   else if (ch == 'L')
     return "lock";
+  else if (ch == 'M')
+    return "lock2";
   else
     return ch;
 }
