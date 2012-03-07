@@ -1,6 +1,6 @@
 # -*- mode: makefile -*-
 ######################################################################
-#  Copyright 2011 Mats Sjöberg
+#  Copyright 2012 Mats Sjöberg
 #  
 #  This file is part of the Heebo programme.
 #
