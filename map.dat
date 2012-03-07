@@ -6,18 +6,14 @@
 # number of maps
 40
 # map1
-# property: 3,2 locked2
-# property: 3,1 locked
-# property: 6,4 locked
-# property: 6,5 locked2
 000000
 000000
-800000
-W60000
-200000
-000800
-004W60
-000200
+000000
+000000
+000000
+000000
+000000
+000000
 000000
 # map2
 000000
