@@ -237,6 +237,8 @@ var startNewGame = function () {
         }
     }
     
+    checkMovesAndReport();
+
     return true;
 };
 
