@@ -4,7 +4,7 @@
 # height
 9
 # number of maps
-40
+50
 # map1
 000000
 000000
@@ -471,3 +471,138 @@ W3001W
 07W300
 4W<880
 4WWWW6
+# map41
+# property: 5,4 locked2
+# property: 2,1 locked2
+# property: 5,1 locked2
+# property: 2,4 locked2
+000000
+000000
+000000
+000000
+000000
+000000
+000000
+000000
+000000
+# map42
+# property: 5,5 locked2
+# property: 1,0 locked2
+# property: 7,5 locked2
+# property: 3,0 locked2
+# property: 1,5 locked2
+# property: 5,0 locked2
+# property: 3,5 locked2
+# property: 7,0 locked2
+W6004W
+-0000-
+W6004W
+-0000-
+W6004W
+-0000-
+W6004W
+-0000-
+W6004W
+# map43
+# property: 6,4 locked2
+# property: 6,1 locked2
+000000
+080080
+4W64W6
+020020
+000000
+000000
+808808
+W|WW|W
+W|WW|W
+# map44
+# property: 3,3 locked
+# property: 6,2 locked
+# property: 5,3 locked2
+# property: 4,2 locked2
+000000
+000000
+008000
+04W900
+00>W60
+04W<00
+001W60
+000200
+000000
+# map45
+# property: 2,2 locked2
+# property: 2,0 locked2
+# property: 2,4 locked2
+000000
+000000
+000000
+000008
+00007W
+0007WW
+007WWW
+07WWWW
+4WWWWW
+# map46
+# property: 4,4 locked2
+# property: 4,1 locked2
+000000
+000000
+000000
+808808
+W|WW|W
+202202
+000000
+000000
+000000
+# map47
+# property: 2,1 locked2
+# property: 2,4 locked2
+4W64W6
+4W64W6
+0-00-0
+4W64W6
+4W64W6
+020020
+000000
+080080
+4W64W6
+# map48
+# property: 2,1 locked2
+# property: 2,4 locked2
+# property: 5,3 locked2
+# property: 5,2 locked2
+4W64W6
+4W64W6
+020020
+000000
+000000
+808808
+W|WW|W
+W6224W
+W6004W
+# map49
+# property: 3,2 locked2
+# property: 4,3 locked2
+000000
+080080
+4W67W6
+027W30
+07W380
+4W34W6
+020020
+000000
+000000
+# map50
+# property: 4,4 locked2
+# property: 6,4 locked2
+# property: 4,1 locked2
+# property: 6,1 locked2
+080080
+4W64W6
+4W64W6
+4W64W6
+020020
+008800
+04WW60
+80--08
+W|WW|W
