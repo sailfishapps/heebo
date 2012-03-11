@@ -240,7 +240,7 @@ JewelPage {
                 pressedButtonImage: "qrc:///images/icon_help_pressed.png"
                 onClicked: { mainMenu.hide(); openFile("HelpPage.qml") }
                 /* For testing levels... */
-                /* onClicked: { mainMenu.hide(); Jewels.nextLevel() } */
+                /* onPressAndHold: { mainMenu.hide(); Jewels.nextLevel() } */
             }
             MenuButton {
                 text: "About"
@@ -248,15 +248,15 @@ JewelPage {
                 pressedButtonImage: "qrc:///images/icon_about_pressed.png"
                 onClicked: { mainMenu.hide(); openFile("AboutPage.qml") }
                 /* For testing levels... */
-                /* onClicked: { mainMenu.hide(); Jewels.prevLevel() } */
+                /* onPressAndHold: { mainMenu.hide(); Jewels.prevLevel() } */
                 /* For testing dialogs */
-                /* onClicked: { */
+                /* onPressAndHold: { */
                 /*     mainMenu.hide(); */
                 /*     okDialog.mode = 42; */
-                /*     /\* okDialog.show(Constants.level_text[dt], *\/ */
-                /*     /\*               Constants.level_answer[dt]); *\/ */
-                /*     okDialog.show(Constants.last_level_msg, */
-                /*                   Constants.last_level_answer); */
+                /*     okDialog.show(Constants.level_text[dt], */
+                /*                   Constants.level_answer[dt]); */
+                /*     /\* okDialog.show(Constants.last_level_msg, *\/ */
+                /*     /\*               Constants.last_level_answer); *\/ */
                 /*     dt++; */
                 /*     if (dt == Constants.level_text_num) */
                 /*       dt = 0; */

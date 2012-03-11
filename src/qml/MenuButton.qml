@@ -29,6 +29,7 @@ Item {
     property string pressedButtonImage: "";
 
     signal clicked
+    /* signal pressAndHold */
 
     height: 140
     width: 140
@@ -61,5 +62,6 @@ Item {
         onClicked: container.clicked();
         onPressed: imageComponent.source = container.pressedButtonImage
         onReleased: imageComponent.source = container.buttonImage
+        /* onPressAndHold: container.pressAndHold(); */
     }
 }
