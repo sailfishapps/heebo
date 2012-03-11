@@ -1,3 +1,11 @@
+heebo (1.2.0) unstable; urgency=low
+
+  * 10 new levels with double-locked blocks.
+  * Fixed cosmetic problems due to new font in Harmattan PR 1.2.
+  * Fixed bug where "no more moves" was not checked on level initialisation.
+
+ -- Mats Sjöberg <mats@sjoberg.fi>  Sun, 11 Mar 2012 16:44:20 +0200
+
 heebo (1.1.0) unstable; urgency=low
 
   * 15 new levels with locked blocks.
