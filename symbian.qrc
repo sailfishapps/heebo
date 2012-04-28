@@ -1,0 +1,79 @@
+<!--*- xml -*-->
+<RCC>
+  <qresource prefix="/">
+    <!-- Game images -->
+    <file alias="/images/bg.png">images/symbian/bg.png</file>
+    <file alias="/images/empty.png">images/symbian/empty.png</file>
+    <file alias="/images/circle.png">images/symbian/circle.png</file>
+    <file alias="/images/polygon.png">images/symbian/polygon.png</file>
+    <file alias="/images/square.png">images/symbian/square.png</file>
+    <file alias="/images/triangle_down.png">images/symbian/triangle_down.png</file>
+    <file alias="/images/triangle_up.png">images/symbian/triangle_up.png</file>
+    <file alias="/images/block_gold.png">images/symbian/block_gold.png</file>
+    <file alias="/images/block_wall_1.png">images/symbian/block_wall_1.png</file>
+    <file alias="/images/wb_2.png">images/symbian/block_wall_bottom.png</file>
+    <file alias="/images/wb_4.png">images/symbian/block_wall_left.png</file>
+    <file alias="/images/wb_6.png">images/symbian/block_wall_right.png</file>
+    <file alias="/images/wb_8.png">images/symbian/block_wall_top.png</file>
+    <file alias="/images/wb_1.png">images/symbian/wb_1.png</file>
+    <file alias="/images/wb_3.png">images/symbian/wb_3.png</file>
+    <file alias="/images/wb_7.png">images/symbian/wb_7.png</file>
+    <file alias="/images/wb_9.png">images/symbian/wb_9.png</file>
+    <file alias="/images/wb_A.png">images/symbian/wb_A.png</file>
+    <file alias="/images/wb_U.png">images/symbian/wb_U.png</file>
+    <file alias="/images/wb_O.png">images/symbian/wb_O.png</file>
+    <file alias="/images/wb_deadend_left.png">images/symbian/wb_deadend_left.png</file>
+    <file alias="/images/wb_deadend_right.png">images/symbian/wb_deadend_right.png</file>
+    <file alias="/images/wb_leftright.png">images/symbian/wb_leftright.png</file>
+    <file alias="/images/wb_updown.png">images/symbian/wb_updown.png</file>
+    <file alias="/images/lock.png">images/symbian/lock.png</file>
+    <file alias="/images/lock2.png">images/symbian/lock2.png</file>
+    <!-- blinking blocks -->
+    <file alias="/images/circle-blink.png">images/symbian/circle_eyeshut.png</file>
+    <file alias="/images/polygon-blink.png">images/symbian/polygon_eyeshut.png</file>
+    <file alias="/images/square-blink.png">images/symbian/square_eyeshut.png</file>
+    <file alias="/images/triangle_down-blink.png">images/symbian/triangle_down_eyeshut.png</file>
+    <file alias="/images/triangle_up-blink.png">images/symbian/triangle_up_eyeshut.png</file>
+    <!-- particles -->
+    <file alias="/images/particle_circle.png">images/particle_circle.png</file>
+    <file alias="/images/particle_polygon.png">images/particle_polygon.png</file>
+    <file alias="/images/particle_square.png">images/particle_square.png</file>
+    <file alias="/images/particle_triangle_down.png">images/particle_triangle_down.png</file>
+    <file alias="/images/particle_triangle_up.png">images/particle_triangle_up.png</file>
+    <!-- UI images -->
+    <file alias="/images/icon_menu.png">images/icon_menu.png</file>
+    <file alias="/images/icon_menu_pressed.png">images/icon_menu_pressed.png</file>
+    <file alias="/images/icon_next_black.png">images/icon_next_black.png</file>
+    <file alias="/images/icon_next_pressed.png">images/icon_next_pressed.png</file>
+    <file alias="/images/icon_back_white.png">images/icon_back_white.png</file>
+    <file alias="/images/icon_back_pressed.png">images/icon_back_pressed.png</file>
+    <file alias="/images/main_menu_bg.png">images/main_menu_bg.png</file>
+    <file alias="/images/dialog_small.png">images/dialog_small_2.png</file>
+    <file alias="/images/heebo_logo.png">images/heebo_logo.png</file>
+    <file alias="/images/icon_about.png">images/icon_about.png</file>
+    <file alias="/images/icon_about_pressed.png">images/icon_about_pressed.png</file>
+    <file alias="/images/icon_help.png">images/icon_help.png</file>
+    <file alias="/images/icon_help_pressed.png">images/icon_help_pressed.png</file>
+    <file alias="/images/icon_newgame.png">images/icon_newgame.png</file>
+    <file alias="/images/icon_newgame_pressed.png">images/icon_newgame_pressed.png</file>
+    <file alias="/images/icon_next_white.png">images/icon_next_white.png</file>
+    <file alias="/images/icon_restart.png">images/icon_restart.png</file>
+    <file alias="/images/icon_restart_pressed.png">images/icon_restart_pressed.png</file>
+    <!-- Maps -->
+    <file>map.dat</file>
+    <!-- JavaScript -->
+    <file alias="js/jewels.js">src/js/jewels.js</file>
+    <file alias="js/constants.js">src/js/constants.js</file>
+    <!-- QML -->
+    <file alias="qml/Jewel.qml">src/qml/Jewel.qml</file>
+    <file alias="qml/Block.qml">src/qml/Block.qml</file>
+    <file alias="qml/JewelDialog.qml">src/qml/JewelDialog.qml</file>
+    <file alias="qml/MainPage.qml">src/qml/MainPage.qml</file>
+    <file alias="qml/MenuButton.qml">src/qml/MenuButton.qml</file>
+    <file alias="qml/FullPage.qml">src/qml/FullPage.qml</file>
+    <file alias="qml/FullPageText.qml">src/qml/FullPageText.qml</file>
+    <file alias="qml/AboutPage.qml">src/qml/AboutPage.qml</file>
+    <file alias="qml/HelpPage.qml">src/qml/HelpPage.qml</file>
+    <file alias="qml/ToolBar.qml">src/qml/ToolBar.qml</file>
+  </qresource>
+</RCC>

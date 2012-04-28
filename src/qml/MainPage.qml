@@ -78,7 +78,7 @@ JewelPage {
             anchors {
                 left: parent.left
                 verticalCenter: parent.verticalCenter
-                leftMargin: 100
+                leftMargin: Constants.tool_bar_left_margin
             }
             Text {
                 text: "Level: "
