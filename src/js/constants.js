@@ -39,10 +39,10 @@ var block_height = 60;
 
 // height of toolbar
 // var toolbar_height = 99; fixme:symbian
-var toolbar_height = 74;
+var toolbar_height = 100;
 
 // var tool_bar_left_margin = 100; fixme:symbian
-var tool_bar_left_margin = 50;
+var tool_bar_left_margin = 150;
 
 // Pixels to drag/swipe until it's interpreted as a movement
 var move_limit = 5;
@@ -54,7 +54,11 @@ var fontsize_main = 36;
 
 var color_uiaccent = "#D800D8";
 var color_dark = "#333333";
+var color_info = "#F2F2F2"; // fixme:symbian harmattan=333333
 var color_main = "#F2F2F2";
+
+// var menu_jump = 40; fixme: symbian
+var menu_jump = 20;
 
 //-----------------------------------------------------------------------------
 // Dialog messages

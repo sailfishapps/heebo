@@ -69,3 +69,10 @@ void GameView::readSettings() {
   m_level = s.value("level", 0).toInt();
   s.endGroup();
 }
+
+//------------------------------------------------------------------------------
+
+void GameView::quitApp() {
+  writeSettings();
+  qApp->quit();
+}

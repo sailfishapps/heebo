@@ -31,7 +31,7 @@ Text {
                     24
     font.bold: style === "title" || style === "header" || style == "emphasis"
     font.family: Constants.font_family
-    color: Constants.color_dark
+    color: Constants.color_info
 
     textFormat: Text.RichText
     wrapMode: Text.Wrap

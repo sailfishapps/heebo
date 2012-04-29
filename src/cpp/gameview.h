@@ -35,6 +35,7 @@ public:
 public slots:
   QString platform() const;
   void onLevelChanged();
+  void quitApp();
 
 private:
   void writeSettings();
