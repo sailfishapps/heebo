@@ -1,9 +1,0 @@
-<!--*- xml -*-->
-<RCC>
-  <qresource prefix="/">
-    <!-- QML -->
-    <file alias="qml/main.qml">src/qml/symbian/main.qml</file>
-    <file alias="qml/JewelPage.qml">src/qml/symbian/JewelPage.qml</file>
-    <file alias="qml/ScrollBar.qml">src/qml/symbian/ScrollBar.qml</file>
-  </qresource>
-</RCC>

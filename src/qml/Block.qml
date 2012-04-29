@@ -20,6 +20,7 @@
 import QtQuick 1.0
 
 import "qrc:///js/constants.js" as Constants
+import "qrc:///js/constants_platform.js" as ConstantsP
 
 Image {
     id: block
@@ -28,8 +29,8 @@ Image {
     property bool blocking: false;
     property string wall_border: "0";
 
-    width: Constants.block_width
-    height: Constants.block_height
+    width: ConstantsP.block_width
+    height: ConstantsP.block_height
     
     z: blocking ? 1 : -1
     

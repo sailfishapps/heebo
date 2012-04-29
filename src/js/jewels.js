@@ -19,7 +19,10 @@
 
 //-----------------------------------------------------------------------------
 
-Qt.include("constants.js")
+Qt.include("qrc:///js/constants.js")
+Qt.include("qrc:///js/constants_platform.js")
+
+//-----------------------------------------------------------------------------
 
 var board;
 var bg_grid;

@@ -1,0 +1,38 @@
+<!--*- xml -*-->
+<RCC>
+  <qresource prefix="/">
+    <!-- Game images -->
+    <file alias="/images/bg.png">images/bg_80.png</file>
+    <file alias="/images/empty.png">images/empty_80.png</file>
+    <file alias="/images/circle.png">images/circle.png</file>
+    <file alias="/images/polygon.png">images/polygon.png</file>
+    <file alias="/images/square.png">images/square.png</file>
+    <file alias="/images/triangle_down.png">images/triangle_down.png</file>
+    <file alias="/images/triangle_up.png">images/triangle_up.png</file>
+    <file alias="/images/block_gold.png">images/block_gold.png</file>
+    <file alias="/images/block_wall_1.png">images/block_wall_1.png</file>
+    <file alias="/images/wb_2.png">images/block_wall_bottom.png</file>
+    <file alias="/images/wb_4.png">images/block_wall_left.png</file>
+    <file alias="/images/wb_6.png">images/block_wall_right.png</file>
+    <file alias="/images/wb_8.png">images/block_wall_top.png</file>
+    <file alias="/images/wb_1.png">images/wb_1.png</file>
+    <file alias="/images/wb_3.png">images/wb_3.png</file>
+    <file alias="/images/wb_7.png">images/wb_7.png</file>
+    <file alias="/images/wb_9.png">images/wb_9.png</file>
+    <file alias="/images/wb_A.png">images/wb_A.png</file>
+    <file alias="/images/wb_U.png">images/wb_U.png</file>
+    <file alias="/images/wb_O.png">images/wb_O.png</file>
+    <file alias="/images/wb_deadend_left.png">images/wb_deadend_left.png</file>
+    <file alias="/images/wb_deadend_right.png">images/wb_deadend_right.png</file>
+    <file alias="/images/wb_leftright.png">images/wb_leftright.png</file>
+    <file alias="/images/wb_updown.png">images/wb_updown.png</file>
+    <file alias="/images/lock.png">images/lock.png</file>
+    <file alias="/images/lock2.png">images/lock2.png</file>
+    <!-- blinking blocks -->
+    <file alias="/images/circle-blink.png">images/circle_eyeshut.png</file>
+    <file alias="/images/polygon-blink.png">images/polygon_eyeshut.png</file>
+    <file alias="/images/square-blink.png">images/square_eyeshut.png</file>
+    <file alias="/images/triangle_down-blink.png">images/triangle_down_eyeshut.png</file>
+    <file alias="/images/triangle_up-blink.png">images/triangle_up_eyeshut.png</file>
+  </qresource>
+</RCC>

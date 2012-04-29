@@ -19,3 +19,4 @@ TAGS
 /build/symbian/obj
 /build/symbian/heebo
 /src/editor/editor
+/build/symbian/heebo.sis

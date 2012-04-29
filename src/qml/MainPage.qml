@@ -19,7 +19,8 @@
 
 import QtQuick 1.0
 
-import "qrc:///js/constants.js" as Constants
+/* import "qrc:///js/constants.js" as Constants */
+/* import "qrc:///js/constants_platform.js" as ConstantsP */
 import "qrc:///js/jewels.js" as Jewels
 
 JewelPage {
@@ -98,34 +99,34 @@ JewelPage {
             anchors {
                 left: parent.left
                 verticalCenter: parent.verticalCenter
-                leftMargin: Constants.tool_bar_left_margin
+                leftMargin: Jewels.tool_bar_left_margin
             }
 
             /*Text {
                 text: "Level: "
-                font.family: Constants.font_family
-                font.pixelSize: Constants.fontsize_main
-                color: Constants.color_uiaccent
+                font.family: Jewels.font_family
+                font.pixelSize: Jewels.fontsize_main
+                color: Jewels.color_uiaccent
             }*/
             Text {
                 id: currentLevelText
                 text: "??"
-                font.family: Constants.font_family
-                font.pixelSize: Constants.fontsize_main
-                color: Constants.color_main
+                font.family: Jewels.font_family
+                font.pixelSize: Jewels.fontsize_main
+                color: Jewels.color_main
             }                
             Text {
                 text: "/"
-                font.family: Constants.font_family
-                font.pixelSize: Constants.fontsize_main
-                color: Constants.color_uiaccent
+                font.family: Jewels.font_family
+                font.pixelSize: Jewels.fontsize_main
+                color: Jewels.color_uiaccent
             }                
             Text {
                 id: lastLevelText
                 text: "??"
-                font.family: Constants.font_family
-                font.pixelSize: Constants.fontsize_main
-                color: Constants.color_main
+                font.family: Jewels.font_family
+                font.pixelSize: Jewels.fontsize_main
+                color: Jewels.color_main
             }                
         }
         Image {
@@ -136,7 +137,7 @@ JewelPage {
             anchors {
                 right: parent.right
                 verticalCenter: parent.verticalCenter
-                verticalCenterOffset: -Constants.menu_jump*mainPage.buttonOffset
+                verticalCenterOffset: -Jewels.menu_jump*mainPage.buttonOffset
                 rightMargin: 20
             }
 
@@ -274,12 +275,12 @@ JewelPage {
                 /* onPressAndHold: { */
                 /*     mainMenu.hide(); */
                 /*     okDialog.mode = 42; */
-                /*     okDialog.show(Constants.level_text[dt], */
-                /*                   Constants.level_answer[dt]); */
-                /*     /\* okDialog.show(Constants.last_level_msg, *\/ */
-                /*     /\*               Constants.last_level_answer); *\/ */
+                /*     okDialog.show(Jewels.level_text[dt], */
+                /*                   Jewels.level_answer[dt]); */
+                /*     /\* okDialog.show(Jewels.last_level_msg, *\/ */
+                /*     /\*               Jewels.last_level_answer); *\/ */
                 /*     dt++; */
-                /*     if (dt == Constants.level_text_num) */
+                /*     if (dt == Jewels.level_text_num) */
                 /*       dt = 0; */
                 /* } */
             }

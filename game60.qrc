@@ -1,0 +1,38 @@
+<!--*- xml -*-->
+<RCC>
+  <qresource prefix="/">
+    <!-- Game images -->
+    <file alias="/images/bg.png">images/symbian/bg.png</file>
+    <file alias="/images/empty.png">images/symbian/empty.png</file>
+    <file alias="/images/circle.png">images/symbian/circle.png</file>
+    <file alias="/images/polygon.png">images/symbian/polygon.png</file>
+    <file alias="/images/square.png">images/symbian/square.png</file>
+    <file alias="/images/triangle_down.png">images/symbian/triangle_down.png</file>
+    <file alias="/images/triangle_up.png">images/symbian/triangle_up.png</file>
+    <file alias="/images/block_gold.png">images/symbian/block_gold.png</file>
+    <file alias="/images/block_wall_1.png">images/symbian/block_wall_1.png</file>
+    <file alias="/images/wb_2.png">images/symbian/block_wall_bottom.png</file>
+    <file alias="/images/wb_4.png">images/symbian/block_wall_left.png</file>
+    <file alias="/images/wb_6.png">images/symbian/block_wall_right.png</file>
+    <file alias="/images/wb_8.png">images/symbian/block_wall_top.png</file>
+    <file alias="/images/wb_1.png">images/symbian/wb_1.png</file>
+    <file alias="/images/wb_3.png">images/symbian/wb_3.png</file>
+    <file alias="/images/wb_7.png">images/symbian/wb_7.png</file>
+    <file alias="/images/wb_9.png">images/symbian/wb_9.png</file>
+    <file alias="/images/wb_A.png">images/symbian/wb_A.png</file>
+    <file alias="/images/wb_U.png">images/symbian/wb_U.png</file>
+    <file alias="/images/wb_O.png">images/symbian/wb_O.png</file>
+    <file alias="/images/wb_deadend_left.png">images/symbian/wb_deadend_left.png</file>
+    <file alias="/images/wb_deadend_right.png">images/symbian/wb_deadend_right.png</file>
+    <file alias="/images/wb_leftright.png">images/symbian/wb_leftright.png</file>
+    <file alias="/images/wb_updown.png">images/symbian/wb_updown.png</file>
+    <file alias="/images/lock.png">images/symbian/lock.png</file>
+    <file alias="/images/lock2.png">images/symbian/lock2.png</file>
+    <!-- blinking blocks -->
+    <file alias="/images/circle-blink.png">images/symbian/circle_eyeshut.png</file>
+    <file alias="/images/polygon-blink.png">images/symbian/polygon_eyeshut.png</file>
+    <file alias="/images/square-blink.png">images/symbian/square_eyeshut.png</file>
+    <file alias="/images/triangle_down-blink.png">images/symbian/triangle_down_eyeshut.png</file>
+    <file alias="/images/triangle_up-blink.png">images/symbian/triangle_up_eyeshut.png</file>
+  </qresource>
+</RCC>

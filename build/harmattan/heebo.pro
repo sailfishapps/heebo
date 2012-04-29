@@ -21,7 +21,7 @@ OTHER_FILES += \
     debian/compat \
     debian/changelog
 
-RESOURCES += ../../common.qrc ../../harmattan.qrc
+RESOURCES += ../../common.qrc ../../game80.qrc ../../harmattan.qrc
 DEFINES += HARMATTAN
 
 # Please do not modify the following two lines. Required for deployment.
