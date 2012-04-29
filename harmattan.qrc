@@ -5,6 +5,7 @@
     <file alias="qml/main.qml">src/qml/harmattan/main.qml</file>
     <file alias="qml/JewelPage.qml">src/qml/harmattan/JewelPage.qml</file>
     <file alias="qml/ScrollBar.qml">src/qml/harmattan/ScrollBar.qml</file>
+    <file alias="qml/ToolBarExitButton.qml">src/qml/harmattan/ToolBarExitButton.qml</file>
     <!-- JavaScript -->
     <file alias="js/constants_platform.js">src/js/constants_harmattan.js</file>
   </qresource>

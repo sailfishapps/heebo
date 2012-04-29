@@ -74,24 +74,8 @@ JewelPage {
     ToolBar {
         id: toolBar
 
-        Image {
+        ToolBarExitButton {
             id: backButton
-            source: "qrc:///images/icon_back_white.png"
-            /* width: 64; height: 64 */
-
-            anchors {
-                left: parent.left
-                verticalCenter: parent.verticalCenter
-                leftMargin: 20
-            }
-
-            MouseArea {
-                anchors.fill: parent
-                onClicked: gameview.quitApp();
-                onPressed: backButton.source="qrc:///images/icon_back_pressed.png"
-                onReleased: backButton.source="qrc:///images/icon_back_white.png"
-            }
-
         }
 
         Row {
@@ -101,12 +85,12 @@ JewelPage {
                 leftMargin: Jewels.tool_bar_left_margin
             }
 
-            /*Text {
-                text: "Level: "
+            Text {
+                text: Jewels.toolbar_level_text
                 font.family: Jewels.font_family
                 font.pixelSize: Jewels.fontsize_main
                 color: Jewels.color_uiaccent
-            }*/
+            }
             Text {
                 id: currentLevelText
                 text: "??"

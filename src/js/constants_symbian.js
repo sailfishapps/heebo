@@ -18,4 +18,4 @@ var color_info = "#F2F2F2";
 
 var menu_jump = 20;
 
-
+var toolbar_level_text = "";

@@ -5,6 +5,7 @@
     <file alias="qml/main.qml">src/qml/symbian/main.qml</file>
     <file alias="qml/JewelPage.qml">src/qml/symbian/JewelPage.qml</file>
     <file alias="qml/ScrollBar.qml">src/qml/symbian/ScrollBar.qml</file>
+    <file alias="qml/ToolBarExitButton.qml">src/qml/symbian/ToolBarExitButton.qml</file>
     <!-- JavaScript -->
     <file alias="js/constants_platform.js">src/js/constants_symbian.js</file>
   </qresource>

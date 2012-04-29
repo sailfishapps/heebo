@@ -18,3 +18,4 @@ var color_info = "#333333";
 
 var menu_jump = 40;
 
+var toolbar_level_text = "Level: ";
