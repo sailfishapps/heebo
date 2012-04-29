@@ -14,9 +14,9 @@ HEADERS += ../../src/cpp/gameview.h ../../src/cpp/gamemapset.h	\
 SOURCES += ../../src/cpp/gameview.cpp ../../src/cpp/heebo.cpp		\
            ../../src/cpp/gamemapset.cpp ../../src/cpp/gamemap.cpp
 
-RESOURCES += ../../common.qrc ../../game80.qrc ../../desktop.qrc
+RESOURCES +=  ../../game80.qrc ../../common.qrc ../../desktop.qrc
 
 # enable booster
-CONFIG += qdeclarative-boostable
-QMAKE_CXXFLAGS += -fPIC -fvisibility=hidden -fvisibility-inlines-hidden
-QMAKE_LFLAGS += -pie -rdynamic
+# CONFIG += qdeclarative-boostable
+# QMAKE_CXXFLAGS += -fPIC -fvisibility=hidden -fvisibility-inlines-hidden
+# QMAKE_LFLAGS += -pie -rdynamic

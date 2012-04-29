@@ -20,7 +20,6 @@
 import QtQuick 1.0
 
 import "qrc:///js/constants.js" as Constants
-import "qrc:///js/constants_platform.js" as ConstantsP
 
 Text {
     property string style: "normal"
@@ -32,7 +31,7 @@ Text {
                     24
     font.bold: style === "title" || style === "header" || style == "emphasis"
     font.family: Constants.font_family
-    color: ConstantsP.color_info
+    color: Constants.color_info
 
     textFormat: Text.RichText
     wrapMode: Text.Wrap

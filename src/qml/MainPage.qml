@@ -20,7 +20,6 @@
 import QtQuick 1.0
 
 /* import "qrc:///js/constants.js" as Constants */
-/* import "qrc:///js/constants_platform.js" as ConstantsP */
 import "qrc:///js/jewels.js" as Jewels
 
 JewelPage {

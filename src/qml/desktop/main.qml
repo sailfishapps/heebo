@@ -19,7 +19,8 @@
 
 import QtQuick 1.0
 
-import "../js/constants.js" as Constants
+import "qrc:///js/constants.js" as Constants
+import "qrc:///js/constants_platform.js" as ConstantsP
 
 MainPage {
 /* These are to test full screen pages on desktop which doesn't have
@@ -28,5 +29,5 @@ MainPage {
 /* HelpPage { */
     id: mainPage
     width: Constants.block_width*Constants.board_width
-    height: Constants.block_height*Constants.board_height+Constants.toolbar_height
+    height: Constants.block_height*Constants.board_height+ConstantsP.toolbar_height
 }
