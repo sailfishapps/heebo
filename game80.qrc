@@ -34,5 +34,8 @@
     <file alias="/images/square-blink.png">images/square_eyeshut.png</file>
     <file alias="/images/triangle_down-blink.png">images/triangle_down_eyeshut.png</file>
     <file alias="/images/triangle_up-blink.png">images/triangle_up_eyeshut.png</file>
+    <!-- ui -->
+    <file alias="/images/main_menu_bg.png">images/main_menu_bg.png</file>
+    <file alias="/images/dialog_small.png">images/dialog_small_2.png</file>
   </qresource>
 </RCC>

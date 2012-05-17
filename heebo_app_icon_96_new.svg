@@ -24,13 +24,22 @@
 		<use xlink:href="#CLIPPING_PATH__x28_MASK_x29__4_"  overflow="visible"/>
 	</clipPath>
 </g>
-<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="52.8135" y1="43.8223" x2="52.8135" y2="7.0508">
-	<stop  offset="0" style="stop-color:#00286E"/>
-	<stop  offset="0.85" style="stop-color:#003FAD"/>
-</linearGradient>
-<path fill="url(#SVGID_1_)" d="M87.428,31.269C83.55,13.645,71.892,7.051,47.983,7.051c-13.642,0-23.286,2.154-29.783,7.27
-	C21.453,33.273,36.1,43.822,56.563,43.822c-13.133-7.179-13.834-19.961-13.834-19.961S52.186,38.57,72.15,38.57
-	c-10.508-4.203-13.66-15.76-13.66-15.76S71.724,36.027,87.428,31.269z"/>
+<g>
+	<defs>
+		<path id="SVGID_1_" d="M88.949,48.025C88.949,78.381,78.332,89,47.975,89S7,78.381,7,48.025C7,17.669,17.617,7.051,47.975,7.051
+			S88.949,17.669,88.949,48.025z"/>
+	</defs>
+	<clipPath id="SVGID_2_">
+		<use xlink:href="#SVGID_1_"  overflow="visible"/>
+	</clipPath>
+	<linearGradient id="SVGID_3_" gradientUnits="userSpaceOnUse" x1="53.7529" y1="43.8223" x2="53.7529" y2="6">
+		<stop  offset="0" style="stop-color:#00286E"/>
+		<stop  offset="0.85" style="stop-color:#003FAD"/>
+	</linearGradient>
+	<path clip-path="url(#SVGID_2_)" fill="url(#SVGID_3_)" d="M17.506,6c0,24.164,15.76,37.822,39.048,37.822
+		c-13.131-7.179-13.833-19.961-13.833-19.961s9.455,14.709,29.42,14.709c-10.508-4.203-13.66-15.76-13.66-15.76
+		S73.191,37.52,90,30.341V6H17.506z"/>
+</g>
 <circle fill="#BC118D" cx="34.316" cy="62.734" r="8.404"/>
 <circle fill="#FFFFFF" cx="34.317" cy="62.734" r="7.354"/>
 <path fill="#002A73" d="M35.367,61.684c0,1.737-1.412,3.152-3.152,3.152s-3.152-1.415-3.152-3.152c0-1.738,1.412-3.152,3.152-3.152
