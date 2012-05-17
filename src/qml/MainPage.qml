@@ -82,7 +82,8 @@ JewelPage {
             anchors {
                 left: parent.left
                 verticalCenter: parent.verticalCenter
-                leftMargin: Jewels.tool_bar_left_margin
+                leftMargin: Jewels.tool_bar_left_margin +
+                            (currentLevelText.text.length == 1 ? Jewels.level_margin_1digit_offset : 0)
             }
 
             Text {
@@ -245,7 +246,7 @@ JewelPage {
                 pressedButtonImage: "qrc:///images/icon_help_pressed.png"
                 onClicked: { mainMenu.hide(); openFile("HelpPage.qml") }
                 /* For testing levels... */
-                /* onPressAndHold: { mainMenu.hide(); Jewels.nextLevel() } */
+//                onClicked: { mainMenu.hide(); Jewels.nextLevel() }
             }
             MenuButton {
                 text: "About"
@@ -253,19 +254,19 @@ JewelPage {
                 pressedButtonImage: "qrc:///images/icon_about_pressed.png"
                 onClicked: { mainMenu.hide(); openFile("AboutPage.qml") }
                 /* For testing levels... */
-                /* onPressAndHold: { mainMenu.hide(); Jewels.prevLevel() } */
+//                onClicked: { mainMenu.hide(); Jewels.prevLevel() }
                 /* For testing dialogs */
-                /* onPressAndHold: { */
-                /*     mainMenu.hide(); */
-                /*     okDialog.mode = 42; */
-                /*     okDialog.show(Jewels.level_text[dt], */
-                /*                   Jewels.level_answer[dt]); */
-                /*     /\* okDialog.show(Jewels.last_level_msg, *\/ */
-                /*     /\*               Jewels.last_level_answer); *\/ */
-                /*     dt++; */
-                /*     if (dt == Jewels.level_text_num) */
-                /*       dt = 0; */
-                /* } */
+//                onClicked: {
+//                    mainMenu.hide();
+//                    okDialog.mode = 42;
+//                    /*okDialog.show(Jewels.level_text[dt],
+//                                  Jewels.level_answer[dt]);*/
+//                     okDialog.show(Jewels.last_level_msg,
+//                                   Jewels.last_level_answer);
+//                    dt++;
+//                    if (dt == Jewels.level_text_num)
+//                      dt = 0;
+//                }
             }
         }
     }

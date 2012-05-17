@@ -29,6 +29,7 @@ TARGET.UID3 = 0xE5EB7848
 
 # Allow network access on Symbian
 TARGET.CAPABILITY = NONE
+DEPLOYMENT.display_name = "Heebo"
 
 # Speed up launching on MeeGo/Harmattan when using applauncherd daemon
 # CONFIG += qdeclarative-boostable
