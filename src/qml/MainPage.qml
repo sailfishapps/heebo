@@ -210,7 +210,7 @@ JewelPage {
         anchors {
             horizontalCenter: parent.horizontalCenter
             verticalCenter: parent.verticalCenter
-            verticalCenterOffset: -16
+            verticalCenterOffset: Jewels.main_menu_offset
         }
 
         Image {

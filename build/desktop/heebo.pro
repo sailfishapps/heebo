@@ -14,7 +14,7 @@ HEADERS += ../../src/cpp/gameview.h ../../src/cpp/gamemapset.h	\
 SOURCES += ../../src/cpp/gameview.cpp ../../src/cpp/heebo.cpp		\
            ../../src/cpp/gamemapset.cpp ../../src/cpp/gamemap.cpp
 
-RESOURCES +=  ../../game80.qrc ../../common.qrc ../../desktop.qrc
+RESOURCES +=  ../../game60.qrc ../../common.qrc ../../desktop.qrc
 
 # enable booster
 # CONFIG += qdeclarative-boostable

@@ -39,6 +39,5 @@
     <file alias="qml/FullPageText.qml">src/qml/FullPageText.qml</file>
     <file alias="qml/AboutPage.qml">src/qml/AboutPage.qml</file>
     <file alias="qml/HelpPage.qml">src/qml/HelpPage.qml</file>
-    <file alias="qml/ToolBar.qml">src/qml/ToolBar.qml</file>
   </qresource>
 </RCC>

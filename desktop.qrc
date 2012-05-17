@@ -7,6 +7,6 @@
     <file alias="qml/ScrollBar.qml">src/qml/desktop/ScrollBar.qml</file>
     <file alias="qml/ToolBarExitButton.qml">src/qml/harmattan/ToolBarExitButton.qml</file>
     <!-- JavaScript -->
-    <file alias="js/constants_platform.js">src/js/constants_harmattan.js</file>
+    <file alias="js/constants_platform.js">src/js/constants_symbian.js</file>
   </qresource>
 </RCC>
