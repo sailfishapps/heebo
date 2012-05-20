@@ -16,7 +16,7 @@ SOURCES += ../../src/cpp/gameview.cpp ../../src/cpp/heebo.cpp		\
 RESOURCES += ../../common.qrc ../../game60.qrc ../../symbian.qrc
 
 ICON = heebo.svg
-TARGET.UID3 = 0xE5EB7848
+TARGET.UID3 = 0x20065C31
 
 # symbian:TARGET.EPOCHEAPSIZE = 0x20000 0x2000000
 
@@ -40,3 +40,15 @@ DEPLOYMENT.display_name = "Heebo"
 # Please do not modify the following two lines. Required for deployment.
 include(symbian.pri)
 qtcAddDeployment()
+
+symbian {
+    my_deployment.pkg_prerules += vendorinfo
+
+    DEPLOYMENT += my_deployment
+
+    DEPLOYMENT.display_name += Heebo
+
+    vendorinfo += "%{\"Mats Sjoberg\"}" ":\"Mats Sjoberg\""
+
+    TARGET.UID3 += 0x20065C31
+}
