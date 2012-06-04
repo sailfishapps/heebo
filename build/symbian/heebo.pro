@@ -29,13 +29,13 @@ TARGET.UID3 = 0x20065C31
 
 # Allow network access on Symbian
 TARGET.CAPABILITY = NONE
-DEPLOYMENT.display_name = "Heebo"
+DEPLOYMENT.display_name = ""
 
 # Speed up launching on MeeGo/Harmattan when using applauncherd daemon
 # CONFIG += qdeclarative-boostable
 
 # Add dependency to Symbian components
-# CONFIG += qt-components
+CONFIG += qt-components
 
 # Please do not modify the following two lines. Required for deployment.
 include(symbian.pri)
@@ -43,12 +43,15 @@ qtcAddDeployment()
 
 symbian {
     my_deployment.pkg_prerules += vendorinfo
+    my_deployment.pkg_prerules += \
+        "; Dependency to Symbian Qt Quick components" \
+        "(0x200346DE), 1, 0, 0, {\"Qt Quick components\"}"
 
     DEPLOYMENT += my_deployment
-
-    DEPLOYMENT.display_name += Heebo
 
     vendorinfo += "%{\"Mats Sjoberg\"}" ":\"Mats Sjoberg\""
 
     TARGET.UID3 += 0x20065C31
+
+    DEPLOYMENT.display_name += Heebo
 }
