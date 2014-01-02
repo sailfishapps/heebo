@@ -19,12 +19,11 @@
 
 #include "gameview.h"
 
-#include <QDeclarativeEngine>
-#include <QGraphicsObject>
+#include <QQmlEngine>
 
 //------------------------------------------------------------------------------
 
-GameView::GameView(QWidget* parent) : QDeclarativeView(parent) {
+GameView::GameView() : QQuickView() {
   readSettings();
 
   m_mapset = new GameMapSet(":/map.dat", m_level, this);

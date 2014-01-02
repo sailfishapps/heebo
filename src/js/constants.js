@@ -36,7 +36,7 @@ var board_height = 9;
 var move_limit = 5;
 
 // Font settings
-var font_family = "Nokia Pure Text";
+var font_family = "Arial";
 var fontsize_dialog = 22;
 var fontsize_main = 36;
 

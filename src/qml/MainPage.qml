@@ -17,7 +17,7 @@
   along with Heebo.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-import QtQuick 1.0
+import QtQuick 2.0
 
 /* import "qrc:///js/constants.js" as Constants */
 import "qrc:///js/jewels.js" as Jewels
@@ -166,6 +166,7 @@ JewelPage {
 
         MouseArea {
             anchors.fill: parent
+            enabled: tintRectangle.opacity
             onClicked: {
                 mainMenu.hide();
                 if (!okDialog.isClosed())

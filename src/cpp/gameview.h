@@ -20,17 +20,17 @@
 #ifndef _GAMEVIEW_H_
 #define _GAMEVIEW_H_
 
-#include <QDeclarativeView>
-#include <QDeclarativeContext>
+#include <QQuickView>
+#include <QQmlContext>
 
 #include "gamemapset.h"
 
 //------------------------------------------------------------------------------
 
-class GameView : public QDeclarativeView {
+class GameView : public QQuickView {
 Q_OBJECT
 public:
-  explicit GameView(QWidget* parent=0);
+  explicit GameView();
 
 public slots:
   QString platform() const;

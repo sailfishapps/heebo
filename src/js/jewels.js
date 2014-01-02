@@ -150,8 +150,11 @@ var initBoard = function () {
 //-----------------------------------------------------------------------------
 
 var newBlock = function (j, i, type) {
-    var component = Qt.createComponent("Jewel.qml");
-    
+    var component = Qt.createComponent("../qml/Jewel.qml");
+    if (component.status != Component.Ready) {
+        console.log(component.errorString());
+    }
+
     // while (component.status != Component.Ready) {}
     
     var obj = component.createObject(background);
@@ -167,7 +170,10 @@ var newBlock = function (j, i, type) {
 //-----------------------------------------------------------------------------
 
 var newBackgroundBlock = function (j, i) {
-    var component = Qt.createComponent("Block.qml");
+    var component = Qt.createComponent("../qml/Block.qml");
+    if (component.status != Component.Ready) {
+        console.log(component.errorString());
+    }
     
     // while (component.status != Component.Ready) {}
     
@@ -618,7 +624,10 @@ var spawnNewJewels = function () {
             n++;
 
         for (var j=0; j<n; j++) {
-            var component = Qt.createComponent("Jewel.qml");
+            var component = Qt.createComponent("../qml/Jewel.qml");
+            if (component.status != Component.Ready) {
+                console.log(component.errorString());
+            }
     
             var obj = component.createObject(background);
             obj.x = i*block_width;

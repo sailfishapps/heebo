@@ -17,11 +17,11 @@
   along with Heebo.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <QtGui/QApplication>
+#include <QGuiApplication>
 #include "gameview.h"
 
 Q_DECL_EXPORT int main(int argc, char** argv) {
-    QApplication app(argc, argv);
+    QGuiApplication app(argc, argv);
     
     GameView view;
 #ifdef HARMATTAN

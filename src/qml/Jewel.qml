@@ -17,8 +17,8 @@
   along with Heebo.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-import QtQuick 1.0
-import Qt.labs.particles 1.0
+import QtQuick 2.0
+//import QtQuick.Particles 2.0
 
 import "qrc:///js/constants.js" as Constants
 
@@ -82,6 +82,7 @@ Item {
         z: 1
     }
 
+    /*
     Particles {
         id: particles
 
@@ -94,6 +95,7 @@ Item {
         velocity: 100; velocityDeviation: 30
         source: type == 0 ? "" : "qrc:///images/particle_"+typeName+".png"
     }
+    */
 
     function moveToBlock(pt) {
         x = pt.x * Constants.block_width;
@@ -151,7 +153,7 @@ Item {
             SequentialAnimation {
                 id: dyingAnimation
                 PauseAnimation { duration: fdPause }
-                ScriptAction { script: particles.burst(50); }
+                //ScriptAction { script: particles.burst(50); }
                 PropertyAction { target: img; property: "opacity"; value: 0 }
                 ScriptAction {
                     script: { jewel.destroy(1000); jewelKilled(); }
